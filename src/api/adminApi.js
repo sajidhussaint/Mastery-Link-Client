@@ -34,6 +34,17 @@ export const getAllCourse = async () => {
   }
 };
 
+export const getAllCategory = async () => {
+  try {
+    const category = await axiosInstance.get("/admin/category-list");
+    if (category) {
+      return Promise.resolve(category.data.category);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 
 
@@ -90,3 +101,30 @@ export const unblockInstructor = async (instructorId) => {
     return Promise.reject();
   }
 };
+export const editCategory = async (categoryId,value) => {
+  try {
+    console.log(categoryId,value,'======oooop');
+    const response = await axiosInstance.patch("/admin/category-list", {
+      categoryId,value
+    });
+    const { success } = response.data;
+
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const addCategory = async (category) => {
+  try {
+    const response = await axiosInstance.post("/admin/category-list", {
+      category
+    });
+    const { success } = response.data;
+
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+

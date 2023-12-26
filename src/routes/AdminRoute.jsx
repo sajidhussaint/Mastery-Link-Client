@@ -7,6 +7,7 @@ import AdminPublic from "./adminPrivate/AdminPublic";
 import StudentList from '../pages/admin/StudentList';
 import InstructorList from '../pages/admin/InstructorList';
 import CourseList from '../pages/admin/CourseList';
+import CategoryList from '../pages/admin/CategoryList';
 
 const AdminRoute = () => {
   return (
@@ -17,6 +18,7 @@ const AdminRoute = () => {
         <Route path="/student-list" element={<AdminProtected element={<StudentList />} />} />
         <Route path="/instructor-list" element={<AdminProtected element={<InstructorList />} />} />
         <Route path="/course-list" element={<AdminProtected element={<CourseList />} />} />
+        <Route path="/category-list" element={<AdminProtected element={<CategoryList />} />} />
       </Routes>
     </>
   )
