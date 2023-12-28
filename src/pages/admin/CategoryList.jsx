@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import AdminSidebar from "../../components/adminComponent/AdminSidebar";
-import { getAllCategory, editCategory, addCategory } from "../../api/adminApi";
+import {
+  getAllCategory,
+  editCategory,
+  addCategory,
+  listCategory,
+  unlistCategory,
+} from "../../api/adminApi";
 
 import {
   Button,
@@ -76,6 +82,29 @@ const CategoryList = () => {
     }
   };
 
+  const handleList = async (id, e) => {
+    e.preventDefault();
+
+    const response = await listCategory(id);
+    if (response) {
+      const newList = categoryList.map((user) =>
+        user.id === id ? { ...user, status: true } : user
+      );
+      setCategoryList(newList);
+    }
+  };
+  const handleUnlist = async (id, e) => {
+    e.preventDefault();
+    const response = await unlistCategory(id);
+
+    if (response) {
+      const newList = categoryList.map((category) =>
+        category.id === id ? { ...category, status: false } : category
+      );
+      setCategoryList(newList);
+    }
+  };
+
   useEffect(() => {
     getCategories();
   }, [isNewCategory]);
@@ -118,8 +147,26 @@ const CategoryList = () => {
                   </td>
 
                   <td className="sm:px-6 py-4 font-medium text-black  whitespace-nowrap ">
-                    <button className="inline-block border-e px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+                    {/* <button className="inline-block border-e px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
                       Listed
+                    </button> */}
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        if (category.status) {
+                          handleUnlist(category.id, e);
+                        } else {
+                          handleList(category.id, e);
+                        }
+                      }}
+                      className={`text-white mt-2 ${
+                        !category.status
+                          ? "bg-red-700 hover:bg-red-800"
+                          : "bg-green-700 hover:bg-green-800"
+                      } font-medium rounded-sm text-sm px-5 py-1 mr-2 mb-2`}
+                    >
+                      {!category.status ? "Unlisted" : "Listed"}
                     </button>
 
                     <button

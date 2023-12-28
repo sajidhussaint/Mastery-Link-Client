@@ -128,3 +128,31 @@ export const addCategory = async (category) => {
   }
 };
 
+
+export const listCategory = async categoryId => {
+  try {
+    const response = await axiosInstance.patch("/admin/list-category", {
+      categoryId
+    })
+    const { success } = response.data
+
+    return Promise.resolve(success)
+  } catch (error) {
+    return Promise.reject()
+  }
+}
+
+export const unlistCategory = async categoryId => {
+  try {
+    const response = await axiosInstance.patch("/admin/unlist-category", {
+      categoryId
+    })
+    const { success } = response.data
+
+    return Promise.resolve(success)
+  } catch (error) {
+    return Promise.reject()
+  }
+}
+
+
