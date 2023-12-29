@@ -39,7 +39,7 @@ const OtpVerificationForm = (props) => {
 
         if (response) {
           dispatch(instructorActions.saveInstructor(response));
-          navigate("/instructor/dashboard");
+          navigate("/instructor/home");
         }
       }
     } catch (error) {

@@ -28,7 +28,7 @@ const InstructorLoginForm = () => {
       const response = await instructorLogin(data)
       if (response) {
         dispatch(instructorActions.saveInstructor(response))
-        navigate("/instructor/dashboard")
+        navigate("/instructor/home")
       }
     } catch (error) {
       if (typeof error === "string") {

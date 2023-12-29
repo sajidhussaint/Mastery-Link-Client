@@ -8,7 +8,7 @@ const InstructorPublic= ({ element }) => {
   if (!instructor) {
     return <>{element}</>
   }else{
-    return <Navigate to="/instructor/dashboard"/>
+    return <Navigate to="/instructor/home"/>
   }
 }
 
