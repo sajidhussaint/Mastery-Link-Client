@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  getAllCategory,
-  editCategory,
-  addCategory,
-  listCategory,
-  unlistCategory,
+  getLevelList,
+  listLevel,
+  unlistLevel,
+  editLevel,
+  addLevel
 } from "../../api/adminApi";
 
 import {
@@ -17,50 +17,52 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-const CategoryList = () => {
-  const [categoryList, setCategoryList] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+function LevelList() {
+  const [LevelList, setLevelList] = useState([]);
+  const [selectedLevel, setSelectedLevel] = useState(null);
   const [open, setOpen] = useState(false);
-  const [categoryFormData, setCategoryFormData] = useState("");
-  const [isNewCategory, setIsNewCategory] = useState(false);
+  const [LevelFormData, setLevelFormData] = useState("");
+  const [isNewLevel, setIsNewLevel] = useState(false);
 
-  const getCategories = async () => {
+  const getLevels = async () => {
     try {
-      const categories = await getAllCategory();
-      setCategoryList(categories);
+      const Levels = await getLevelList();
+      console.log(Levels);
+      setLevelList(Levels);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleOpen = (category) => {
-    setCategoryFormData(category.category);
-    setSelectedCategory(category);
+  const handleOpen = (Level) => {
+    setLevelFormData(Level.level);
+    setSelectedLevel(Level);
     setOpen(true);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!isNewCategory) {
-        await editCategory(selectedCategory.id, categoryFormData);
-        const updatedList = categoryList.map((category) =>
-          category.id === selectedCategory.id
-            ? { ...category, category: categoryFormData }
-            : category
+      if (!isNewLevel) {
+        await editLevel(selectedLevel.id, LevelFormData);
+        const updatedList = LevelList.map((Level) =>
+          Level.id === selectedLevel.id
+            ? { ...Level, level: LevelFormData }
+            : Level
         );
-        setCategoryList(updatedList);
+        setLevelList(updatedList);
+        console.log('running edit level');
       } else {
-        const newdata = await addCategory(categoryFormData);
+        const newdata = await addLevel(LevelFormData);
 
         const updatedList = [
-          ...categoryList,
-          { category: categoryFormData, status: true },
+          ...LevelList,
+          { Level: LevelFormData, status: true },
         ];
 
         console.log(updatedList, "kkkkkkk");
-        setCategoryList(updatedList);
-        setIsNewCategory(false);
+        setLevelList(updatedList);
+        setIsNewLevel(false);
       }
     } catch (error) {
       console.error(error);
@@ -69,12 +71,12 @@ const CategoryList = () => {
     }
   };
 
-  const handleAddcategory = (e) => {
+  const handleAddLevel = (e) => {
     e.preventDefault();
     try {
-      setCategoryFormData("");
+      setLevelFormData("");
       setOpen(true);
-      setIsNewCategory(true);
+      setIsNewLevel(true);
     } catch (error) {
       console.error(error);
     }
@@ -83,63 +85,63 @@ const CategoryList = () => {
   const handleList = async (id, e) => {
     e.preventDefault();
 
-    const response = await listCategory(id);
+    const response = await listLevel(id);
     if (response) {
-      const newList = categoryList.map((user) =>
+      const newList = LevelList.map((user) =>
         user.id === id ? { ...user, status: true } : user
       );
-      setCategoryList(newList);
+      setLevelList(newList);
     }
   };
   const handleUnlist = async (id, e) => {
     e.preventDefault();
-    const response = await unlistCategory(id);
+    const response = await unlistLevel(id);
 
     if (response) {
-      const newList = categoryList.map((category) =>
-        category.id === id ? { ...category, status: false } : category
+      const newList = LevelList.map((Level) =>
+        Level.id === id ? { ...Level, status: false } : Level
       );
-      setCategoryList(newList);
+      setLevelList(newList);
     }
   };
 
   useEffect(() => {
-    getCategories();
-  }, [isNewCategory]);
+    getLevels();
+  }, [isNewLevel]);
 
   return (
     <>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-bold text-lg text-sky-800">Categories</h1>
+          <h1 className="font-bold text-lg text-sky-800">Levels</h1>
         </div>
         <div>
           <button
             type="button"
             className={`text-white mt-2 bg-green-600 font-medium rounded-sm text-sm px-5 py-2 mr-2 mb-2`}
-            onClick={handleAddcategory}
+            onClick={handleAddLevel}
           >
-            Add category
+            Add Level
           </button>
         </div>
       </div>
 
-      <div className="relative  shadow-md sm:rounded-lg">
+      <div className="relative  shadow-md sm:rounded-lg custom-table">
         <table className="w-full text-sm text-left rtl:text-right text-white-800 ">
           <thead className="text-xs text-white uppercase bg-green-700 text-white-400">
             <tr>
-              <th className="sm:px-6 py-3">CATEGORY</th>
+              <th className="sm:px-6 py-3">Level</th>
               <th className="sm:px-6 py-3">STATUS</th>
             </tr>
           </thead>
           <tbody className="text-black">
-            {categoryList.map((category) => (
+            {LevelList&&LevelList.map((Level) => (
               <tr
-                key={category.id}
+                key={Level.id}
                 className="bg-white border-b dark:border-gray-700"
               >
                 <td className="sm:px-6 py-4 font-medium text-black  whitespace-nowrap ">
-                  {category.category}
+                  {Level.level}
                 </td>
 
                 <td className="sm:px-6 py-4 font-medium text-black  whitespace-nowrap ">
@@ -150,25 +152,25 @@ const CategoryList = () => {
                   <button
                     type="button"
                     onClick={(e) => {
-                      if (category.status) {
-                        handleUnlist(category.id, e);
+                      if (Level.status) {
+                        handleUnlist(Level.id, e);
                       } else {
-                        handleList(category.id, e);
+                        handleList(Level.id, e);
                       }
                     }}
                     className={`text-white mt-2 ${
-                      !category.status
+                      !Level.status
                         ? "bg-red-700 hover:bg-red-800"
                         : "bg-green-700 hover:bg-green-800"
                     } font-medium rounded-sm text-sm px-5 py-1 mr-2 mb-2`}
                   >
-                    {!category.status ? "Unlisted" : "Listed"}
+                    {!Level.status ? "Unlisted" : "Listed"}
                   </button>
 
                   <button
                     className="inline-block px-4 py-2 text-gray-700 hover:bg-gray-50 focus:relative"
                     title="Edit"
-                    onClick={() => handleOpen(category)}
+                    onClick={() => handleOpen(Level)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +198,7 @@ const CategoryList = () => {
         <div className="flex items-center justify-between">
           <DialogHeader className="flex flex-col items-start">
             <Typography className="mb-1" variant="h4">
-              Edit Category
+              Edit Level
             </Typography>
           </DialogHeader>
           <svg
@@ -217,9 +219,9 @@ const CategoryList = () => {
           <div className="grid gap-6">
             <form onSubmit={handleSubmit}>
               <Input
-                onChange={(e) => setCategoryFormData(e.target.value)}
-                label="Category"
-                value={categoryFormData}
+                onChange={(e) => setLevelFormData(e.target.value)}
+                label="Level"
+                value={LevelFormData}
               />
             </form>
           </div>
@@ -237,6 +239,6 @@ const CategoryList = () => {
       </Dialog>
     </>
   );
-};
+}
 
-export default CategoryList;
+export default LevelList;

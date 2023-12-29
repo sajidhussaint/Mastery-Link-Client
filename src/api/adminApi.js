@@ -36,7 +36,7 @@ export const getAllCourse = async () => {
 
 export const getAllCategory = async () => {
   try {
-    const category = await axiosInstance.get("/admin/category-list");
+    const category = await axiosInstance.get("/admin/categories");
     if (category) {
       return Promise.resolve(category.data.category);
     }
@@ -44,9 +44,6 @@ export const getAllCategory = async () => {
     console.log(error);
   }
 };
-
-
-
 
 export const blockStudent = async (studentId) => {
   try {
@@ -101,11 +98,12 @@ export const unblockInstructor = async (instructorId) => {
     return Promise.reject();
   }
 };
-export const editCategory = async (categoryId,value) => {
+export const editCategory = async (categoryId, value) => {
   try {
-    console.log(categoryId,value,'======oooop');
-    const response = await axiosInstance.patch("/admin/category-list", {
-      categoryId,value
+    console.log(categoryId, value, "======oooop");
+    const response = await axiosInstance.patch("/admin/edit-category", {
+      categoryId,
+      value,
     });
     const { success } = response.data;
 
@@ -117,8 +115,34 @@ export const editCategory = async (categoryId,value) => {
 
 export const addCategory = async (category) => {
   try {
-    const response = await axiosInstance.post("/admin/category-list", {
-      category
+    const response = await axiosInstance.post("/admin/add-category", {
+      category,
+    });
+    const { success } = response.data;
+
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const listCategory = async (categoryId) => {
+  try {
+    const response = await axiosInstance.patch("/admin/list-category", {
+      categoryId,
+    });
+    const { success } = response.data;
+
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const unlistCategory = async (categoryId) => {
+  try {
+    const response = await axiosInstance.patch("/admin/unlist-category", {
+      categoryId,
     });
     const { success } = response.data;
 
@@ -129,30 +153,131 @@ export const addCategory = async (category) => {
 };
 
 
-export const listCategory = async categoryId => {
+
+
+export const getLanguageList = async () => {
   try {
-    const response = await axiosInstance.patch("/admin/list-category", {
-      categoryId
-    })
-    const { success } = response.data
-
-    return Promise.resolve(success)
+    const response = await axiosInstance.get("/admin/languages");
+    const { language } = response.data;
+    console.log(language);
+    return Promise.resolve(language);
   } catch (error) {
-    return Promise.reject()
+    return Promise.reject();
   }
-}
+};
 
-export const unlistCategory = async categoryId => {
+export const listLanguage = async (languageId) => {
   try {
-    const response = await axiosInstance.patch("/admin/unlist-category", {
-      categoryId
-    })
-    const { success } = response.data
-
-    return Promise.resolve(success)
+    const response = await axiosInstance.patch("/admin/list-language", {
+      languageId,
+    });
+    const { success } = response.data;
+    return Promise.resolve(success);
   } catch (error) {
-    return Promise.reject()
+    return Promise.reject();
   }
-}
+};
+
+export const unlistLanguage = async (languageId) => {
+  try {
+    const response = await axiosInstance.patch("/admin/unlist-language", {
+      languageId,
+    });
+    const { success } = response.data;
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const addLanguage = async (language) => {
+  try {
+    const response = await axiosInstance.post("/admin/add-language", {
+      language,
+    });
+    const { success } = response.data;
+
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const editLanguage = async (languageId, value) => {
+  try {
+    console.log(languageId, value, "======oooop");
+    const response = await axiosInstance.patch("/admin/edit-language", {
+      languageId,
+      value,
+    });
+    const { success } = response.data;
+
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
 
 
+export const getLevelList = async () => {
+  try {
+    const response = await axiosInstance.get("/admin/levels");
+    const { level } = response.data;
+    console.log(level);
+    return Promise.resolve(level);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const listLevel = async (levelId) => {
+  try {
+    const response = await axiosInstance.patch("/admin/list-level", {
+      levelId,
+    });
+    const { success } = response.data;
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const unlistLevel = async (levelId) => {
+  try {
+    const response = await axiosInstance.patch("/admin/unlist-level", {
+      levelId,
+    });
+    const { success } = response.data;
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const addLevel = async (level) => {
+  try {
+    const response = await axiosInstance.post("/admin/add-level", {
+      level,
+    });
+    const { success } = response.data;
+
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const editLevel = async (levelId, value) => {
+  try {
+    console.log(levelId, value, "======oooop");
+    const response = await axiosInstance.patch("/admin/edit-level", {
+      levelId,
+      value,
+    });
+    const { success } = response.data;
+
+    return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};

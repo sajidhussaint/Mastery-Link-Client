@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  getAllCategory,
-  editCategory,
-  addCategory,
-  listCategory,
-  unlistCategory,
+  getLanguageList,
+  listLanguage,
+  unlistLanguage,
+  editLanguage,
+  addLanguage
 } from "../../api/adminApi";
 
 import {
@@ -17,50 +17,52 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-const CategoryList = () => {
-  const [categoryList, setCategoryList] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+function LanguageList() {
+  const [LanguageList, setLanguageList] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [open, setOpen] = useState(false);
-  const [categoryFormData, setCategoryFormData] = useState("");
-  const [isNewCategory, setIsNewCategory] = useState(false);
+  const [LanguageFormData, setLanguageFormData] = useState("");
+  const [isNewLanguage, setIsNewLanguage] = useState(false);
 
-  const getCategories = async () => {
+  const getLanguages = async () => {
     try {
-      const categories = await getAllCategory();
-      setCategoryList(categories);
+      const Languages = await getLanguageList();
+      console.log(Languages);
+      setLanguageList(Languages);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleOpen = (category) => {
-    setCategoryFormData(category.category);
-    setSelectedCategory(category);
+  const handleOpen = (Language) => {
+    setLanguageFormData(Language.language);
+    setSelectedLanguage(Language);
     setOpen(true);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!isNewCategory) {
-        await editCategory(selectedCategory.id, categoryFormData);
-        const updatedList = categoryList.map((category) =>
-          category.id === selectedCategory.id
-            ? { ...category, category: categoryFormData }
-            : category
+      if (!isNewLanguage) {
+        await editLanguage(selectedLanguage.id, LanguageFormData);
+        const updatedList = LanguageList.map((Language) =>
+          Language.id === selectedLanguage.id
+            ? { ...Language, language: LanguageFormData }
+            : Language
         );
-        setCategoryList(updatedList);
+        setLanguageList(updatedList);
+        console.log('running edit language');
       } else {
-        const newdata = await addCategory(categoryFormData);
+        const newdata = await addLanguage(LanguageFormData);
 
         const updatedList = [
-          ...categoryList,
-          { category: categoryFormData, status: true },
+          ...LanguageList,
+          { Language: LanguageFormData, status: true },
         ];
 
         console.log(updatedList, "kkkkkkk");
-        setCategoryList(updatedList);
-        setIsNewCategory(false);
+        setLanguageList(updatedList);
+        setIsNewLanguage(false);
       }
     } catch (error) {
       console.error(error);
@@ -69,12 +71,12 @@ const CategoryList = () => {
     }
   };
 
-  const handleAddcategory = (e) => {
+  const handleAddLanguage = (e) => {
     e.preventDefault();
     try {
-      setCategoryFormData("");
+      setLanguageFormData("");
       setOpen(true);
-      setIsNewCategory(true);
+      setIsNewLanguage(true);
     } catch (error) {
       console.error(error);
     }
@@ -83,63 +85,63 @@ const CategoryList = () => {
   const handleList = async (id, e) => {
     e.preventDefault();
 
-    const response = await listCategory(id);
+    const response = await listLanguage(id);
     if (response) {
-      const newList = categoryList.map((user) =>
+      const newList = LanguageList.map((user) =>
         user.id === id ? { ...user, status: true } : user
       );
-      setCategoryList(newList);
+      setLanguageList(newList);
     }
   };
   const handleUnlist = async (id, e) => {
     e.preventDefault();
-    const response = await unlistCategory(id);
+    const response = await unlistLanguage(id);
 
     if (response) {
-      const newList = categoryList.map((category) =>
-        category.id === id ? { ...category, status: false } : category
+      const newList = LanguageList.map((Language) =>
+        Language.id === id ? { ...Language, status: false } : Language
       );
-      setCategoryList(newList);
+      setLanguageList(newList);
     }
   };
 
   useEffect(() => {
-    getCategories();
-  }, [isNewCategory]);
+    getLanguages();
+  }, [isNewLanguage]);
 
   return (
     <>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-bold text-lg text-sky-800">Categories</h1>
+          <h1 className="font-bold text-lg text-sky-800">Languages</h1>
         </div>
         <div>
           <button
             type="button"
             className={`text-white mt-2 bg-green-600 font-medium rounded-sm text-sm px-5 py-2 mr-2 mb-2`}
-            onClick={handleAddcategory}
+            onClick={handleAddLanguage}
           >
-            Add category
+            Add Language
           </button>
         </div>
       </div>
 
-      <div className="relative  shadow-md sm:rounded-lg">
+      <div className="relative  shadow-md sm:rounded-lg custom-table">
         <table className="w-full text-sm text-left rtl:text-right text-white-800 ">
           <thead className="text-xs text-white uppercase bg-green-700 text-white-400">
             <tr>
-              <th className="sm:px-6 py-3">CATEGORY</th>
+              <th className="sm:px-6 py-3">Language</th>
               <th className="sm:px-6 py-3">STATUS</th>
             </tr>
           </thead>
           <tbody className="text-black">
-            {categoryList.map((category) => (
+            {LanguageList&&LanguageList.map((Language) => (
               <tr
-                key={category.id}
+                key={Language.id}
                 className="bg-white border-b dark:border-gray-700"
               >
                 <td className="sm:px-6 py-4 font-medium text-black  whitespace-nowrap ">
-                  {category.category}
+                  {Language.language}
                 </td>
 
                 <td className="sm:px-6 py-4 font-medium text-black  whitespace-nowrap ">
@@ -150,25 +152,25 @@ const CategoryList = () => {
                   <button
                     type="button"
                     onClick={(e) => {
-                      if (category.status) {
-                        handleUnlist(category.id, e);
+                      if (Language.status) {
+                        handleUnlist(Language.id, e);
                       } else {
-                        handleList(category.id, e);
+                        handleList(Language.id, e);
                       }
                     }}
                     className={`text-white mt-2 ${
-                      !category.status
+                      !Language.status
                         ? "bg-red-700 hover:bg-red-800"
                         : "bg-green-700 hover:bg-green-800"
                     } font-medium rounded-sm text-sm px-5 py-1 mr-2 mb-2`}
                   >
-                    {!category.status ? "Unlisted" : "Listed"}
+                    {!Language.status ? "Unlisted" : "Listed"}
                   </button>
 
                   <button
                     className="inline-block px-4 py-2 text-gray-700 hover:bg-gray-50 focus:relative"
                     title="Edit"
-                    onClick={() => handleOpen(category)}
+                    onClick={() => handleOpen(Language)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +198,7 @@ const CategoryList = () => {
         <div className="flex items-center justify-between">
           <DialogHeader className="flex flex-col items-start">
             <Typography className="mb-1" variant="h4">
-              Edit Category
+              Edit Language
             </Typography>
           </DialogHeader>
           <svg
@@ -217,9 +219,9 @@ const CategoryList = () => {
           <div className="grid gap-6">
             <form onSubmit={handleSubmit}>
               <Input
-                onChange={(e) => setCategoryFormData(e.target.value)}
-                label="Category"
-                value={categoryFormData}
+                onChange={(e) => setLanguageFormData(e.target.value)}
+                label="Language"
+                value={LanguageFormData}
               />
             </form>
           </div>
@@ -237,6 +239,6 @@ const CategoryList = () => {
       </Dialog>
     </>
   );
-};
+}
 
-export default CategoryList;
+export default LanguageList;

@@ -100,11 +100,11 @@ const AdminSidebar = () => {
         </div>
 
         <div className="nav-links w-full">
-            <Link to={'/admin/student-list'}>
+            <Link to={'/admin/categories'}>
           <div className="flex space-x-3 w-full p-2 rounded">
             <HelpCircleIcon />
             <span className={!isExpanded ? "hidden" : "block"}>
-              Help Center
+            Categories
             </span>
           </div>
             </Link>
