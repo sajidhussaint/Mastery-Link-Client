@@ -1,14 +1,14 @@
-import React from "react"
-import { useNavigate } from "react-router-dom"
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SingleCourse = ({ course }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="max-w-[270px] bg-white border border-gray-200 rounded-sm shadow">
       <div className=" flex justify-center ">
         <img
           className="rounded-t-sm h-44 object-cover"
-          src={course.image ? course.image : "/image not found.png"}
+          src={course.image ? course.image : "/images/image not found.png"}
           alt="product image"
         />
       </div>
@@ -43,8 +43,8 @@ const SingleCourse = ({ course }) => {
           <button
             onClick={() => {
               navigate("/instructor/course-overview", {
-                state: { courseId: course.id }
-              })
+                state: { courseId: course.id },
+              });
             }}
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-3 py-1 text-center"
           >
@@ -53,7 +53,7 @@ const SingleCourse = ({ course }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SingleCourse
+export default SingleCourse;
