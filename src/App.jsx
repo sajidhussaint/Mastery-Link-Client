@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
+// import "./App.css";
 import { ToastContainer } from "react-toastify";
 import StudentRoute from "./routes/StudentRoute";
 import AdminRoute from "./routes/AdminRoute";

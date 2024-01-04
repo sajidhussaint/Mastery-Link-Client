@@ -1,11 +1,14 @@
 import React from 'react'
 import { Route, Routes } from "react-router-dom";
-import InstructorDashboard from '../pages/instructor/InstructorDashboard';
+import InstructorHome from '../pages/instructor/InstructorHome';
 import InstructorLogin from '../pages/instructor/InstructorLogin';
 import InstructorSignup from '../pages/instructor/InstructorSignup';
 import VerifyOtp from "../pages/student/VerifyOtp";
 import InstructorProtected from "./instructorPrivate/InstructorProtect";
 import InstructorPublic from "./instructorPrivate/InstructorPublic";
+import MyCourses from '../pages/instructor/MyCourses';
+import AddCourse from '../pages/instructor/AddCourse';
+import CourseOverview from '../pages/instructor/CourseOverview';
 
 
 
@@ -13,7 +16,10 @@ const InstructorRoute = () => {
   return (
     <>
       <Routes>
-        <Route path="/dashboard" element={<InstructorProtected element={<InstructorDashboard />}/>} />
+        <Route path="/home" element={<InstructorProtected element={<InstructorHome />}/>} />
+        <Route path="/add-course" element={<InstructorProtected element={<AddCourse />}/>} />
+        <Route path="/course-overview" element={<InstructorProtected element={<CourseOverview />}/>} />
+        <Route path="/my-courses" element={<InstructorProtected element={<MyCourses/>}/>} />
         <Route path="/signup" element={<InstructorPublic element={<InstructorSignup />}/>} />
         <Route path="/login" element={<InstructorPublic element={<InstructorLogin />}/>} />
         <Route path="/verify-otp" element={<VerifyOtp isInstructor={true}/>} />
@@ -22,4 +28,4 @@ const InstructorRoute = () => {
   )
 }
 
-export default InstructorRoute
+export default InstructorRoute;

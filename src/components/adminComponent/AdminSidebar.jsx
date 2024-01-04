@@ -60,7 +60,7 @@ const AdminSidebar = () => {
         {/* <span className={!isExpanded ? "hidden" : "block"}>Money Tracker</span> */}
       </div>
 
-      <div className="flex flex-col space-y-8 mt-12">
+      <div className="flex flex-col space-y-8 mt-12 text-black">
         <div className="nav-links w-full">
             <Link to={'/admin/dashboard'}>
           <div className="flex space-x-3 w-full p-2 rounded bg-[#14cf3d] text-white">
@@ -100,11 +100,11 @@ const AdminSidebar = () => {
         </div>
 
         <div className="nav-links w-full">
-            <Link to={'/admin/student-list'}>
+            <Link to={'/admin/categories'}>
           <div className="flex space-x-3 w-full p-2 rounded">
             <HelpCircleIcon />
             <span className={!isExpanded ? "hidden" : "block"}>
-              Help Center
+            Categories
             </span>
           </div>
             </Link>

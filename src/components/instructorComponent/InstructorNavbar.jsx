@@ -8,35 +8,34 @@ import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
 import { initFlowbite } from "flowbite";
 
 const InstructorNavbar = () => {
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const { partner } = useSelector((state) => state.partnerReducer);
 
-    const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    // const { partner } = useSelector((state) => state.partnerReducer);
-  
-    useEffect(() => {
-      initFlowbite();
-    }, []);
-  
-    const toggleDropdown = () => {
-      setDropdownOpen(!isDropdownOpen);
-    };
-    const toggleMobileMenu = () => {
-      setMobileMenuOpen(!isMobileMenuOpen);
-    };
-    const handleLogout = () => {
+  useEffect(() => {
+    initFlowbite();
+  }, []);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
+  const handleLogout = () => {
     //   localStorage.removeItem("partnerToken");
     //   dispatch(partnerLogout());
-      toast.success("Logout successfully");
-      navigate("/partner/login");
-    };
+    toast.success("Logout successfully");
+    navigate("/partner/login");
+  };
   return (
-    <nav className="bg-white border-b-2 border-gray-200 dark:bg-gray-900">
+    <nav className="bg-white border-b-2 border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/partner" className="flex  items-center">
           <img
-            src="/images/depositphotos_268023142-stock-illustration-vector-logo-for-car-rental.jpg"
+            src="/logo.svg"
             alt="Logo"
             className="w-40 md:w-50 h-10 md:mr-2 overflow-visible object-contain md:object-cover"
           />
@@ -61,7 +60,7 @@ const InstructorNavbar = () => {
               <span className="sr-only">Open user menu</span>
               <img
                 className="w-8 h-8 rounded-full object-contain"
-                src="/images/person-304893_1280.png"
+                src="/images/profile.jpg"
                 alt="user photo"
               />
             </button>
@@ -134,9 +133,9 @@ const InstructorNavbar = () => {
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark-bg-gray-900 dark-border-gray-700">
             <li>
               <Link
-                to="/partner"
+                to="/instructor/home"
                 className={
-                  location.pathname === "/partner"
+                  location.pathname === "/instructor/home"
                     ? "block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark-text-blue-500"
                     : "block py-2 pl-3 pr-4 text-gray-900 rounded hover-bg-gray-100 md:hover-bg-transparent md:hover-text-blue-700 md:p-0 dark-text-white md:dark-hover-text-blue-500 dark-hover-bg-gray-700 dark-hover-text-white md:dark-hover-bg-transparent dark-border-gray-700"
                 }
@@ -147,26 +146,26 @@ const InstructorNavbar = () => {
 
             <li>
               <Link
-                to="/partner/dashboard"
+                to="/instructor/my-courses"
                 className={
-                  location.pathname === "/partner/dashboard"
+                  location.pathname === "/instructor/my-courses"
                     ? "block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark-text-blue-500"
                     : "block py-2 pl-3 pr-4 text-gray-900 rounded hover-bg-gray-100 md:hover-bg-transparent md:hover-text-blue-700 md:p-0 dark-text-white md:dark-hover-text-blue-500 dark-hover-bg-gray-700 dark-hover-text-white md:dark-hover-bg-transparent dark-border-gray-700"
                 }
               >
-                Dashboard
+                My Courses
               </Link>
             </li>
             <li>
               <Link
-                to="/partner/contact"
+                to="/instructor/add-course"
                 className={
-                  location.pathname === "/partner/contact"
+                  location.pathname === "/instructor/add-course"
                     ? "block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark-text-blue-500"
                     : "block py-2 pl-3 pr-4 text-gray-900 rounded hover-bg-gray-100 md:hover-bg-transparent md:hover-text-blue-700 md:p-0 dark-text-white md:dark-hover-text-blue-500 dark-hover-bg-gray-700 dark-hover-text-white md:dark-hover-bg-transparent dark-border-gray-700"
                 }
               >
-                Contact
+                add-course
               </Link>
             </li>
             <li>
@@ -228,7 +227,7 @@ const InstructorNavbar = () => {
         </div>
       )} */}
     </nav>
-  )
-}
+  );
+};
 
-export default InstructorNavbar
+export default InstructorNavbar;
