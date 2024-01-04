@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from "react";
 import InstructorNavbar from "../../components/instructorComponent/InstructorNavbar";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { courseSchema } from "../../validations/courseSchema";
+import { addCourse } from "../../api/instructorApi";
+import { useNavigate } from "react-router-dom";
+
 import {
   getAllCategory,
   getLevelList,
   getLanguageList,
 } from "../../api/adminApi";
-
+import { useSelector } from "react-redux";
 const AddCourse = () => {
+  const navigate = useNavigate();
   const [categoryList, setCategoryList] = useState([]);
   const [levelList, setLevelList] = useState([]);
   const [languageList, setLanguageList] = useState([]);
+
+  const InstructorId = useSelector((store) => store.instructor.instructor._id);
+
+  const [success, setSuccess] = useState("");
+  const [err, setErr] = useState("");
 
   const getCategoryList = async () => {
     const category = await getAllCategory();
@@ -35,6 +47,30 @@ const AddCourse = () => {
     });
     setLanguageList(activeLanguage);
   };
+  const onSubmit = async (data) => {
+    setErr("");
+    try {
+      const response = await addCourse(data);
+
+      if (response) {
+        setSuccess("Course successfully added");
+        setTimeout(() => navigate("/instructor/my-courses"), 2000);
+      }
+      console.log(data);
+    } catch (error) {
+      if (typeof error === "string") {
+        setErr(error);
+      }
+    }
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(courseSchema),
+  });
 
   useEffect(() => {
     getCategoryList();
@@ -51,7 +87,14 @@ const AddCourse = () => {
           <div className="grid items-center md:grid-cols-2 gap-8 lg:gap-12">
             <div>
               {/* Form */}
-              <form>
+              <form action="" onSubmit={handleSubmit(onSubmit)}>
+                {err && (
+                  <div className="err">
+                    <h3 className="text-red-900 font-semibold bg-red-400 w-full py-2 px-3 border-2 rounded-md">
+                      {err}
+                    </h3>
+                  </div>
+                )}
                 <div className="lg:max-w-lg lgmx-auto lg:me-0 ms-auto">
                   {/* Card */}
                   <div className="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-slate-900">
@@ -68,6 +111,9 @@ const AddCourse = () => {
                           <div className="relative">
                             <input
                               type="text"
+                              {...register("name", {
+                                required: "Course name requred",
+                              })}
                               id="hs-hero-signup-form-floating-input-first-name"
                               className="bg-gray-100 peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600
                 focus:pt-6
@@ -90,6 +136,11 @@ const AddCourse = () => {
                             >
                               Course Name
                             </label>
+                            {errors.name && (
+                              <span className="text-red-600 text-sm italic">
+                                *{errors.name.message}
+                              </span>
+                            )}
                           </div>
                           {/* End Floating Input */}
                         </div>
@@ -99,7 +150,13 @@ const AddCourse = () => {
                           {/* Floating Input */}
                           <div className="relative">
                             <input
+                              type="hidden"
+                              value={InstructorId}
+                              {...register("instructor")}
+                            />
+                            <input
                               type="text"
+                              {...register("price", { min: 2 })}
                               id="hs-hero-signup-form-floating-input-last-name"
                               className="bg-gray-100 peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600
                 focus:pt-6
@@ -122,12 +179,21 @@ const AddCourse = () => {
                             >
                               Price
                             </label>
+
+                            {errors.price && (
+                              <span className="text-red-600 text-sm italic">
+                                *{errors.price.message}
+                              </span>
+                            )}
                           </div>
                           {/* End Floating Input */}
                         </div>
                         {/* End Input Group */}
                         {/* Input Group */}
-                        <select className="bg-gray-100 p-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                        <select
+                          {...register("language")}
+                          className="bg-gray-100 p-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                        >
                           <option value="" disabled selected>
                             Select language
                           </option>
@@ -136,11 +202,19 @@ const AddCourse = () => {
                               <option value={value.id}>{value.language}</option>
                             ))}
                         </select>
+                        {errors.language && (
+                          <span className="text-red-600 text-sm italic">
+                            *{errors.language.message}
+                          </span>
+                        )}
                         {/* End Input Group */}
                         {/* Input Group */}
                         <div>
                           {/* Floating Input */}
-                          <select className="bg-gray-100 p-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                          <select
+                            {...register("level")}
+                            className="bg-gray-100 p-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                          >
                             <option value="" disabled selected>
                               Select level
                             </option>
@@ -149,6 +223,11 @@ const AddCourse = () => {
                                 <option value={value.id}>{value.level}</option>
                               ))}
                           </select>
+                          {errors.level && (
+                            <span className="text-red-600 text-sm italic">
+                              *{errors.level.message}
+                            </span>
+                          )}
                           {/* End Floating Input */}
                         </div>
                         {/* End Input Group */}
@@ -157,7 +236,10 @@ const AddCourse = () => {
                         {/* End Input Group */}
                       </div>
                       <div className="relative">
-                        <select className="bg-gray-100 p-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                        <select
+                          {...register("category")}
+                          className="bg-gray-100 p-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                        >
                           <option value="" disabled selected>
                             Select Category
                           </option>
@@ -166,11 +248,17 @@ const AddCourse = () => {
                               <option value={value.id}>{value.category}</option>
                             ))}
                         </select>
+                        {errors.category && (
+                          <span className="text-red-600 text-sm italic">
+                            *{errors.category.message}
+                          </span>
+                        )}
                       </div>
 
                       {/* Floating Input */}
                       <div className="relative">
                         <textarea
+                          {...register("description")}
                           id="hs-hero-signup-form-floating-input-message"
                           className="bg-gray-100 peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600
                 focus:pt-6
@@ -180,7 +268,12 @@ const AddCourse = () => {
                 autofill:pt-6
                 autofill:pb-2"
                           placeholder="Write your message..."
-                        ></textarea>
+                        />
+                        {errors.description && (
+                          <span className="text-red-600 text-sm italic">
+                            *{errors.description.message}
+                          </span>
+                        )}
                         <label
                           htmlFor="hs-hero-signup-form-floating-input-message"
                           className="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
@@ -206,6 +299,13 @@ const AddCourse = () => {
                   </div>
                   {/* End Card */}
                 </div>
+                {success && (
+                  <div className="err">
+                    <h3 className="text-green-900 font-semibold bg-green-400 w-full py-2 px-3 border-2 rounded-md">
+                      {success}
+                    </h3>
+                  </div>
+                )}
               </form>
               {/* End Form */}
             </div>
