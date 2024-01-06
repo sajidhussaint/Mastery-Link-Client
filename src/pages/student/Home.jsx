@@ -90,10 +90,18 @@ const Home = () => {
       {/* Start block */}
       <section className="bg-white dark:bg-gray-900">
         <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
+
+
+
+
+
+
+
+
           <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
             <a href="#" className="flex items-center lg:justify-center">
               <svg
-                className="h-9 hover:text-gray-900 dark:hover:text-white"
+                className="h-9 hover:text-blue-900 dark:hover:text-white"
                 viewBox="0 0 125 35"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
@@ -298,6 +306,8 @@ const Home = () => {
               </svg>
             </a>
           </div>
+
+
         </div>
       </section>
       {/* End block */}
@@ -312,10 +322,10 @@ const Home = () => {
               </h2>
               <p className="mb-8 font-light lg:text-xl">
                 Welcome to our dynamic eLearning platform, where knowledge meets
-                innovation!our platform is designed to cater to learners
-                of all levels and interests. Whether you're a novice or an
-                expert, our carefully curated content ensures a fulfilling
-                learning experience for everyone
+                innovation!our platform is designed to cater to learners of all
+                levels and interests. Whether you're a novice or an expert, our
+                carefully curated content ensures a fulfilling learning
+                experience for everyone
               </p>
               {/* List */}
               <ul
@@ -568,39 +578,43 @@ const Home = () => {
           </div>
           <div className="col-span-2 space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0">
             <div>
-              <svg
-                className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
+            <svg
+  className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
+  fill="currentColor"
+  viewBox="0 0 20 20"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    fillRule="evenodd"
+    d="M10 2a2 2 0 00-2 2v1.982a4.001 4.001 0 00-2 7.418 4.001 4.001 0 004 0A4.001 4.001 0 0012 5.982V4a2 2 0 00-2-2zm0 4a2 2 0 100 4 2 2 0 000-4zm0 10a6.995 6.995 0 01-5.192-2.307 1 1 0 111.384-1.447A4.001 4.001 0 0010 14.018a4.001 4.001 0 002.808-1.156 1 1 0 111.384 1.447A6.995 6.995 0 0110 16zm8-7a2 2 0 11-4 0 2 2 0 014 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z"
+    clipRule="evenodd"
+  />
+</svg>
+
               <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                99.99% uptime
+                3,000 Learners
               </h3>
               <p className="font-light text-gray-500 dark:text-gray-400">
-                For Landwind, with zero maintenance downtime
+              Join learners in a diverse, enriching educational community.
               </p>
             </div>
             <div>
-              <svg
-                className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-              </svg>
+            <svg
+  className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
+  fill="currentColor"
+  viewBox="0 0 20 20"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM7.293 11.293a1 1 0 011.414 0L10 12.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-1-1-1 1a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414 1 1 0 011.414 0l1.293 1.293 1-1z" />
+</svg>
+
+
+
               <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                600M+ Users
+                Certifications 5,000
               </h3>
               <p className="font-light text-gray-500 dark:text-gray-400">
-                Trusted by over 600 milion users around the world
+              Attain certifications, validating expertise for career advancement
               </p>
             </div>
             <div>
@@ -617,26 +631,27 @@ const Home = () => {
                 />
               </svg>
               <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                100+ countries
+                120+ Instructors
               </h3>
               <p className="font-light text-gray-500 dark:text-gray-400">
-                Have used Landwind to create functional websites
+              Learn from experts, guiding your education with experience.
               </p>
             </div>
             <div>
-              <svg
-                className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-              </svg>
+            <svg
+  className="w-10 h-10 mb-2 text-purple-600 md:w-12 md:h-12 dark:text-purple-500"
+  fill="currentColor"
+  viewBox="0 0 20 20"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z" />
+</svg>
+
               <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                5+ Million
+                760+ Courses published
               </h3>
               <p className="font-light text-gray-500 dark:text-gray-400">
-                Transactions per day
+              Explore  courses covering diverse topics for comprehensive learning.
               </p>
             </div>
           </div>
@@ -648,7 +663,7 @@ const Home = () => {
         <div className="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-24 lg:px-6">
           <figure className="max-w-screen-md mx-auto">
             <svg
-              className="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600"
+              className="h-12 mx-auto mb-3 text-gray-700 dark:text-gray-600"
               viewBox="0 0 24 27"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -660,9 +675,7 @@ const Home = () => {
             </svg>
             <blockquote>
               <p className="text-xl font-medium text-gray-900 md:text-2xl dark:text-white">
-                "Landwind is just awesome. It contains tons of predesigned
-                components and pages starting from login screen to complex
-                dashboard. Perfect choice for your next SaaS application."
+              "This e-learning platform excels with engaging, well-structured courses and knowledgeable instructors. The user-friendly interface, diverse content, and valuable certifications make it my top choice for online learning. Highly recommended!"
               </p>
             </blockquote>
             <figcaption className="flex items-center justify-center mt-6 space-x-3">
@@ -673,10 +686,10 @@ const Home = () => {
               />
               <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
                 <div className="pr-3 font-medium text-gray-900 dark:text-white">
-                  Micheal Gough
+                  Alex Thomas
                 </div>
                 <div className="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">
-                  CEO at Google
+                  Software Engineer
                 </div>
               </div>
             </figcaption>

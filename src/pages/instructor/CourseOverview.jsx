@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InstructorNavbar from "../../components/instructorComponent/InstructorNavbar";
+import { useLocation } from "react-router-dom";
+import {
+  getSingleCourse,
+  // addModule,
+  // addCourseImage,
+} from "../../api/instructorApi";
+
 const CourseOverview = () => {
+  const [course, setCourse] = useState();
+
+  const location = useLocation();
+
+  const getCourse = async () => {
+    const response = await getSingleCourse(location.state.courseId);
+    console.log(response);
+    setCourse(response);
+  };
+
+  useEffect(() => {
+    getCourse();
+  }, []);
   return (
     <>
-    <InstructorNavbar/>
+      <InstructorNavbar />
       <link
         href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
         rel="stylesheet"
       />
+
       <div className="flex flex-col items-center p-10 bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <div className="md:w-2/4 ">
           <div className="relative    sm:mb-0 mb-3">
@@ -34,7 +55,7 @@ const CourseOverview = () => {
         <div className="flex flex-col justify-center p-4  w-full leading-normal">
           <div className="flex justify-between">
             <h1 className="mb-2 uppercase text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Course Name
+              {course?.name}
             </h1>
 
             <div className="flex justify-end">
@@ -47,22 +68,19 @@ const CourseOverview = () => {
             </div>
           </div>
           <div className="flex justify-start gap-5">
-            <p className="my-3 text-lg font-semibold">category</p>
+            <p className="my-3 text-lg font-semibold"></p>
           </div>
           <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            price: ₹ 1000
+            price: ₹ {course?.price}
           </h1>
-          <p className="my-2 text-lg font-semibold">level</p>
-          <p className="my-2 text-lg font-semibold">language</p>
+          <p className="my-2 text-lg font-semibold">{course?.level.level}</p>
+          <p className="my-2 text-lg font-semibold">{course?.language.language}</p>
           <div className="container">
             <hr />
             <div className="flex justify-between mb-2">
               <div>
                 <p className="text-gray-600 text-sm font-medium">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-                  id, excepturi obcaecati qui facere perferendis eligendi rem
-                  nulla neque provident dolorum. Asperiores, mollitia sit fuga
-                  velit est voluptatibus aperiam nihil.
+                {course?.description}
                 </p>
               </div>
               {/* <div>
