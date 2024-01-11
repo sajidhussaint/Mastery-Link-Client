@@ -32,3 +32,17 @@ export const getSingleCourse = async (courseId) => {
     console.log(error);
   }
 };
+
+export const addCourseImage = async (image) => {
+  try {
+    const response = await axiosInstance.put(
+      "/instructor/add-course-image",
+      image
+    );
+    if (response) {
+      return Promise.resolve(response.data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
