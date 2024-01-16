@@ -11,7 +11,6 @@ const MyCourses = () => {
   const myCourses = async () => {
     setLoader(true);
     const response = await getMyCourses();
-    console.log(response,'=====this courses list');
     setCourses(response);
     setLoader(false);
   };
