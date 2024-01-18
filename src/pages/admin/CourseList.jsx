@@ -44,6 +44,7 @@ const CourseList = () => {
   return (
     <div className="bg-gray-100 font-family-karla flex">
       <AdminSidebar />
+
       <div className="flex flex-col py-20 px-20 h-screen overflow-y-auto w-full">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-white-800 ">
@@ -71,7 +72,9 @@ const CourseList = () => {
                       {Course.description}
                     </td>
                     <td className="sm:px-6 py-4 font-medium">{Course.price}</td>
-                    <td className="sm:px-6 py-4 font-medium">{Course.level.level}</td>
+                    <td className="sm:px-6 py-4 font-medium">
+                      {Course.level.level}
+                    </td>
                     <td className="sm:px-6 py-4 font-medium">
                       {Course.category.category}
                     </td>
