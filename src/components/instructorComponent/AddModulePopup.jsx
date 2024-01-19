@@ -11,6 +11,8 @@ import {
   Spinner,
 } from "@material-tailwind/react";
 
+import { addModule } from "../../api/instructorApi";
+
 const AddModulePopup = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -29,15 +31,16 @@ const AddModulePopup = () => {
 
   const handleOpen = () => setOpen(!open);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const formData = new FormData();
     console.log("courseId", location.state.courseId);
     formData.append("name", moduleName);
     formData.append("description", moduleDescription);
     formData.append("file", videoFile);
     formData.append("courseId", location.state.courseId);
+    const response = await addModule(formData);
+
     setOpen(false);
-    setSpinner(true);
   };
   return (
     <>
@@ -119,11 +122,17 @@ const AddModulePopup = () => {
                     ></line>
                   </svg>
                   <span class="text-xs font-medium text-gray-600">
-                    Drop file to Attach, or 
+                    Drop file to Attach, or
                     <span class="text-blue-600 underline"> browse</span>
                   </span>
                 </span>
-                <input id="photo-dropbox" type="file" class="sr-only"  accept="video/*" onChange={handleFileChange} />
+                <input
+                  id="photo-dropbox"
+                  type="file"
+                  class="sr-only"
+                  accept="video/*"
+                  onChange={handleFileChange}
+                />
               </label>
               {err && <p className="text-red-700 italic text-left">*{err}</p>}
             </form>

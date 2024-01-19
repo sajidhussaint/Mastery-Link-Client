@@ -46,3 +46,15 @@ export const addCourseImage = async (image) => {
     console.log(error);
   }
 };
+
+export const addModule = async (formData) => {
+  try {
+    const response = await axiosInstance.post(
+      "/instructor/create-module",
+      formData
+    );
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
