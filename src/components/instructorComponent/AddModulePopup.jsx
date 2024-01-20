@@ -39,6 +39,7 @@ const AddModulePopup = () => {
     formData.append("file", videoFile);
     formData.append("courseId", location.state.courseId);
     const response = await addModule(formData);
+    console.log(response,'====this s res');
 
     setOpen(false);
   };
