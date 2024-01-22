@@ -5,6 +5,7 @@ import Home from "../pages/student/Home";
 import VerifyOtp from "../pages/student/VerifyOtp";
 import StudentPublic from "./studentPrivate/StudentPublic";
 import StudentProtected from "./studentPrivate/StudentProtect";
+import Test from "../pages/student/Test";
 
 const StudentRoute = () => {
   return (
@@ -17,6 +18,9 @@ const StudentRoute = () => {
           path="/verify-otp"
           element={<VerifyOtp isInstructor={false} />}
         />
+        <Route path="/test" element={<Test/>} />
+
+
       </Routes>
     </>
   );
