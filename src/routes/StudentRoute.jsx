@@ -6,6 +6,7 @@ import VerifyOtp from "../pages/student/VerifyOtp";
 import StudentPublic from "./studentPrivate/StudentPublic";
 import StudentProtected from "./studentPrivate/StudentProtect";
 import Test from "../pages/student/Test";
+import Courses from "../pages/student/Courses";
 
 const StudentRoute = () => {
   return (
@@ -19,6 +20,7 @@ const StudentRoute = () => {
           element={<VerifyOtp isInstructor={false} />}
         />
         <Route path="/test" element={<Test/>} />
+        <Route path="/courses" element={<Courses/>} />
 
 
       </Routes>
