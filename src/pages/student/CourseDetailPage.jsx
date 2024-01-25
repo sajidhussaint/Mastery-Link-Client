@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import ReactPlayer from "react-player";
+// import ReactPlayer from "react-player";
 import { BiLock } from "react-icons/bi";
 
 const CourseDetailPage = () => {
   const [showMore, setShowMore] = useState(false);
+  console.log("running");
 
   const modules = [
     { id: 1, title: "Introduction", duration: "2 hours" },
@@ -25,13 +26,13 @@ const CourseDetailPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Video Player */}
           <div className="lg:w-full">
-            <ReactPlayer
+            {/* <ReactPlayer
               width="100%"
               height="100%"
               loop={true}
               playing={true}
               controls={true}
-            />
+            /> */}
           </div>
 
           {/* Course Details */}
@@ -66,8 +67,6 @@ const CourseDetailPage = () => {
                 </p>
               </div>
             </div>
-
-            
           </div>
         </div>
 

@@ -1,4 +1,5 @@
 import Navbar from "../../components/StudentComponent/Navbar";
+import { Button } from "@material-tailwind/react";
 
 const Home = () => {
   return (
@@ -16,40 +17,28 @@ const Home = () => {
               published every month
             </p>
             <div className="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-              <a
-                href="https://github.com/themesberg/landwind"
-                className="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+              <button
+                href="#"
+                className="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-green-500 hover:text-white focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
               >
-                
-{" "}
-                Explore Courses  
+                {" "}
+                Explore Courses
                 <svg
-                    className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 10"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M1 5h12m0 0L9 1m4 4L9 9"
-                    />
-                  </svg>
-              </a>
-              
-              <a
-                href="https://www.figma.com/community/file/1125744163617429490"
-                className="inline-flex items-center justify-center w-full px-5 py-3 mb-2 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:w-auto focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-              >
-                {/* <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1"/>
-</svg> */}
-{" "}
-                Start learning
-              </a>
+                  className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M1 5h12m0 0L9 1m4 4L9 9"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
@@ -668,10 +657,12 @@ const Home = () => {
         <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
           <div className="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
             <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-            Get help how and when you need it
+              Get help how and when you need it
             </h2>
             <p className="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
-            We know how it feels when you’re just getting started. With our support team, a robust creator community and a knowledge base of articles and tutorials, you are never alone.
+              We know how it feels when you’re just getting started. With our
+              support team, a robust creator community and a knowledge base of
+              articles and tutorials, you are never alone.
             </p>
           </div>
           <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
@@ -679,27 +670,24 @@ const Home = () => {
 
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <a href="#">
-                <img
-                  className="rounded-t-lg"
-                  src="./images/card1.png"
-                  alt=""
-                />
+                <img className="rounded-t-lg" src="./images/card1.png" alt="" />
               </a>
               <div className="p-5">
                 <a href="#">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  Best-in-class Support
+                    Best-in-class Support
                   </h5>
                 </a>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                Access customer support online or by phone, or leverage our deep knowledge base of articles for easy access to everything you could ever want to know.
+                  Access customer support online or by phone, or leverage our
+                  deep knowledge base of articles for easy access to everything
+                  you could ever want to know.
                 </p>
                 <a
                   href="#"
                   className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                 >
-                 Go To The Help Center
-
+                  Go To The Help Center
                   <svg
                     className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                     aria-hidden="true"
@@ -720,20 +708,18 @@ const Home = () => {
             </div>
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <a href="#">
-                <img
-                  className="rounded-t-lg"
-                  src="./images/card2.png"
-                  alt=""
-                />
+                <img className="rounded-t-lg" src="./images/card2.png" alt="" />
               </a>
               <div className="p-5">
                 <a href="#">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  First-time Creator Support
+                    First-time Creator Support
                   </h5>
                 </a>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                These complimentary courses are meticulously crafted to equip you with the essential knowledge and skills necessary to kickstart your journey.
+                  These complimentary courses are meticulously crafted to equip
+                  you with the essential knowledge and skills necessary to
+                  kickstart your journey.
                 </p>
                 <a
                   href="#"
@@ -760,20 +746,17 @@ const Home = () => {
             </div>
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <a href="#">
-                <img
-                  className="rounded-t-lg"
-                  src="./images/card3.png"
-                  alt=""
-                />
+                <img className="rounded-t-lg" src="./images/card3.png" alt="" />
               </a>
               <div className="p-5">
                 <a href="#">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  Join the Creator Community
+                    Join the Creator Community
                   </h5>
                 </a>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                You’ll also get exclusive access to our Creator Community so you can network and learn from other course creators like you.
+                  You’ll also get exclusive access to our Creator Community so
+                  you can network and learn from other course creators like you.
                 </p>
                 <a
                   href="#"
@@ -798,10 +781,6 @@ const Home = () => {
                 </a>
               </div>
             </div>
-
-
-
-
           </div>
         </div>
       </section>

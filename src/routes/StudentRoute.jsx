@@ -7,6 +7,7 @@ import StudentPublic from "./studentPrivate/StudentPublic";
 import StudentProtected from "./studentPrivate/StudentProtect";
 import Test from "../pages/student/Test";
 import Courses from "../pages/student/Courses";
+import CourseDetailPage from "../pages/student/CourseDetailPage";
 
 const StudentRoute = () => {
   return (
@@ -19,8 +20,9 @@ const StudentRoute = () => {
           path="/verify-otp"
           element={<VerifyOtp isInstructor={false} />}
         />
-        <Route path="/test" element={<Test/>} />
+        {/* <Route path="/test" element={<Test/>} /> */}
         <Route path="/courses" element={<Courses/>} />
+        <Route path="/test" element={<CourseDetailPage/>} />
 
 
       </Routes>
