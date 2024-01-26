@@ -5,9 +5,9 @@ import Home from "../pages/student/Home";
 import VerifyOtp from "../pages/student/VerifyOtp";
 import StudentPublic from "./studentPrivate/StudentPublic";
 import StudentProtected from "./studentPrivate/StudentProtect";
-import Test from "../pages/student/Test";
+
 import Courses from "../pages/student/Courses";
-import CourseDetailPage from "../pages/student/CourseDetailPage";
+import SingleCourseStudent from "../pages/student/SingleCourseStudent";
 
 const StudentRoute = () => {
   return (
@@ -22,7 +22,7 @@ const StudentRoute = () => {
         />
         {/* <Route path="/test" element={<Test/>} /> */}
         <Route path="/courses" element={<Courses/>} />
-        <Route path="/test" element={<CourseDetailPage/>} />
+        <Route path="/view-course" element={<SingleCourseStudent/>} />
 
 
       </Routes>
