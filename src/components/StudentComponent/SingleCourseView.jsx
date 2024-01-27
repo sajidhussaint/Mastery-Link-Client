@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 // import ReactPlayer from "react-player";
 import { BiLock } from "react-icons/bi";
-import { getSingleCourse  ,courseEnroll} from "../../api/studentApi";
+import { getSingleCourse, courseEnroll } from "../../api/studentApi";
 import { Avatar, Button } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
 
@@ -21,7 +21,8 @@ const SingleCourseView = () => {
       navigate("/login");
     } else {
       try {
-        const response = await courseEnroll(course.id,user._id);
+        const response = await courseEnroll(course.id, user._id);
+        console.log(response);
         if (response) {
           window.location.href = response;
         }
@@ -30,7 +31,6 @@ const SingleCourseView = () => {
       }
     }
   };
-
 
   const getCourse = async () => {
     try {
