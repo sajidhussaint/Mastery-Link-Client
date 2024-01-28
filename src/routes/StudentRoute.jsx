@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import StudentSignup from "../pages/student/StudentSignup";
 import StudentLogin from "../pages/student/StudentLogin";
 import StripeStatus from "../pages/student/StripeStatus";
+import Test from "../pages/student/Test";
 import Home from "../pages/student/Home";
 import VerifyOtp from "../pages/student/VerifyOtp";
 import StudentPublic from "./studentPrivate/StudentPublic";
@@ -31,7 +32,7 @@ const StudentRoute = () => {
         <Route path="/view-course" element={<SingleCourseStudent />} />
         <Route path="/status" element={<StripeStatus />} />
         
-        {/* <Route path="/test" element={<Test/>} /> */}
+        <Route path="/test" element={<Test/>} />
       </Routes>
     </>
   );
