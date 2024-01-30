@@ -51,6 +51,7 @@ const SingleCourseView = () => {
   const visibleModules = showMore ? modules : modules.slice(0, 3);
 
   const goToCourse = () => {
+    console.log(course.id);
     navigate("/learning", { state: { courseId: course?.id } });
   };
 
