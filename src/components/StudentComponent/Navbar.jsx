@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../redux/userSlice";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import ProgressBar from "react-scroll-progress-bar";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Navbar = () => {
   return (
     <>
       <header className="fixed w-full z-10">
+      <ProgressBar bgcolor="green" />
         <nav className="bg-white bg-opacity-75 border-gray-200 py-2.5 dark:bg-gray-900 dark:bg-opacity-50 backdrop-filter backdrop-blur-md">
           <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
             <Link to="/" className="flex items-center">
@@ -151,6 +153,7 @@ const Navbar = () => {
             </div>
           </div>
         </nav>
+          
       </header>
     </>
   );

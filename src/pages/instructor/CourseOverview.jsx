@@ -9,6 +9,7 @@ import {
 import TimeInput from "../../components/instructorComponent/TimeSelector";
 
 import AddModulePopup from "../../components/instructorComponent/AddModulePopup";
+import SpinnerMain from "../../components/common/utils/SpinnerMain";
 
 const CourseOverview = () => {
   const [course, setCourse] = useState();
@@ -29,6 +30,9 @@ const CourseOverview = () => {
     setCourse(response);
   };
 
+  const handleSpinner=(value)=>{
+    setSpinner(value)
+  }
   const handleImageUploadClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -43,10 +47,12 @@ const CourseOverview = () => {
         formData.append("image", file);
         formData.append("courseId", location.state.courseId);
         setUpdating(true);
+        setSpinner(true)
         const response = await addCourseImage(formData);
         if (response) {
           setUpdating(false);
           setCourse({ ...response });
+          setSpinner(false)
         }
       } catch (error) {
         setErr("Fail to update image");
@@ -93,39 +99,7 @@ const CourseOverview = () => {
   return (
     <>
       {spinner && (
-        <div>
-          {/* <Spinner className="h-16 w-16 text-gray-900/50" /> */}
-          <div class="absolute bg-white bg-opacity-60 z-10 h-full w-full flex items-center justify-center">
-            <div class="flex gap-2">
-              <div class="w-5 h-5 rounded-full animate-pulse bg-green-600"></div>
-              <div class="w-5 h-5 rounded-full animate-pulse bg-green-500"></div>
-              <div class="w-5 h-5 rounded-full animate-pulse bg-green-400"></div>
-            </div>
-            {/* <div class="flex items-center">
-                <span class="text-3xl mr-4">Loading</span>
-                <svg
-                  class="animate-spin h-8 w-8 text-gray-800"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    class="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    stroke-width="4"
-                  ></circle>
-                  <path
-                    class="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-              </div> */}
-          </div>
-        </div>
+        <SpinnerMain/>
       )}
 
       <InstructorNavbar />
@@ -173,6 +147,7 @@ const CourseOverview = () => {
 
             <div>
               {err && <h1 className="font-semibold text-red-700">{err}</h1>}
+
               <button
                 onClick={handleImageUploadClick}
                 className="absolute  bottom-2 ml-2  text-white p-2 text-xs bg-green-400 hover:bg-green-500 font-medium tracking-wider rounded-full transition ease-in duration-300"
@@ -184,6 +159,7 @@ const CourseOverview = () => {
                   style={{ display: "none" }}
                   onChange={handleFileChange}
                 />
+
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -256,7 +232,7 @@ const CourseOverview = () => {
               Add module
             </button> */}
 
-            <AddModulePopup />
+            <AddModulePopup handleSpinner={handleSpinner} />
             {showPopup && (
               <AddModulePopup
                 onClose={handleClosePopup}

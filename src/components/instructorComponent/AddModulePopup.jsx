@@ -12,8 +12,9 @@ import {
 } from "@material-tailwind/react";
 
 import { addModule } from "../../api/instructorApi";
+import SpinnerMain from "../common/utils/SpinnerMain";
 
-const AddModulePopup = () => {
+const AddModulePopup = ({ handleSpinner }) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [moduleName, setModuleName] = useState("");
@@ -22,10 +23,12 @@ const AddModulePopup = () => {
   const [videoFile, setVideoFile] = useState(null);
 
   const [err, setErr] = useState("");
+  const [spinner, setSpinner] = useState(false);
 
   const handleFileChange = (e) => {
     setErr("");
     const file = e.target.files && e.target.files[0];
+    console.log(file, "filesss");
     setVideoFile(file || null);
   };
 
@@ -38,10 +41,13 @@ const AddModulePopup = () => {
     formData.append("description", moduleDescription);
     formData.append("file", videoFile);
     formData.append("courseId", location.state.courseId);
-    const response = await addModule(formData);
-    console.log(response,'====this s res');
 
     setOpen(false);
+    handleSpinner(true);
+    const response = await addModule(formData);
+
+    handleSpinner(false);
+    console.log(response, "====this s res");
   };
   return (
     <>
@@ -71,6 +77,7 @@ const AddModulePopup = () => {
         </div>
 
         <DialogBody>
+          {spinner && <SpinnerMain />}
           <div>
             <form onSubmit={handleSubmit} className="grid gap-3">
               <Input
@@ -83,58 +90,18 @@ const AddModulePopup = () => {
                 label="Description"
                 value={moduleDescription}
               />
-              {/* <input type="file" accept="video/*" onChange={handleFileChange} /> */}
-              <label
-                class="flex  cursor-pointer appearance-none justify-center rounded-md border border-dashed border-gray-300 bg-white px-3 py-6 text-sm transition hover:border-gray-400 focus:border-solid focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-75"
-                tabindex="0"
-              >
-                <span for="photo-dropbox" class="flex items-center space-x-2">
-                  <svg class="h-6 w-6 stroke-gray-400" viewBox="0 0 256 256">
-                    <path
-                      d="M96,208H72A56,56,0,0,1,72,96a57.5,57.5,0,0,1,13.9,1.7"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="24"
-                    ></path>
-                    <path
-                      d="M80,128a80,80,0,1,1,144,48"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="24"
-                    ></path>
-                    <polyline
-                      points="118.1 161.9 152 128 185.9 161.9"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="24"
-                    ></polyline>
-                    <line
-                      x1="152"
-                      y1="208"
-                      x2="152"
-                      y2="128"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="24"
-                    ></line>
-                  </svg>
-                  <span class="text-xs font-medium text-gray-600">
-                    Drop file to Attach, or
-                    <span class="text-blue-600 underline"> browse</span>
-                  </span>
-                </span>
-                <input
-                  id="photo-dropbox"
-                  type="file"
-                  class="sr-only"
-                  accept="video/*"
-                  onChange={handleFileChange}
-                />
-              </label>
+
+              <input
+                type="file"
+                class="block w-full text-sm text-slate-500
+        file:mr-4 file:py-2 file:px-4 file:rounded-md
+        file:border-0 file:text-sm file:font-semibold
+        file:bg-green-50 file:text-green-700
+        hover:file:bg-green-100"
+                accept="video/*"
+                onChange={handleFileChange}
+              />
+
               {err && <p className="text-red-700 italic text-left">*{err}</p>}
             </form>
           </div>
