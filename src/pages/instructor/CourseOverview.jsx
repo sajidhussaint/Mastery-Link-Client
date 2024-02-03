@@ -1,6 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import InstructorNavbar from "../../components/instructorComponent/InstructorNavbar";
 import { useLocation } from "react-router-dom";
+
+import {
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  Input,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 import {
   getSingleCourse,
   // addModule,
@@ -19,6 +29,7 @@ const CourseOverview = () => {
   const [chapter, setChapter] = useState("");
   const [err, setErr] = useState("");
   const [spinner, setSpinner] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const fileInputRef = useRef(null);
 
@@ -30,14 +41,26 @@ const CourseOverview = () => {
     setCourse(response);
   };
 
-  const handleSpinner=(value)=>{
-    setSpinner(value)
-  }
+  const handleSpinner = (value) => {
+    setSpinner(value);
+  };
   const handleImageUploadClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
+
+  const handleClick = (moduleId) => {
+    setOpen(!open);
+  };
+  // const handleClick = moduleId => {
+  //   // setCurrentModuleId(moduleId)
+  //   const modal = document.getElementById("my_modal_5")
+  //   if (modal) {
+  //     modal.showModal()
+  //   }
+  // }
+  
 
   const handleFileChange = async (event) => {
     const file = event.target.files && event.target.files[0];
@@ -47,12 +70,12 @@ const CourseOverview = () => {
         formData.append("image", file);
         formData.append("courseId", location.state.courseId);
         setUpdating(true);
-        setSpinner(true)
+        setSpinner(true);
         const response = await addCourseImage(formData);
         if (response) {
           setUpdating(false);
           setCourse({ ...response });
-          setSpinner(false)
+          setSpinner(false);
         }
       } catch (error) {
         setErr("Fail to update image");
@@ -98,9 +121,7 @@ const CourseOverview = () => {
   }, []);
   return (
     <>
-      {spinner && (
-        <SpinnerMain/>
-      )}
+      {spinner && <SpinnerMain />}
 
       <InstructorNavbar />
       <link
@@ -275,6 +296,8 @@ const CourseOverview = () => {
                       >
                         Add chapters
                       </button>
+                      
+
                       <dialog
                         id="my_modal_5"
                         className="modal modal-bottom sm:modal-middle text-black "
@@ -308,10 +331,11 @@ const CourseOverview = () => {
                               <div className="flex-row flex gap-2">
                                 <button
                                   onClick={() => handleAddChapter()}
-                                  className="text-sm bg-[#2F327D] text-white px-3 py-1 rounded-md"
+                                  className="text-sm bg-[#61d83d] text-white px-3 py-1 rounded-md"
                                 >
                                   Add chapter
                                 </button>
+
                                 <form method="dialog">
                                   {/* if there is a button in form, it will close the modal */}
                                   <button className="text-sm bg-red-700 text-white px-3 py-1 rounded-md">
@@ -323,7 +347,10 @@ const CourseOverview = () => {
                           </div>
                         </div>
                       </dialog>
+
+                      
                     </div>
+                    
                   </div>
                   <hr className="mb-2" />
                 </div>
@@ -336,8 +363,59 @@ const CourseOverview = () => {
               </h1>
             </div>
           )}
+          
         </div>
       </div>
+
+      <Dialog open={open} size="xs" handler={() => setOpen(false)} sx={{ zIndex: 1}}>
+        <div className="flex items-center justify-between">
+          <DialogHeader className="flex flex-col items-start">
+            <Typography className="mb-1" variant="h5">
+              Add Module
+            </Typography>
+          </DialogHeader>
+        
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="mr-3 h-5 w-5"
+            onClick={() => setOpen(false)}
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+
+        <DialogBody>
+          <div>
+            <form
+              // onSubmit={handleSubmit}
+              className="grid gap-3"
+            >
+              <Input
+                // onChange={(e) => setModuleName(e.target.value)}
+                label="Name"
+                // value={moduleName}
+              />
+              <TimeInput  />
+            </form>
+          </div>
+        </DialogBody>
+        <DialogFooter className="space-x-2">
+          <Button
+            variant="gradient"
+            color="gray"
+            type="submit"
+            onClick={() => handleAddChapter()}
+          >
+            Submit
+          </Button>
+        </DialogFooter>
+      </Dialog>
     </>
   );
 };

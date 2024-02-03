@@ -1,33 +1,49 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState } from "react";
+// import { TimePicker } from "antd";
+
+// const TimeSelector = () => {
+//   const [value, setValue] = useState(null);
+//   const onChange = (time) => {
+//     setValue(time);
+//   };
+//   return (
+//     <div >
+//       <TimePicker value={value} onChange={onChange} className="z-8" />
+//     </div>
+//   );
+// };
+
+// export default TimeSelector;
+import React, { useState, useEffect } from "react"
 
 const TimeInput = ({ maxTime, onTimeChange }) => {
-  const [selectedTime, setSelectedTime] = useState("00:00:00");
-  const [error, setError] = useState("");
+  const [selectedTime, setSelectedTime] = useState("00:00:00")
+  const [error, setError] = useState("")
 
-  const handleTimeChange = (event) => {
-    setError("");
-    const newTime = event.target.value;
+  const handleTimeChange = event => {
+    setError("")
+    const newTime = event.target.value
 
     // Validate if the entered time is not greater than the maximum time
     if (
       new Date(`1970-01-01T${newTime}Z`) > new Date(`1970-01-01T${maxTime}Z`)
     ) {
-      setError(`Time should not exceed ${maxTime}`);
+      setError(`Time should not exceed ${maxTime}`)
     } else {
-      setSelectedTime(newTime);
-      setError("");
+      setSelectedTime(newTime)
+      setError("")
       // Pass the selected time to the parent component using the callback
-      onTimeChange(newTime);
+      onTimeChange(newTime)
     }
-  };
+  }
 
   // useEffect to reset state when the component unmounts
   useEffect(() => {
     return () => {
-      setSelectedTime("00:00:00");
-      setError("");
-    };
-  }, []);
+      setSelectedTime("00:00:00")
+      setError("")
+    }
+  }, [])
 
   // Function to reset state
 
@@ -47,7 +63,8 @@ const TimeInput = ({ maxTime, onTimeChange }) => {
       {error && <p style={{ color: "red" }}>{error}</p>}
       {/* Call resetState when the modal is closed */}
     </div>
-  );
-};
+  )
+}
 
-export default TimeInput;
+export default TimeInput
+
