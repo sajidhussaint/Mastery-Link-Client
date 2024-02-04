@@ -58,3 +58,19 @@ export const addModule = async (formData) => {
     console.log(error);
   }
 };
+
+export const addChapter = async (formData) => {
+  const headers = {
+    "Content-Type": "multipart/form-data",
+
+  };
+  try {
+    const response = await axiosInstance.post(
+      "/instructor/add-chapter",
+      formData,{ headers }
+    );
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};

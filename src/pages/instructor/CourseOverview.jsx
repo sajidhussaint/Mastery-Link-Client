@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import InstructorNavbar from "../../components/instructorComponent/InstructorNavbar";
 import { useLocation } from "react-router-dom";
+import { Badge } from "antd";
 
 import {
   Dialog,
@@ -13,7 +14,7 @@ import {
 } from "@material-tailwind/react";
 import {
   getSingleCourse,
-  // addModule,
+  addChapter,
   addCourseImage,
 } from "../../api/instructorApi";
 import TimeInput from "../../components/instructorComponent/TimeSelector";
@@ -30,11 +31,21 @@ const CourseOverview = () => {
   const [err, setErr] = useState("");
   const [spinner, setSpinner] = useState(false);
   const [open, setOpen] = useState(false);
+  const [timeFormat, setTimeFormat] = useState("");
+  const [currentModuleId, setCurrentModuleId] = useState(null);
 
   const fileInputRef = useRef(null);
 
   const location = useLocation();
 
+  function timeToSeconds(timeString) {
+    // Split the time string into hours, minutes, and seconds
+    const [hours, minutes, seconds] = timeString.split(":").map(Number);
+
+    // Calculate the total seconds
+    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    return totalSeconds;
+  }
   const getCourse = async () => {
     const response = await getSingleCourse(location.state.courseId);
     console.log(response);
@@ -50,17 +61,11 @@ const CourseOverview = () => {
     }
   };
 
-  const handleClick = (moduleId) => {
+  const handleClick = (moduleTime, moduleId) => {
+    setCurrentModuleId(moduleId);
     setOpen(!open);
+    setTimeFormat(moduleTime);
   };
-  // const handleClick = moduleId => {
-  //   // setCurrentModuleId(moduleId)
-  //   const modal = document.getElementById("my_modal_5")
-  //   if (modal) {
-  //     modal.showModal()
-  //   }
-  // }
-  
 
   const handleFileChange = async (event) => {
     const file = event.target.files && event.target.files[0];
@@ -86,15 +91,11 @@ const CourseOverview = () => {
     }
   };
 
-  const handleTimeChange = (newTime) => {
-    // Handle the selected time in the parent component
+  function handleTimeChange(newTime) {
     const seconds = timeToSeconds(newTime);
     setSelectedTime(seconds);
-  };
-
-  const handleAddModuleClick = () => {
-    setShowPopup(true);
-  };
+    console.log(seconds);
+  }
 
   const handleClosePopup = () => {
     setShowPopup(false);
@@ -246,13 +247,6 @@ const CourseOverview = () => {
           <div className="w-full flex justify-between px-3">
             <h1 className="font-bold text-lg">Modules</h1>
 
-            {/* <button
-              className="bg-green-700 text-white font-semibold px-4 py-1 rounded-t-sm shadow-lg"
-              onClick={handleAddModuleClick}
-            >
-              Add module
-            </button> */}
-
             <AddModulePopup handleSpinner={handleSpinner} />
             {showPopup && (
               <AddModulePopup
@@ -261,101 +255,42 @@ const CourseOverview = () => {
               />
             )}
           </div>
-          <div id="modal-root"></div>
-          {course?.modules && course?.modules?.length > 0 ? (
-            <div className="py-5">
-              {course.modules.map((module, index) => (
-                <div key={index} className="w-full">
-                  <div className="icon flex justify-between items-center px-3 mb-3">
-                    <div>
-                      <i className="fa-regular fa-circle-play px-2"></i>
-                      <span className="px-2 font-semibold">
-                        {typeof module?.module === "object"
-                          ? module.module.name
-                          : module?.module}
-                      </span>
-                    </div>
-                    <div className="flex justify-end">
-                      <h4 className="text-right font-semibold ">
-                        {typeof module?.module === "object"
-                          ? module.module.duration
-                          : module?.module}
-                      </h4>
-                    </div>
 
-                    <div>
+          {course?.modules && course?.modules?.length > 0 ? (
+            <table className="min-w-full divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-gray-200">
+                {course.modules.map((module, index) => (
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <i className="fa-regular fa-circle-play px-2"></i>
+                      {typeof module?.module === "object"
+                        ? module.module.name
+                        : module?.module}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {typeof module?.module === "object"
+                        ? module.module.duration
+                        : module?.module}
+                      <Badge count={module.module.chapters.length} />
+                    </td>
+
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <button
-                        className=" text-sm text-white bg-[#2F327D] px-2 py-1"
+                        className="px-4 py-2 font-medium text-white bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:shadow-outline-blue active:bg-green-600 transition duration-150 ease-in-out text-sm"
                         onClick={() =>
                           handleClick(
-                            typeof module?.module === "object"
-                              ? module?.module.id
-                              : module.module
+                            module?.module.duration,
+                            module?.module.id
                           )
                         }
                       >
                         Add chapters
                       </button>
-                      
-
-                      <dialog
-                        id="my_modal_5"
-                        className="modal modal-bottom sm:modal-middle text-black "
-                      >
-                        <div className="modal-box bg-white">
-                          <h3 className="font-bold text-lg">Hello!</h3>
-                          <p className="py-4">
-                            Selected time is : {selectedTime}
-                          </p>
-                          <div className="modal-action">
-                            <div className="flex flex-col w-full gap-4">
-                              <div className="flex flex-row justify-between">
-                                <input
-                                  type="text"
-                                  placeholder="Enter text"
-                                  value={chapter}
-                                  onChange={(e) => setChapter(e.target.value)}
-                                  className="bg-slate-300 rounded-md shadow-lg placeholder:text-black placeholder:italic border px-4"
-                                />
-                                <TimeInput
-                                  maxTime={
-                                    typeof module?.module === "object" &&
-                                    module.module?.duration
-                                      ? module.module.duration
-                                      : "00:00:00"
-                                  }
-                                  onTimeChange={handleTimeChange}
-                                  onClose={handleClosePopup}
-                                />
-                              </div>
-                              <div className="flex-row flex gap-2">
-                                <button
-                                  onClick={() => handleAddChapter()}
-                                  className="text-sm bg-[#61d83d] text-white px-3 py-1 rounded-md"
-                                >
-                                  Add chapter
-                                </button>
-
-                                <form method="dialog">
-                                  {/* if there is a button in form, it will close the modal */}
-                                  <button className="text-sm bg-red-700 text-white px-3 py-1 rounded-md">
-                                    Close
-                                  </button>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </dialog>
-
-                      
-                    </div>
-                    
-                  </div>
-                  <hr className="mb-2" />
-                </div>
-              ))}
-            </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           ) : (
             <div className="w-full h-5 ">
               <h1 className="font-semibold text-lg text-center">
@@ -363,18 +298,22 @@ const CourseOverview = () => {
               </h1>
             </div>
           )}
-          
         </div>
       </div>
 
-      <Dialog open={open} size="xs" handler={() => setOpen(false)} sx={{ zIndex: 1}}>
+      <Dialog
+        open={open}
+        size="xs"
+        handler={() => setOpen(false)}
+        sx={{ zIndex: 1 }}
+      >
         <div className="flex items-center justify-between">
           <DialogHeader className="flex flex-col items-start">
             <Typography className="mb-1" variant="h5">
               Add Module
             </Typography>
           </DialogHeader>
-        
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -397,11 +336,11 @@ const CourseOverview = () => {
               className="grid gap-3"
             >
               <Input
-                // onChange={(e) => setModuleName(e.target.value)}
+                onChange={(e) => setChapter(e.target.value)}
                 label="Name"
-                // value={moduleName}
+                value={chapter}
               />
-              <TimeInput  />
+              <TimeInput maxTime={timeFormat} onTimeChange={handleTimeChange} />
             </form>
           </div>
         </DialogBody>

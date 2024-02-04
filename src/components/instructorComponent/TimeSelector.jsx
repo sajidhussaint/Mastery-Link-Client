@@ -1,70 +1,95 @@
-// import React, { useState } from "react";
-// import { TimePicker } from "antd";
+import React, { useEffect, useState } from "react";
 
-// const TimeSelector = () => {
-//   const [value, setValue] = useState(null);
-//   const onChange = (time) => {
-//     setValue(time);
-//   };
-//   return (
-//     <div >
-//       <TimePicker value={value} onChange={onChange} className="z-8" />
-//     </div>
-//   );
-// };
+const VideoTimePicker = ({ maxTime, onTimeChange }) => {
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
 
-// export default TimeSelector;
-import React, { useState, useEffect } from "react"
+  const handleInputChange = (e, type) => {
+    const value = parseInt(e.target.value, 10) || 0;
 
-const TimeInput = ({ maxTime, onTimeChange }) => {
-  const [selectedTime, setSelectedTime] = useState("00:00:00")
-  const [error, setError] = useState("")
-
-  const handleTimeChange = event => {
-    setError("")
-    const newTime = event.target.value
-
-    // Validate if the entered time is not greater than the maximum time
-    if (
-      new Date(`1970-01-01T${newTime}Z`) > new Date(`1970-01-01T${maxTime}Z`)
-    ) {
-      setError(`Time should not exceed ${maxTime}`)
-    } else {
-      setSelectedTime(newTime)
-      setError("")
-      // Pass the selected time to the parent component using the callback
-      onTimeChange(newTime)
+    switch (type) {
+      case "hours":
+        setHours(value);
+        break;
+      case "minutes":
+        setMinutes(value);
+        break;
+      case "seconds":
+        setSeconds(value);
+        break;
+      default:
+        break;
     }
+  };
+
+  // Function to format time values with leading zeros
+  const formatTime = (value) => (value < 10 ? `0${value}` : value);
+
+  if (maxTime) {
+    var [hr, min, ss] = maxTime.split(":").map((part) => parseInt(part, 10));
+
+    console.log(ss, "timess");
   }
+  console.log(typeof onTimeChange);
 
-  // useEffect to reset state when the component unmounts
-  useEffect(() => {
-    return () => {
-      setSelectedTime("00:00:00")
-      setError("")
-    }
-  }, [])
+  if (onTimeChange ) {
+    const data = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
 
-  // Function to reset state
+    onTimeChange(
+      data
+    );
+  }
 
   return (
     <div>
-      <label htmlFor="timeInput" className="font-semibold">
-        Select Time:
-      </label>
-      <input
-        className="bg-slate-300 rounded-md shadow-lg placeholder:text-black placeholder:italic border px-4"
-        type="time"
-        id="timeInput"
-        value={selectedTime}
-        onChange={handleTimeChange}
-        step="1"
-      />
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {/* Call resetState when the modal is closed */}
+      <div className="mb-4">
+        <label className="block text-sm font-semibold text-gray-600 mb-2">
+          Hours:
+          <input
+            type="number"
+            max={maxTime ? Number(hr) : 0}
+            min={0}
+            className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            value={hours}
+            onChange={(e) => handleInputChange(e, "hours")}
+          />
+        </label>
+      </div>
+      <div className="mb-4">
+        <label className="block text-sm font-semibold text-gray-600 mb-2">
+          Minutes:
+          <input
+          
+            max={maxTime ? Number(min) : 0}
+            maxLength={2}
+            min={0}
+            type="number"
+            className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            value={minutes}
+            onChange={(e) => handleInputChange(e, "minutes")}
+          />
+        </label>
+      </div>
+      <div className="mb-4">
+        <label className="block text-sm font-semibold text-gray-600 mb-2">
+          Seconds:
+          <input
+            max={maxTime ? Number(ss) : 0}
+            min={0}
+            type="number"
+            className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            value={seconds}
+            onChange={(e) => handleInputChange(e, "seconds")}
+          />
+        </label>
+      </div>
+      <p className="text-lg font-semibold">
+        Selected Time: {formatTime(hours)}:{formatTime(minutes)}:
+        {formatTime(seconds)}
+      </p>
     </div>
-  )
-}
+  );
+};
 
-export default TimeInput
-
+export default VideoTimePicker;
