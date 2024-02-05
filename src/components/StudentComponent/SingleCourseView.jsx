@@ -67,7 +67,7 @@ const SingleCourseView = () => {
             {/* Video Player */}
             <div className="lg:w-full">
               {course?.image ? (
-                <img src={course.image} alt="" />
+                <img src={course.image} alt="" className="min-h-full min-w-full" />
               ) : (
                 <div className="bg-cover w-full justify-center items-center flex  h-[200px]">
                   <h1 className="font-semibold">No images found</h1>

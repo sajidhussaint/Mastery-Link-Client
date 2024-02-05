@@ -10,6 +10,7 @@ import StudentProtected from "./studentPrivate/StudentProtect";
 import Courses from "../pages/student/Courses";
 import SingleCourseStudent from "../pages/student/SingleCourseStudent";
 import LearningPage from "../pages/student/LearningPage";
+import StudentProfile from "../pages/student/StudentProfile";
 
 const StudentRoute = () => {
   return (
@@ -32,6 +33,7 @@ const StudentRoute = () => {
         <Route path="/view-course" element={<SingleCourseStudent />} />
         <Route path="/status" element={<StripeStatus />} />
         <Route path="/learning" element={<LearningPage />} />
+        <Route path="/profile" element={<StudentProfile />} />
       </Routes>
     </>
   );
