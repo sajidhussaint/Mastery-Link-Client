@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/StudentComponent/Navbar";
+import TabContent from "../../components/StudentComponent/learning page/TabContent";
 import { getEnrolledCourse } from "../../api/studentApi";
 import Modules from "./Modules";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { socket } from "../../components/socket/socket";
 
 const LearningPage = () => {
   const user = useSelector((store) => store.user.user);
@@ -12,6 +14,8 @@ const LearningPage = () => {
 
   const [course, setCourse] = useState();
   const [progression, setProgression] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [enrolledId, setEnrolledId] = useState("");
 
   const getCourse = async () => {
     try {
@@ -23,10 +27,10 @@ const LearningPage = () => {
         console.log(response.courseId);
         setCourse(response.courseId);
         setProgression(response.progression);
-        //   setNotes(response.notes);
-        //   setEnrolledId(response.id);
-        // dispatch(selectCourseActions.selectCourse(response));
-        //   socket.emit("join-room", { courseId: response?.courseId.id });
+        setNotes(response.notes);
+        setEnrolledId(response.id);
+        dispatch(selectCourseActions.selectCourse(response));
+        socket.emit("join-room", { courseId: response?.courseId.id });
       }
     } catch (error) {
       console.log(error);
@@ -43,7 +47,7 @@ const LearningPage = () => {
       <div className="pt-20 text-black ">
         <Modules modules={course?.modules} progression={progression} />
         <div className="mt-6">
-          {/* <TabContent courseId={enrolledId} notes={notes} socket={socket} /> */}
+          <TabContent courseId={enrolledId} notes={notes} socket={socket} />
         </div>
       </div>
     </>

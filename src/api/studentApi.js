@@ -50,12 +50,26 @@ export const enrollment = async (courseId, studentId) => {
     return Promise.reject(error);
   }
 };
-export const getEnrolledCourse = async (courseId,studentId) => {
+export const getEnrolledCourse = async (courseId, studentId) => {
   try {
-    console.log('runnn get enroll',studentId);
+    console.log("runnn get enroll", studentId);
     const response = await axiosAuthorized.get(
       `/get-enrolled-course?courseId=${courseId}&&studentId=${studentId}`
     );
+    if (response) {
+      return Promise.resolve(response.data);
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+export const addNotes = async (enrolledId, notes) => {
+  try {
+    const response = await axiosAuthorized.post("/add-notes", {
+      enrolledId,
+      notes,
+    });
+
     if (response) {
       return Promise.resolve(response.data);
     }

@@ -113,11 +113,8 @@ const Modules = ({ modules, progression }) => {
             </Player>
           )}
         </div>
-        <button onClick={() => seek(14)} className="mr-3">
-          seeek
-        </button>
         <button onClick={end} className="mr-3">
-          complete
+         iscompleted
         </button>
       </div>
       <div>
