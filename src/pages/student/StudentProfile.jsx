@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/StudentComponent/Navbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { profileUpdateSchema } from "../../validations/profileUpdateSchema";
+import { updateProfile } from "../../api/studentApi";
+import { userActions } from "../../redux/userSlice";
 import {
   Dialog,
   DialogHeader,
@@ -17,9 +19,11 @@ import { useForm } from "react-hook-form";
 
 const StudentProfile = () => {
   const user = useSelector((store) => store.user.user);
+  const dispatch = useDispatch();
   // const selecedCourse = useSelector((store) => store.selecedCourse.selecedCourse)
   const [open, setOpen] = useState(false);
   const [openProfileEdit, setOpenProfileEdit] = useState(false);
+  const[fname,setFname]=useState('')
 
   const {
     register,
@@ -30,20 +34,16 @@ const StudentProfile = () => {
   });
 
   const submitData = async (data) => {
-    console.log(data.fname, data.lname, data.mob);
-    try {
-      const response = await profileUpdate(data.fname, data.lname);
-      if (response) {
-        console.log("changed password");
-
-        setTimeout(() => {
-          navigate("/profile");
-        }, 1000);
-      }
-    } catch (error) {
-      if (typeof error === "string") {
-        console.log(error);
-      }
+    const response = await updateProfile(
+      data.fname,
+      data.lname,
+      data.mob,
+      user._id
+    );
+    if (response) {
+      console.log("changed password");
+      dispatch(userActions.saveUser({ ...response }));
+      setOpenProfileEdit(false);
     }
   };
 
@@ -53,6 +53,9 @@ const StudentProfile = () => {
   const handleUpdateProfile = () => {
     setOpenProfileEdit(!open);
   };
+
+  useEffect(() => {setFname(user?.firstname)}, [openProfileEdit]);
+
   return (
     <>
       <Navbar />
@@ -470,32 +473,46 @@ const StudentProfile = () => {
         <DialogBody>
           <div>
             <form onSubmit={handleSubmit(submitData)} className="grid gap-3">
-              <Input type="text" {...register("fname")} label="fname" />
+              <Input
+                onChange={()=>{console.log('kkk');}}
+                type="text"
+                {...register("fname")}
+                label="fname"
+                defaultValue={user?.firstname}
+              />
               {errors.fname && (
                 <span className="text-red-600 text-sm italic">
                   *{errors.fname.message}
                 </span>
               )}
-              <Input type="text" {...register("lname")} label="lname" />
+              <Input
+                type="text"
+                {...register("lname")}
+                label="lname"
+                defaultValue={user?.lastname}
+              />
               {errors.lname && (
                 <span className="text-red-600 text-sm italic">
                   *{errors.lname.message}
                 </span>
               )}
-              <Input type="text" {...register("mob")} label="mob" />
+              <Input
+                type="text"
+                {...register("mob")}
+                label="mob"
+                defaultValue={user?.mobile}
+              />
               {errors.mob && (
                 <span className="text-red-600 text-sm italic">
                   *{errors.mob.message}
                 </span>
               )}
+              <Button variant="gradient" color="gray" type="submit">
+                submit
+              </Button>
             </form>
           </div>
         </DialogBody>
-        <DialogFooter className="space-x-2">
-          <Button variant="gradient" color="gray" type="submit">
-            submit
-          </Button>
-        </DialogFooter>
       </Dialog>
       {/* edit-profile section */}
     </>
