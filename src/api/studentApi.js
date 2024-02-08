@@ -77,3 +77,15 @@ export const addNotes = async (enrolledId, notes) => {
     return Promise.reject(error);
   }
 };
+export const changePassword = async (newPassword, currentPassword,studentId) => {
+  try {
+    const response = await axiosAuthorized.patch("/change-password", {
+      newPassword,
+      currentPassword,
+      studentId
+    });
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};

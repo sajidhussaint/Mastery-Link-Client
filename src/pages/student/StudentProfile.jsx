@@ -1,24 +1,58 @@
 import { useState } from "react";
 import Navbar from "../../components/StudentComponent/Navbar";
 import { useSelector } from "react-redux";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { profileUpdateSchema } from "../../validations/profileUpdateSchema";
 import {
-    Dialog,
-    DialogHeader,
-    DialogBody,
-    DialogFooter,
-    Input,
-    Typography,
-    Button,
-  } from "@material-tailwind/react";
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  Input,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const StudentProfile = () => {
   const user = useSelector((store) => store.user.user);
   // const selecedCourse = useSelector((store) => store.selecedCourse.selecedCourse)
   const [open, setOpen] = useState(false);
+  const [openProfileEdit, setOpenProfileEdit] = useState(false);
 
-  const handleRemoveAccount=()=>{
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(profileUpdateSchema),
+  });
+
+  const submitData = async (data) => {
+    console.log(data.fname, data.lname, data.mob);
+    try {
+      const response = await profileUpdate(data.fname, data.lname);
+      if (response) {
+        console.log("changed password");
+
+        setTimeout(() => {
+          navigate("/profile");
+        }, 1000);
+      }
+    } catch (error) {
+      if (typeof error === "string") {
+        console.log(error);
+      }
+    }
+  };
+
+  const handleRemoveAccount = () => {
     setOpen(!open);
-  }
+  };
+  const handleUpdateProfile = () => {
+    setOpenProfileEdit(!open);
+  };
   return (
     <>
       <Navbar />
@@ -69,10 +103,15 @@ const StudentProfile = () => {
                     <span className="ml-auto">Nov 07, 2023</span>
                   </li>
                   <li className="flex items-center py-3">
-                    <button className="text-sm cursor-pointer text-blue-800 underline font-semibold ">
-                      Change password
-                    </button>
-                    <button className="text-sm ml-auto cursor-pointer text-red-800 underline font-semibold " onClick={handleRemoveAccount} >
+                    <Link to={"/change-password"}>
+                      <button className="text-sm cursor-pointer text-blue-800 underline font-semibold ">
+                        Change password
+                      </button>
+                    </Link>
+                    <button
+                      className="text-sm ml-auto cursor-pointer text-red-800 underline font-semibold "
+                      onClick={handleRemoveAccount}
+                    >
                       Remove account
                     </button>
                   </li>
@@ -217,7 +256,10 @@ const StudentProfile = () => {
                     </div>
                   </div>
                 </div>
-                <button className="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">
+                <button
+                  onClick={handleUpdateProfile}
+                  className="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+                >
                   Edit
                 </button>
               </div>
@@ -368,19 +410,19 @@ const StudentProfile = () => {
         </div>
 
         <DialogBody>
-          <div >
-            <span className="text-sm ">Type "CONFIRM" to Remove Permenetly</span>
+          <div>
+            <span className="text-sm ">
+              Type "CONFIRM" to Remove Permenetly
+            </span>
             <form
               // onSubmit={handleSubmit}
               className="grid gap-3"
             >
               <Input
                 onChange={(e) => setChapter(e.target.value)}
-                
                 className="uppercase"
                 // value={chapter}
               />
-              
             </form>
           </div>
         </DialogBody>
@@ -395,6 +437,67 @@ const StudentProfile = () => {
           </Button>
         </DialogFooter>
       </Dialog>
+
+      {/* edit-profile section */}
+
+      <Dialog
+        open={openProfileEdit}
+        size="xs"
+        handler={() => setOpenProfileEdit(false)}
+      >
+        <div className="flex items-center justify-between">
+          <DialogHeader className="flex flex-col items-start">
+            <Typography className="mb-1" variant="h5">
+              Edit Profile
+            </Typography>
+          </DialogHeader>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="mr-3 h-5 w-5 cursor-pointer"
+            onClick={() => setOpenProfileEdit(false)}
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+
+        <DialogBody>
+          <div>
+            <form onSubmit={handleSubmit(submitData)} className="grid gap-3">
+              <Input type="text" {...register("fname")} label="fname" />
+              {errors.fname && (
+                <span className="text-red-600 text-sm italic">
+                  *{errors.fname.message}
+                </span>
+              )}
+              <Input type="text" {...register("lname")} label="lname" />
+              {errors.lname && (
+                <span className="text-red-600 text-sm italic">
+                  *{errors.lname.message}
+                </span>
+              )}
+              <Input type="text" {...register("mob")} label="mob" />
+              {errors.mob && (
+                <span className="text-red-600 text-sm italic">
+                  *{errors.mob.message}
+                </span>
+              )}
+            </form>
+          </div>
+        </DialogBody>
+        <DialogFooter className="space-x-2">
+          <Button variant="gradient" color="gray" type="submit">
+            submit
+          </Button>
+        </DialogFooter>
+      </Dialog>
+      {/* edit-profile section */}
     </>
   );
 };

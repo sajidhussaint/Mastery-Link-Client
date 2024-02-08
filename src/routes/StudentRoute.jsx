@@ -11,6 +11,7 @@ import Courses from "../pages/student/Courses";
 import SingleCourseStudent from "../pages/student/SingleCourseStudent";
 import LearningPage from "../pages/student/LearningPage";
 import StudentProfile from "../pages/student/StudentProfile";
+import ChangePassword from "../pages/student/ChangePassword";
 
 const StudentRoute = () => {
   return (
@@ -34,6 +35,7 @@ const StudentRoute = () => {
         <Route path="/status" element={<StripeStatus />} />
         <Route path="/learning" element={<LearningPage />} />
         <Route path="/profile" element={<StudentProfile />} />
+        <Route path="/change-password" element={<ChangePassword />} />
       </Routes>
     </>
   );
