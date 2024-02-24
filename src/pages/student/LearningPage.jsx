@@ -24,13 +24,14 @@ const LearningPage = () => {
         user._id
       );
       if (response) {
-        console.log(response.courseId);
+        
+        console.log(response.courseId,'lrarning page');
         setCourse(response.courseId);
         setProgression(response.progression);
         setNotes(response.notes);
         setEnrolledId(response.id);
-        dispatch(selectCourseActions.selectCourse(response));
         socket.emit("join-room", { courseId: response?.courseId.id });
+        dispatch(selectCourseActions.selectCourse(response));//TODO:
       }
     } catch (error) {
       console.log(error);

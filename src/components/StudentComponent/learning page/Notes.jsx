@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectCourseActions } from "../../../redux/selectedCourseSlice"
 
 const Notes = ({ courseId }) => {
-  const notes = useSelector(state => state.selecedCourse.course?.notes)
+  const notes = useSelector(state => state.selectedCourse.course?.notes)
 
   const [newNote, setNewNote] = useState("")
   const dispatch = useDispatch()

@@ -1,8 +1,8 @@
 import { useVideo } from "./VideoContext"
-import { useSelector } from "react-redux"
+import { useSelector} from "react-redux"
 
 const Overview = () => {
-  const module = useSelector(state => state.selecedCourse.module)
+  const module = useSelector(state => state.selectedCourse.module)
   const { handleSeek } = useVideo()
 
   return (

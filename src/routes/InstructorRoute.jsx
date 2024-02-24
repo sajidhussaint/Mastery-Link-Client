@@ -9,6 +9,8 @@ import InstructorPublic from "./instructorPrivate/InstructorPublic";
 import MyCourses from '../pages/instructor/MyCourses';
 import AddCourse from '../pages/instructor/AddCourse';
 import CourseOverview from '../pages/instructor/CourseOverview';
+import WalletHistory from '../pages/instructor/WalletHistory';
+import InstructorChat from '../pages/instructor/InstructorChat';
 
 
 
@@ -23,6 +25,8 @@ const InstructorRoute = () => {
         <Route path="/signup" element={<InstructorPublic element={<InstructorSignup />}/>} />
         <Route path="/login" element={<InstructorPublic element={<InstructorLogin />}/>} />
         <Route path="/verify-otp" element={<VerifyOtp isInstructor={true}/>} />
+        <Route path="/wallet-history" element={<WalletHistory />} />
+        <Route path="/chat" element={<InstructorChat/>} />
       </Routes>
     </>
   )

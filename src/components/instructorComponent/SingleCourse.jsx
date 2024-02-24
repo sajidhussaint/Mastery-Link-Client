@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 const SingleCourse = ({ course }) => {
   const navigate = useNavigate();
+
   return (
     <div className="max-w-[270px] bg-white border border-gray-200 rounded-sm shadow">
-      <div className=" flex justify-center ">
+      <div className="flex justify-center">
         <img
           className="rounded-t-sm h-44 object-cover"
           src={course.image ? course.image : "/images/image not found.png"}
@@ -27,7 +28,7 @@ const SingleCourse = ({ course }) => {
         </div>
         <div className="pb-2">
           {course.approval === "approved" && (
-            <h6 className="text-sm font-bold text-green-600">Aprroved</h6>
+            <h6 className="text-sm font-bold text-green-600">Approved</h6>
           )}
           {course.approval === "rejected" && (
             <h6 className="text-sm font-bold text-red-600">Rejected</h6>
@@ -36,17 +37,15 @@ const SingleCourse = ({ course }) => {
             <h6 className="text-sm font-bold text-blue-600">Pending</h6>
           )}
         </div>
-        <div className="flex items-center justify-between pt-4">
-          <span className="text-md font-bold text-gray-900">
-            ${course.price}
-          </span>
+        <div className="flex justify-between items-end pt-4">
+          <span className="text-md font-bold text-gray-900">${course.price}</span>
           <button
             onClick={() => {
               navigate("/instructor/course-overview", {
                 state: { courseId: course.id },
               });
             }}
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-3 py-1 text-center"
+            className="inline-flex items-center justify-center rounded-md bg-green-600 py-1 px-2 font-dm text-base font-small text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
           >
             View course
           </button>

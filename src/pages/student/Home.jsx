@@ -19,7 +19,7 @@ const Home = () => {
             <div className="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
               <button
                 href="#"
-                className="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-green-500 hover:text-white focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                className="mt-8 inline-flex items-center justify-center rounded-xl bg-green-600 py-3 px-6 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
               >
                 {" "}
                 Explore Courses
@@ -685,7 +685,7 @@ const Home = () => {
                 </p>
                 <a
                   href="#"
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                  className="mt-2 inline-flex items-center justify-center rounded-xl bg-green-600 py-2 px-4 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
                 >
                   Go To The Help Center
                   <svg
@@ -723,7 +723,7 @@ const Home = () => {
                 </p>
                 <a
                   href="#"
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                  className="mt-2 inline-flex items-center justify-center rounded-xl bg-green-600 py-2 px-4 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
                 >
                   Launch MasteryLink
                   <svg
@@ -760,7 +760,7 @@ const Home = () => {
                 </p>
                 <a
                   href="#"
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                  className="mt-2 inline-flex items-center justify-center rounded-xl bg-green-600 py-2 px-4 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
                 >
                   Read more
                   <svg

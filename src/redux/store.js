@@ -27,7 +27,7 @@ const store = configureStore({
     user: persistUserReducer,
     admin: persistAdminReducer,
     instructor: persistInstructorReducer,
-    selecedCourse: persistSelectedCourseReducer,
+    selectedCourse: persistSelectedCourseReducer,
   },
 });
 
