@@ -9,16 +9,22 @@ const ChatPage = ({ socket }) => {
 
   const user = useSelector((state) => state.user.user);
   const response = useSelector((state) => state.selectedCourse.course);
+  console.log(response,'whynot');
   const course = response?.courseId;
   const lastMessageRef = useRef(null);
-
- 
+  
 
   const getAllMessages = async () => {
-    socket.emit("get-all-messages", { courseId: course?.id });
+    socket.emit("get-all-messages", { courseId:
+       course?.id 
+      // '657835bea15a220603e8f8ee'
+      });
     socket.on("get-course-response", (messages) => {
-      console.log('runnn get course socket');
-      if (messages?.courseId === course?.id) {
+      console.log("runnn get course socket",messages);
+      if (messages?.courseId === 
+        course?.id
+        // '657835bea15a220603e8f8ee'
+        ) {
         setMessages(messages.messages);
       }
     });
@@ -33,7 +39,6 @@ const ChatPage = ({ socket }) => {
     }
   }, [messages]);
   useEffect(() => {
-    console.log("runn", socket);
     socket.on("messageResponse", (data) => {
       console.log(data, "final data");
       const newMessage = data.message;

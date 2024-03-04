@@ -6,6 +6,7 @@ import Modules from "./Modules";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { socket } from "../../components/socket/socket";
+import { selectCourseActions } from "../../redux/selectedCourseSlice";
 
 const LearningPage = () => {
   const user = useSelector((store) => store.user.user);
@@ -24,14 +25,12 @@ const LearningPage = () => {
         user._id
       );
       if (response) {
-        
-        console.log(response.courseId,'lrarning page');
         setCourse(response.courseId);
         setProgression(response.progression);
         setNotes(response.notes);
         setEnrolledId(response.id);
+        dispatch(selectCourseActions.selectCourse(response));
         socket.emit("join-room", { courseId: response?.courseId.id });
-        dispatch(selectCourseActions.selectCourse(response));//TODO:
       }
     } catch (error) {
       console.log(error);

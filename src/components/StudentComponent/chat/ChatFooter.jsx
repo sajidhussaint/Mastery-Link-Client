@@ -3,15 +3,16 @@ import { useSelector } from "react-redux";
 
 const ChatFooter = ({ socket, user, isInstructor }) => {
   const inputRef = useRef(null);
-  const selectedCourse = useSelector((state) => state.selectedCourse);
+  const selectedCourse = useSelector((state) => state.selectedCourse.course.courseId);
+  console.log(selectedCourse.id,'------');
   const [message, setMessage] = useState("");
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (message.trim() && user?.firstname) {
-      const courseId = "657835bea15a220603e8f8ee";
-      //TODO: // typeof selectedCourse === "string"
-      //   ? selectedCourse
-      //   : selectedCourse?.id;
+      const courseId =
+        typeof selectedCourse === "string"
+          ? selectedCourse
+          : selectedCourse?.id;
       socket.emit("message", {
         courseId: courseId,
         message: {

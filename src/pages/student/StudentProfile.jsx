@@ -20,7 +20,7 @@ import { useForm } from "react-hook-form";
 const StudentProfile = () => {
   const user = useSelector((store) => store.user.user);
   const dispatch = useDispatch();
-  // const selectedCourse = useSelector((store) => store.selectedCourse.selectedCourse)
+  // const selectedCourse = useSelector((store) => store.selectedCourse.course)
   const [open, setOpen] = useState(false);
   const [openProfileEdit, setOpenProfileEdit] = useState(false);
   const[fname,setFname]=useState('')
