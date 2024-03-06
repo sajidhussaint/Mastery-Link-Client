@@ -2,7 +2,6 @@ import React from "react";
 import moment from "moment";
 
 const ChatBody = ({ messages, user, lastMessageRef }) => {
-  console.log(messages, "@");
   return (
     <div className="flex flex-col flex-grow h-0 p-4 overflow-auto">
       

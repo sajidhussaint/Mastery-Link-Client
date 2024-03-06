@@ -4,8 +4,13 @@ import { useSelector } from "react-redux";
 const ChatFooter = ({ socket, user, isInstructor }) => {
   const inputRef = useRef(null);
   const selectedCourse = useSelector((state) => state.selectedCourse.course.courseId);
-  console.log(selectedCourse.id,'------');
   const [message, setMessage] = useState("");
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSendMessage(event);
+    }
+  };
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (message.trim() && user?.firstname) {
@@ -25,6 +30,7 @@ const ChatFooter = ({ socket, user, isInstructor }) => {
       });
     }
     setMessage("");
+    
   };
   return (
     <div className="bg-gray-300 p-4 flex justify-between items-center">
@@ -35,6 +41,7 @@ const ChatFooter = ({ socket, user, isInstructor }) => {
         placeholder="Type your message…"
         ref={inputRef}
         onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
       <i
         className="fa-solid fa-paper-plane text-2xl mx-4 cursor-pointer"

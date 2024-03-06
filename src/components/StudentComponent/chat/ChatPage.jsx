@@ -20,7 +20,7 @@ const ChatPage = ({ socket }) => {
       // '657835bea15a220603e8f8ee'
       });
     socket.on("get-course-response", (messages) => {
-      console.log("runnn get course socket",messages);
+      
       if (messages?.courseId === 
         course?.id
         // '657835bea15a220603e8f8ee'
