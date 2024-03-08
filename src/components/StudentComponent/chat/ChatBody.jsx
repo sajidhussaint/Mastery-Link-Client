@@ -2,11 +2,21 @@ import React from "react";
 import moment from "moment";
 
 const ChatBody = ({ messages, user, lastMessageRef }) => {
+  console.log(messages, "MSG");
+  if (!messages || messages.length === 0) {
+    return (
+      <div className="flex flex-col flex-grow h-0 p-4 overflow-auto">
+        <div className="flex-grow"></div>{" "}
+        {/* This will push the content to the top */}
+        <h1 className="text-gray-500 text-center mb-auto">No messages found</h1>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col flex-grow h-0 p-4 overflow-auto">
-      
       {/*  */}
       {messages &&
+        messages.length > 0 &&
         messages.map((messaage, index) =>
           messaage.firstname !== user?.firstname &&
           messaage.lastname !== user?.lastname ? (
@@ -44,7 +54,9 @@ const ChatBody = ({ messages, user, lastMessageRef }) => {
                     messaage.isInstructor ? "bg-blue-300" : "bg-green-600"
                   } p-3 rounded-r-lg rounded-bl-lg`}
                 >
-                  <h1 className="font-bold italic pb-2 text-sm">{messaage.firstname}</h1>
+                  <h1 className="font-bold italic pb-2 text-sm">
+                    {messaage.firstname}
+                  </h1>
                   <p className="text-sm">{messaage.message}</p>
                 </div>
                 <span className="text-xs text-gray-500 leading-none">
@@ -59,6 +71,7 @@ const ChatBody = ({ messages, user, lastMessageRef }) => {
             </div>
           )
         )}
+
       <div ref={lastMessageRef} />
       {/*  */}
     </div>

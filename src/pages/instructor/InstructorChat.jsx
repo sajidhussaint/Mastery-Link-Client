@@ -2,15 +2,18 @@ import InstructorNavbar from "../../components/instructorComponent/InstructorNav
 import ChatBody from "../../components/StudentComponent/chat/ChatBody";
 import { useState, useEffect, useRef } from "react";
 // import { Socket } from "socket.io-client";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../components/socket/socket";
 import ChatFooter from "../../components/StudentComponent/chat/ChatFooter";
 import { getMyCourses } from "../../api/instructorApi";
+import { selectCourseActions } from "../../redux/selectedCourseSlice";
 
 const InstructorChat = () => {
   const [messages, setMessages] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState("657835bea15a220603e8f8ee");
+  const [selectedCourse, setSelectedCourse] = useState();
+
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.instructor.instructor);
   const response = useSelector((state) => state.selectedCourse.course);
@@ -33,6 +36,10 @@ const InstructorChat = () => {
         selectedCourse,
     });
     socket.on("get-course-response", (messages) => {
+      console.log(messages, "real message");
+      if (!messages) {
+        console.log("not working");
+      }
       if (
         messages?.courseId ===
         //  course?.id
@@ -51,17 +58,19 @@ const InstructorChat = () => {
     if (lastMessageRef.current) {
       lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [messages,selectedCourse]);
+  }, [messages, selectedCourse]);
   useEffect(() => {
     socket.on("messageResponse", (data) => {
-      console.log(data, "final data");
+      console.log(messages, "final data");
       const newMessage = data.message;
+
       setMessages([...messages, newMessage]);
     });
-  }, [socket, messages,selectedCourse]);
-  console.log(selectedCourse, "zzzzzzz");
+  }, [socket, messages, selectedCourse]);
   const handleSelectCourse = (id) => {
+    setMessages([]);
     setSelectedCourse(id);
+    dispatch(selectCourseActions.selectCourse({ courseId: { id: id } }));
   };
 
   return (
@@ -73,9 +82,9 @@ const InstructorChat = () => {
             {courses &&
               courses.map((course) => (
                 <div
-                  className={`flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer  {if(${course.id}==${selectedCourse}{
-                    bg-blue-gray-100
-                  })}`}
+                  className={`flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer ${
+                    course.id === selectedCourse ? "bg-green-100" : "bg-white"
+                  }`}
                   onClick={() => handleSelectCourse(course.id)}
                 >
                   <div className="w-1/4">

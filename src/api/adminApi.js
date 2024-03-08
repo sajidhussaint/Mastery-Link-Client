@@ -152,9 +152,6 @@ export const unlistCategory = async (categoryId) => {
   }
 };
 
-
-
-
 export const getLanguageList = async () => {
   try {
     const response = await axiosInstance.get("/admin/languages");
@@ -218,7 +215,6 @@ export const editLanguage = async (languageId, value) => {
   }
 };
 
-
 export const getLevelList = async () => {
   try {
     const response = await axiosInstance.get("/admin/levels");
@@ -277,6 +273,15 @@ export const editLevel = async (levelId, value) => {
     const { success } = response.data;
 
     return Promise.resolve(success);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const dashboard = async () => {
+  try {
+    const response = await axiosAuthorized.get("/admin/dashboard");
+    return Promise.resolve(response.data);
   } catch (error) {
     return Promise.reject();
   }
