@@ -1,25 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   instructor: null,
-  instructorEmail:null
-}
+  instructorEmail: null,
+};
 
 const instructorSlice = createSlice({
   name: "instructorSlice",
   initialState,
   reducers: {
     saveInstructor(state, action) {
-      state.instructor = action.payload
+      state.instructor = action.payload;
     },
     instructorLogout(state) {
-      ;(state.instructor = null)
+      state.instructor = null;
     },
     setEmail(state, action) {
-        state.instructorEmail = action.payload
-      },
-  }
-})
+      state.instructorEmail = action.payload;
+    },
+  },
+});
 
-export default instructorSlice.reducer
-export const instructorActions = instructorSlice.actions
+export default instructorSlice.reducer;
+export const instructorActions = instructorSlice.actions;

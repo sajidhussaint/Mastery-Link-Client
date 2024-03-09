@@ -235,8 +235,6 @@ const CategoryList = () => {
           </Button>
         </DialogFooter>
       </Dialog>
-
-      
     </>
   );
 };

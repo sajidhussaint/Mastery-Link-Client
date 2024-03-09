@@ -45,7 +45,6 @@ const verifyOtp = async (otp, email) => {
   }
 };
 
-
 const resendOtp = async (email) => {
   await axiosInstance.post("/resend-otp", { email });
 };
@@ -105,6 +104,9 @@ const adminLogin = async (adminCredentials) => {
 const userLogout = async () => {
   localStorage.removeItem("token");
 };
+const adminLogout = async () => {
+  localStorage.removeItem("admintoken");
+};
 
 const instructorSignup = async (instructorCredentials) => {
   try {
@@ -116,9 +118,8 @@ const instructorSignup = async (instructorCredentials) => {
     const { message, email } = response.data;
 
     if (message === "OTP generated") {
-      console.log('running otp instSignup');
+      console.log("running otp instSignup");
       return Promise.resolve({ success: true, email });
-
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -193,6 +194,7 @@ export {
   verifyOtp,
   resendOtp,
   adminLogin,
+  adminLogout,
   userLogout,
   instructorSignup,
   instructorLogin,

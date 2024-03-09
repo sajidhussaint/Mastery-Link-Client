@@ -286,3 +286,25 @@ export const dashboard = async () => {
     return Promise.reject();
   }
 };
+
+export const approveCourse = async (courseId) => {
+  try {
+    const response = await axiosAuthorized.patch("/admin/approve-course", {
+      courseId,
+    });
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+export const rejectCourse = async (courseId) => {
+  try {
+    const response = await axiosAuthorized.patch("/admin/reject-course", {
+      courseId,
+    });
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject();
+  }
+};

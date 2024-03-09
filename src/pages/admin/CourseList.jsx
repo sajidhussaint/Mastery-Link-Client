@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminSidebar from "../../components/adminComponent/AdminSidebar";
-import { getAllCourse } from "../../api/adminApi";
+import { getAllCourse, approveCourse, rejectCourse } from "../../api/adminApi";
 
 const CourseList = () => {
   const [CourseList, setCourseList] = useState([]);
@@ -14,29 +14,27 @@ const CourseList = () => {
     }
   };
 
-  //   const handleBlock = async (id, e) => {
-  //     e.preventDefault();
-  //     const response = await blockCourse(id);
-  //     if (response) {
-  //       const newList = CourseList.map((Course) =>
-  //         Course.id === id ? { ...Course, isBlocked: true } : Course
-  //       );
-  //       setCourseList(newList);
-  //     }
-  //   };
+  const handleApprove = async (courseId, e) => {
+    e.preventDefault();
+    const response = await approveCourse(courseId);
+    if (response) {
+      const newList = CourseList.map((course) =>
+        course.id === courseId ? { ...course, approval: "approved" } : course
+      );
+      setCourseList(newList);
+    }
+  };
 
-  //   const handleUnblock = async (id, e) => {
-  //     e.preventDefault();
-  //     const response = await unblockCourse(id);
-
-  //     if (response) {
-  //       const newList = CourseList.map((Course) =>
-  //         Course.id === id ? { ...Course, isBlocked: false } : Course
-  //       );
-  //       setCourseList(newList);
-  //     }
-  //   };
-
+  const handleReject = async (courseId, e) => {
+    e.preventDefault();
+    const response = await rejectCourse(courseId);
+    if (response) {
+      const newList = CourseList.map((course) =>
+        course.id === courseId ? { ...course, approval: "rejected" } : course
+      );
+      setCourseList(newList);
+    }
+  };
   useEffect(() => {
     getCourses();
   }, []);
@@ -78,23 +76,51 @@ const CourseList = () => {
                     <td className="sm:px-6 py-4 font-medium">
                       {Course.category.category}
                     </td>
-                    <td className="sm:px-6 py-4 font-medium">
-                      <button
-                        type="button"
-                        // onClick={(e) => {
-                        //   if (Course.isBlocked) {
-                        //     handleUnblock(Course.id, e);
-                        //   } else {
-                        //     handleBlock(Course.id, e);
-                        //   }
-                        // }}
-                        className={` mt-2 
-                        
-                         font-medium rounded text-sm px-5 py-2 mr-2 mb-2 sm:btn-sm `}
-                      >
-                        approve
-                      </button>
+                    <td className="px-6 py-4">
+                      {Course.approval === "rejected" && (
+                        <p className="text-xs text-red-500 py-1  ">
+                          Course already rejected
+                        </p>
+                      )}
+                      {Course.approval === "pending" ||
+                      Course.approval === "rejected" ? (
+                        <div className="flex">
+                          <button
+                            onClick={(e) => {
+                              handleApprove(Course.id, e);
+                            }}
+                            className={`text-white mt-1 bg-green-700 hover:bg-green-800
+                           font-medium rounded-lg text-xs px-3 py-2 mr-2 mb-1`}
+                          >
+                            Approve
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              handleReject(Course.id, e);
+                            }}
+                            className={`text-white mt-1 bg-red-700 hover:bg-red-300-800
+                           font-medium rounded-lg text-xs px-3 py-2 mr-2 mb-1 ${
+                             Course.approval === "rejected"
+                               ? "cursor-not-allowed"
+                               : ""
+                           }`}
+                          >
+                            Reject
+                          </button>
+                        </div>
+                      ) : (
+                        <p
+                          className={` font-bold text-base ${
+                            Course.approval === "rejected"
+                              ? "text-red-600"
+                              : "text-green-600"
+                          }`}
+                        >
+                          {Course.approval}
+                        </p>
+                      )}
                     </td>
+                    
                   </tr>
                 ))}
             </tbody>
