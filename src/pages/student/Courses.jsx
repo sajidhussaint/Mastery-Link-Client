@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/StudentComponent/Navbar";
 import SingleCourse from "../../components/StudentComponent/SingleCourse";
 import { getCourses } from "../../api/studentApi";
+import CardSkeleton from "../../components/common/utils/CardSkeleton";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
+  const [loader, setLoader] = useState(true);
   // const [categories, setCategories] = useState();
 
   const getCourse = async () => {
     const response = await getCourses();
     console.log(response);
     setCourses(response);
+    setLoader(false);
     // setCategories(response?.categories)
   };
   useEffect(() => {
@@ -20,7 +23,7 @@ const Courses = () => {
     <>
       <Navbar />
       <div className="max-w-screen-xl mx-auto  p-5 sm:p-10 md:p-16 ">
-        <div className="mt-12 w-full flex flex-col md:flex-row justify-between items-center gap-5">
+        <div className="mt-3 w-full flex flex-col md:flex-row justify-between items-center gap-5">
           <h1 className="p-6 font-bold text-2xl">All Courses</h1>
           <div className="flex md:flex-row gap-4 items-center">
             <h3 className="font-semibold">Filter by category</h3>
@@ -52,9 +55,18 @@ const Courses = () => {
             </button>
           </div>
         </div>
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-10">
-          {/* cards */}
 
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-10">
+          {loader && (
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
+          )}
+
+          {/* cards */}
           {courses &&
             courses.map((course, index) => (
               <SingleCourse key={index} course={course} />

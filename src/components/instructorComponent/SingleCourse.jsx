@@ -5,7 +5,7 @@ const SingleCourse = ({ course }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-[270px] bg-white border border-gray-200 rounded-sm shadow">
+    <div className="max-w-[240px] bg-white border border-gray-200 rounded-sm shadow">
       <div className="flex justify-center">
         <img
           className="rounded-t-sm h-44 object-cover"
@@ -15,10 +15,10 @@ const SingleCourse = ({ course }) => {
       </div>
       <div className="px-4 pb-4">
         <div>
-          <h5 className="text-lg font-bold tracking-tight text-gray-900">
+          <h5 className="text-lg font-bold tracking-tight text-gray-900 h-16">
             {course.name}
           </h5>
-          <div className="pb-2">
+          <div >
             <p className="truncate text-xs italic">
               {typeof course.category === "object"
                 ? course.category.category
@@ -26,7 +26,7 @@ const SingleCourse = ({ course }) => {
             </p>
           </div>
         </div>
-        <div className="pb-2">
+        <div >
           {course.approval === "approved" && (
             <h6 className="text-sm font-bold text-green-600">Approved</h6>
           )}
@@ -37,8 +37,10 @@ const SingleCourse = ({ course }) => {
             <h6 className="text-sm font-bold text-blue-600">Pending</h6>
           )}
         </div>
-        <div className="flex justify-between items-end pt-4">
-          <span className="text-md font-bold text-gray-900">${course.price}</span>
+        <div className="flex justify-between items-end pt-2">
+          <span className="text-md font-bold text-gray-900">
+            ${course.price}
+          </span>
           <button
             onClick={() => {
               navigate("/instructor/course-overview", {

@@ -15,14 +15,14 @@ const InstructorChat = () => {
   const dispatch = useDispatch();
   // dispatch(selectCourseActions.selectCourse({ courseId: { id: id } }));
 
-  const user = useSelector((state) => state.instructor.instructor);
+  const instructor = useSelector((state) => state.instructor.instructor);
   useEffect(() => {
-    console.log(user.courses[0]);
-    console.log("ooop");
-    setSelectedCourse(user.courses[0]);
     dispatch(
-      selectCourseActions.selectCourse({ courseId: { id: user.courses[0] } })
+      selectCourseActions.selectCourse({
+        courseId: { id: instructor.courses[0] },
+      })
     );
+    setSelectedCourse(instructor.courses[0]);
   }, []);
 
   // const response = useSelector((state) => state.selectedCourse.course);
@@ -45,9 +45,8 @@ const InstructorChat = () => {
         selectedCourse,
     });
     socket.on("get-course-response", (messages) => {
-      console.log(messages, "real message");
       if (!messages) {
-        console.log("not working");
+        console.log("no messages");
       }
       if (
         messages?.courseId ===
@@ -70,7 +69,6 @@ const InstructorChat = () => {
   }, [messages, selectedCourse]);
   useEffect(() => {
     socket.on("messageResponse", (data) => {
-      console.log(messages, "final data");
       const newMessage = data.message;
 
       setMessages([...messages, newMessage]);
@@ -117,9 +115,13 @@ const InstructorChat = () => {
               <ChatBody
                 lastMessageRef={lastMessageRef}
                 messages={messages}
-                user={user}
+                user={instructor}
               />
-              <ChatFooter socket={socket} user={user} isInstructor={true} />
+              <ChatFooter
+                socket={socket}
+                user={instructor}
+                isInstructor={true}
+              />
             </div>
           )}
         </div>

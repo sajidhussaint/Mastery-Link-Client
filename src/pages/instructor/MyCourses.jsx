@@ -25,7 +25,7 @@ const MyCourses = () => {
       <div className="   bg-gradient-to-bl from-green-100 via-transparent">
         <h1 className="  text-2xl font-bold px-5 md:px-20">My courses</h1>
         <div className="mt-4 md:flex-none flex justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-8 gap-y-10">
             {courses.map((course) => (
               <SingleCourse course={course} />
             ))}

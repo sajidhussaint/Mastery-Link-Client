@@ -67,7 +67,11 @@ const SingleCourseView = () => {
             {/* Video Player */}
             <div className="lg:w-full">
               {course?.image ? (
-                <img src={course.image} alt="" className="min-h-full min-w-full" />
+                <img
+                  src={course.image}
+                  alt=""
+                  className="min-h-full min-w-full"
+                />
               ) : (
                 <div className="bg-cover w-full justify-center items-center flex  h-[200px]">
                   <h1 className="font-semibold">No images found</h1>
@@ -134,8 +138,12 @@ const SingleCourseView = () => {
           </div>
 
           {/* Module Listing */}
-          <div className="mt-12">
-            <h3 className="text-2xl font-bold mb-4 text-gray-800">Lessons:</h3>
+          <div className="mt-8">
+            {visibleModules > 0 && (
+              <h3 className="text-2xl font-bold mb-4 text-gray-800">
+                Lessons:
+              </h3>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {visibleModules.map((module) => (
@@ -168,16 +176,7 @@ const SingleCourseView = () => {
             </div>
           </div>
 
-          {/* About the Course */}
-          <div className="mt-12 bg-white p-8 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4 text-gray-800">
-              About the Course
-            </h2>
-            <p className="text-gray-700">{course.description}</p>
-          </div>
-
-          {/* About the Instructor */}
-          <div className="mt-12 bg-white p-8 rounded-lg shadow-md">
+          <div className="mt-5 bg-white p-8 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4 text-gray-800">
               Meet your Instructor
             </h2>
