@@ -1,7 +1,6 @@
 import InstructorNavbar from "../../components/instructorComponent/InstructorNavbar";
 import ChatBody from "../../components/StudentComponent/chat/ChatBody";
 import { useState, useEffect, useRef } from "react";
-// import { Socket } from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../components/socket/socket";
 import ChatFooter from "../../components/StudentComponent/chat/ChatFooter";
@@ -14,10 +13,20 @@ const InstructorChat = () => {
   const [selectedCourse, setSelectedCourse] = useState();
 
   const dispatch = useDispatch();
+  // dispatch(selectCourseActions.selectCourse({ courseId: { id: id } }));
 
   const user = useSelector((state) => state.instructor.instructor);
-  const response = useSelector((state) => state.selectedCourse.course);
-  const course = response?.courseId;
+  useEffect(() => {
+    console.log(user.courses[0]);
+    console.log("ooop");
+    setSelectedCourse(user.courses[0]);
+    dispatch(
+      selectCourseActions.selectCourse({ courseId: { id: user.courses[0] } })
+    );
+  }, []);
+
+  // const response = useSelector((state) => state.selectedCourse.course);
+  // const course = response?.courseId;
 
   const lastMessageRef = useRef(null);
 
@@ -103,15 +112,16 @@ const InstructorChat = () => {
                 </div>
               ))}
           </div>
-
-          <div className="flex flex-col flex-grow w-full bg-white shadow-xl rounded-lg overflow-hidden">
-            <ChatBody
-              lastMessageRef={lastMessageRef}
-              messages={messages}
-              user={user}
-            />
-            <ChatFooter socket={socket} user={user} isInstructor={true} />
-          </div>
+          {selectedCourse && (
+            <div className="flex flex-col flex-grow w-full bg-white shadow-xl rounded-lg overflow-hidden">
+              <ChatBody
+                lastMessageRef={lastMessageRef}
+                messages={messages}
+                user={user}
+              />
+              <ChatFooter socket={socket} user={user} isInstructor={true} />
+            </div>
+          )}
         </div>
       </div>
     </>
