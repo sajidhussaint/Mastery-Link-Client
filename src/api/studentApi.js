@@ -1,11 +1,11 @@
 import { axiosAuthorized, axiosInstance } from "./config";
 import axios from "axios";
 
-export const getCourses = async () => {
+export const getCourses = async ({category}) => {
   try {
     const response = await axiosInstance.get(
-      // `/courses?page=${page}&category=${category}`
-      "/courses"
+      `/courses?category=${category}`
+      
     );
     return Promise.resolve(response.data);
   } catch (error) {
@@ -105,6 +105,17 @@ export const updateProfile = async (firstname, lastname, mobile, studentId) => {
     if (response) {
       return Promise.resolve(response.data);
     }
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const searchCourse = async (searchKey) => {
+  try {
+    const response = await axiosInstance.get(
+      `search-course?search=${searchKey}`
+    );
     return Promise.resolve(response.data);
   } catch (error) {
     return Promise.reject(error);

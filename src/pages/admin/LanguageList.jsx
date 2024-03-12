@@ -111,23 +111,25 @@ function LanguageList() {
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-bold text-lg text-sky-800">Languages</h1>
-        </div>
-        <div>
-          <button
-            type="button"
-            className={`text-white mt-2 bg-green-600 font-medium rounded-sm text-sm px-5 py-2 mr-2 mb-2`}
-            onClick={handleAddLanguage}
-          >
-            Add Language
-          </button>
-        </div>
+      
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="font-bold text-lg text-sky-800">Languages</h1>
+        <Button
+          color="green"
+          buttonType="filled"
+          size="sm"
+          rounded={false}
+          block={false}
+          iconOnly={false}
+          ripple="light"
+          onClick={handleAddLanguage}
+        >
+          Add Language
+        </Button>
       </div>
 
-      <div className="relative  shadow-md sm:rounded-lg custom-table">
-        <table className="w-full text-sm text-left rtl:text-right text-white-800 ">
+      <div className="relative bg-white shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left rtl:text-right text-white-800 rounded-lg overflow-hidden">
           <thead className="text-xs text-white uppercase bg-green-700 text-white-400">
             <tr>
               <th className="sm:px-6 py-3">Language</th>

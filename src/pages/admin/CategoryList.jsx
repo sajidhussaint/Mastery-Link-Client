@@ -109,27 +109,29 @@ const CategoryList = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-bold text-lg text-sky-800">Categories</h1>
-        </div>
-        <div>
-          <button
-            type="button"
-            className={`text-white mt-2 bg-green-600 font-medium rounded-sm text-sm px-5 py-2 mr-2 mb-2`}
-            onClick={handleAddcategory}
-          >
-            Add category
-          </button>
-        </div>
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="font-bold text-lg text-sky-800">Categories</h1>
+        <Button
+          color="green"
+          buttonType="filled"
+          size="sm"
+          rounded={false}
+          block={false}
+          iconOnly={false}
+          ripple="light"
+          onClick={handleAddcategory}
+        >
+          Add category
+        </Button>
       </div>
 
-      <div className="relative  shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-white-800 ">
+      <div className="relative bg-white shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left rtl:text-right text-white-800 rounded-lg overflow-hidden">
           <thead className="text-xs text-white uppercase bg-green-700 text-white-400">
             <tr>
-              <th className="sm:px-6 py-3">CATEGORY</th>
-              <th className="sm:px-6 py-3">STATUS</th>
+              <th className="px-6 py-3">CATEGORY</th>
+              <th className="px-6 py-3">STATUS</th>
+              <th className="px-6 py-3">ACTIONS</th>
             </tr>
           </thead>
           <tbody className="text-black">
@@ -138,53 +140,42 @@ const CategoryList = () => {
                 key={category.id}
                 className="bg-white border-b dark:border-gray-700"
               >
-                <td className="sm:px-6 py-4 font-medium text-black  whitespace-nowrap ">
+                <td className="px-6 py-4 font-medium text-black whitespace-nowrap">
                   {category.category}
                 </td>
 
-                <td className="sm:px-6 py-4 font-medium text-black  whitespace-nowrap ">
-                  {/* <button className="inline-block border-e px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
-                      Listed
-                    </button> */}
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      if (category.status) {
-                        handleUnlist(category.id, e);
-                      } else {
-                        handleList(category.id, e);
-                      }
-                    }}
-                    className={`text-white mt-2 ${
+                <td className="px-6 py-4 font-medium text-black whitespace-nowrap">
+                  <Button
+                    color={!category.status ? "red" : "green"}
+                    buttonType="filled"
+                    size="sm"
+                    rounded={false}
+                    block={false}
+                    iconOnly={false}
+                    ripple="light"
+                    onClick={(e) =>
                       !category.status
-                        ? "bg-red-700 hover:bg-red-800"
-                        : "bg-green-700 hover:bg-green-800"
-                    } font-medium rounded-sm text-sm px-5 py-1 mr-2 mb-2`}
+                        ? handleList(category.id, e)
+                        : handleUnlist(category.id, e)
+                    }
                   >
                     {!category.status ? "Unlisted" : "Listed"}
-                  </button>
+                  </Button>
+                </td>
 
-                  <button
-                    className="inline-block px-4 py-2 text-gray-700 hover:bg-gray-50 focus:relative"
-                    title="Edit"
+                <td className="px-6 py-4 font-medium text-black whitespace-nowrap">
+                  <Button
+                    color="blueGray"
+                    buttonType="filled"
+                    size="sm"
+                    rounded={false}
+                    block={false}
+                    iconOnly={false}
+                    ripple="light"
                     onClick={() => handleOpen(category)}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="h-4 w-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                      />
-                    </svg>
-                  </button>
+                    Edit
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -192,6 +183,7 @@ const CategoryList = () => {
         </table>
       </div>
 
+      {/* Dialog component */}
       <Dialog open={open} size="xs" handler={() => setOpen(false)}>
         <div className="flex items-center justify-between">
           <DialogHeader className="flex flex-col items-start">
