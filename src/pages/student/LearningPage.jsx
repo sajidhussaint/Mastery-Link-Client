@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { socket } from "../../components/socket/socket";
 import { selectCourseActions } from "../../redux/selectedCourseSlice";
 
+
 const LearningPage = () => {
   const user = useSelector((store) => store.user.user);
   const location = useLocation();
@@ -44,12 +45,14 @@ const LearningPage = () => {
   return (
     <>
       <Navbar />
-      <div className="pt-20 text-black ">
-        <Modules modules={course?.modules} progression={progression} />
-        <div className="mt-6">
-          <TabContent courseId={enrolledId} notes={notes} socket={socket} />
+      
+        <div className="pt-20 text-black ">
+          <Modules modules={course?.modules} progression={progression} />
+          <div className="mt-6">
+            <TabContent courseId={enrolledId} notes={notes} socket={socket} />
+          </div>
         </div>
-      </div>
+      
     </>
   );
 };

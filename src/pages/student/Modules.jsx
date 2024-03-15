@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Steps } from "antd";
 import { Player, BigPlayButton, ControlBar } from "video-react";
 import "../../../node_modules/video-react/dist/video-react.css";
+import PlayerSkelton from "../../components/common/utils/PlayerSkelton";
 
 const Modules = ({ modules, progression }) => {
   const [current, setCurrent] = useState(0);
@@ -19,9 +20,12 @@ const Modules = ({ modules, progression }) => {
 
   const playerRef = useRef(null);
 
-  const end = () => {
-    const { player } = playerRef.current.getState();
-    console.log(player.ended); //true or false
+  // Function to handle video end event
+  const handleVideoEnd = (ModuleId) => {
+    // const { player } = playerRef.current.getState();
+
+    console.log(ModuleId); //true or false
+    // Do something when the video ends
   };
 
   const addChapter = (module) => {
@@ -49,74 +53,82 @@ const Modules = ({ modules, progression }) => {
 
   return (
     <div className="container mx-auto">
-      <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
-        {/* Switched order of the components */}
-        <div className="col-span-1 h-auto md:h-[70vh] bg-slate-50 overflow-hidden pb-5 shadow-slate-400 shadow-md">
-          <div className="h-14 bg-slate-200 flex items-center">
-            <h1 className="px-4 font-bold">Modules</h1>
-          </div>
-          <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 dark:scrollbar-thumb-slate-900 dark:scrollbar-track-gray-300 h-full">
-            {/* Module list content */}
-            {modules && modules.length > 0 ? (
-              modules.map((currentModule) => (
-                <div className="flex flex-col">
-                  <div className="w-full flex flex-row items-center">
-                    <div className="w-2/12 flex justify-center  items-center flex-row my-6">
-                      <i className="fa-solid fa-circle-check"></i>
-                    </div>
+      {modules ? (
+        <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
+          {/* Switched order of the components */}
+          <div className="col-span-1 h-auto md:h-[70vh] bg-slate-50 overflow-hidden pb-5 shadow-slate-400 shadow-md">
+            <div className="h-14 bg-slate-200 flex items-center">
+              <h1 className="px-4 font-bold">Modules</h1>
+            </div>
+            <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 dark:scrollbar-thumb-slate-900 dark:scrollbar-track-gray-300 h-full">
+              {/* Module list content */}
+              {modules && modules.length > 0 ? (
+                modules.map((currentModule, index) => (
+                  <div className="flex flex-col" key={index}>
+                    <div className="w-full flex flex-row items-center">
+                      <div className="w-2/12 flex justify-center  items-center flex-row my-6">
+                        {currentModule.module?.isCompleted ? (
+                          <i className="fa-solid fa-circle-check"></i>
+                        ) : (
+                          <i className="fa-solid fa-circle-"></i>
+                        )}
+                      </div>
 
-                    <div className="w-8/12 cursor-pointer">
-                      <button
-                        className="font-semibold"
-                        onClick={() => playVideo(currentModule.module)}
-                      >
-                        {currentModule.module.name}
-                      </button>
+                      <div className="w-8/12 cursor-pointer">
+                        <button
+                          className="font-semibold"
+                          onClick={() => playVideo(currentModule.module)}
+                        >
+                          {currentModule.module.name}
+                        </button>
+                      </div>
+                      <div className="w-2/12">
+                        <h3 className="font-semibold">
+                          {currentModule.module.duration}
+                        </h3>
+                      </div>
                     </div>
-                    <div className="w-2/12">
-                      <h3 className="font-semibold">
-                        {currentModule.module.duration}
-                      </h3>
-                    </div>
+                    <hr className="h-[2px] bg-slate-300" />
                   </div>
-                  <hr className="h-[2px] bg-slate-300" />
+                ))
+              ) : (
+                <div className="w-full flex justify-center items-center h-16">
+                  <h1 className="font-bold">No modules found</h1>
                 </div>
-              ))
-            ) : (
-              <div className="w-full flex justify-center items-center h-16">
-                <h1 className="font-bold">No modules found</h1>
-              </div>
+              )}
+            </div>
+          </div>
+
+          <div className="col-span-2 h-auto md:h-[70vh] flex justify-center items-center ">
+            {modules && (
+              <Player
+                ref={playerRef}
+                playsInline
+                height={425}
+                fluid={false}
+                src={
+                  selectedModule.module
+                    ? selectedModule.module
+                    : modules[0].module.module
+                }
+                startTime={0}
+                autoHide={true}
+                // Add event listener for video end
+                onEnded={() => {
+                  handleVideoEnd(
+                    selectedModule ? selectedModule.id : modules[0].module.id
+                  );
+                }}
+              >
+                <BigPlayButton position="center" />
+              </Player>
             )}
           </div>
         </div>
+      ) : (
+        <PlayerSkelton />
+      )}
 
-        <div className="col-span-2 h-auto md:h-[70vh] flex justify-center items-center ">
-          {modules && (
-            <Player
-              ref={playerRef}
-              playsInline
-              // poster="/assets/poster.png"
-              height={425}
-              fluid={false}
-              // src={modules?.module}
-              src={
-                selectedModule.module
-                  ? selectedModule.module
-                  : modules[0].module.module
-              }
-              // src="https://masterylink.s3.ap-south-1.amazonaws.com/courses/module/lukkkdcv/file_example_MP4_480_1_5MG.mp4"
-              startTime={0}
-              autoHide={true}
-            >
-              <BigPlayButton position="center" />
-              {console.log(modules[0].module.module, "ffff")}
-            </Player>
-          )}
-        </div>
-        <button onClick={end} className="mr-3">
-         iscompleted
-        </button>
-      </div>
       <div>
         {selectedModule && (
           <Steps
@@ -125,26 +137,7 @@ const Modules = ({ modules, progression }) => {
             current={current}
             onChange={onChange}
             className="site-navigation-steps"
-            items={
-              chapters
-              //   [
-              //   {
-              //     title: "Step 2",
-              //     subTitle: "00:01:02",
-              //     status: "process",
-              //   },
-              //   {
-              //     title: "Step 3",
-              //     subTitle: "waiting for longlong time",
-              //     status: "wait",
-              //   },
-              //   {
-              //     title: "Step 3",
-              //     subTitle: "waiting for longlong time",
-              //     status: "wait",
-              //   },
-              // ]
-            }
+            items={chapters}
           />
         )}
       </div>

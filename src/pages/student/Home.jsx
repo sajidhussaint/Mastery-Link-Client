@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navbar from "../../components/StudentComponent/Navbar";
 import { Button } from "@material-tailwind/react";
 
@@ -17,28 +18,27 @@ const Home = () => {
               published every month
             </p>
             <div className="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-              <button
-                href="#"
-                className="mt-8 inline-flex items-center justify-center rounded-xl bg-green-600 py-3 px-6 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
-              >
-                {" "}
-                Explore Courses
-                <svg
-                  className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M1 5h12m0 0L9 1m4 4L9 9"
-                  />
-                </svg>
-              </button>
+              <Link to={"/courses"}>
+                <button className="mt-8 inline-flex items-center justify-center rounded-xl bg-green-600 py-3 px-6 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]">
+                  {" "}
+                  Explore Courses
+                  <svg
+                    className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M1 5h12m0 0L9 1m4 4L9 9"
+                    />
+                  </svg>
+                </button>
+              </Link>
             </div>
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
@@ -487,8 +487,7 @@ const Home = () => {
             </p>
             <div className="pt-6 mt-6 space-y-4 border-t border-gray-200 dark:border-gray-700">
               <div>
-                <a
-                  href="#"
+              <Link to={"/courses"}
                   className="inline-flex items-center text-base font-medium text-green-600 hover:text-green-800 dark:text-green-500 dark:hover:text-green-700"
                 >
                   Explore Courses
@@ -504,11 +503,11 @@ const Home = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
+                  </Link >
               </div>
               <div>
-                <a
-                  href="#"
+              <Link to={"/contact"}
+                  
                   className="inline-flex items-center text-base font-medium text-green-600 hover:text-green-800 dark:text-green-500 dark:hover:text-green-700"
                 >
                   Contact Us
@@ -524,7 +523,7 @@ const Home = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
+                  </Link >
               </div>
             </div>
           </div>

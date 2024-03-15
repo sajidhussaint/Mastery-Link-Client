@@ -16,6 +16,7 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import moment from "moment";
 
 const StudentProfile = () => {
   const user = useSelector((store) => store.user.user);
@@ -55,7 +56,7 @@ const StudentProfile = () => {
   };
 
   useEffect(() => {setFname(user?.firstname)}, [openProfileEdit]);
-
+console.log(user);
   return (
     <>
       <Navbar />
@@ -103,7 +104,7 @@ const StudentProfile = () => {
                   </li>
                   <li className="flex items-center py-3">
                     <span>Member since</span>
-                    <span className="ml-auto">Nov 07, 2023</span>
+                    <span className="ml-auto">{moment(user?.createdAt).format("LL")}</span>
                   </li>
                   <li className="flex items-center py-3">
                     <Link to={"/change-password"}>
