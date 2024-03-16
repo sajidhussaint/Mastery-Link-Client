@@ -3,11 +3,18 @@ import { Steps } from "antd";
 import { Player, BigPlayButton, ControlBar } from "video-react";
 import "../../../node_modules/video-react/dist/video-react.css";
 import PlayerSkelton from "../../components/common/utils/PlayerSkelton";
+import { addProgression } from "../../api/studentApi";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCourseActions } from "../../redux/selectedCourseSlice";
 
 const Modules = ({ modules, progression }) => {
   const [current, setCurrent] = useState(0);
   const [selectedModule, setSelectedModule] = useState([]);
   const [chapters, setChapter] = useState([]);
+
+  const dispatch = useDispatch();
+
+  const selectedCourse = useSelector((state) => state.selectedCourse.course);
 
   const seek = (seconds) => {
     playerRef.current.seek(seconds);
@@ -21,19 +28,29 @@ const Modules = ({ modules, progression }) => {
   const playerRef = useRef(null);
 
   // Function to handle video end event
-  const handleVideoEnd = (ModuleId) => {
-    console.log(ModuleId); // true or false
-    modules = modules.map((module) =>
-      module.module.id === ModuleId
-        ? {
-            ...module,
-            module: { ...module.module, isCompleted: true }, // Spread the module and update its isCompleted field
-          }
-        : module
+  const handleVideoEnd = async (moduleId) => {
+    console.log(selectedCourse?.id, "selected", moduleId);
+    const response = await addProgression(
+      selectedCourse?.courseId.id,
+      moduleId
     );
-    console.log(modules);
-    setCurrent(0)
-    // Do something when the video ends
+
+    if (response) {
+      dispatch(selectCourseActions.addModule(moduleId));
+    }
+
+    // console.log(ModuleId); // true or false
+    // modules = modules.map((module) =>
+    //   module.module.id === ModuleId
+    //     ? {
+    //         ...module,
+    //         module: { ...module.module, isCompleted: true }, // Spread the module and update its isCompleted field
+    //       }
+    //     : module
+    // );
+    // console.log(modules);
+    // setCurrent(0)
+    // // Do something when the video ends
   };
 
   const addChapter = (module) => {
@@ -75,7 +92,11 @@ const Modules = ({ modules, progression }) => {
                   <div className="flex flex-col" key={index}>
                     <div className="w-full flex flex-row items-center">
                       <div className="w-2/12 flex justify-center  items-center flex-row my-6">
-                        {currentModule.module?.isCompleted ? (
+                        {selectedCourse?.progression?.includes(
+                          typeof currentModule.module === "object"
+                            ? currentModule.module.id
+                            : ""
+                        ) ? (
                           <i className="fa-solid fa-circle-check"></i>
                         ) : (
                           <i className="fa-regular fa-circle-check"></i>

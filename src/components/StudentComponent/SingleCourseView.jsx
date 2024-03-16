@@ -152,9 +152,12 @@ const SingleCourseView = () => {
                   className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-300"
                 >
                   <div className="flex items-center mb-2">
-                    <span className="mr-2">
-                      <BiLock size={20} color="green" />
-                    </span>
+                    {enrolled?'':(
+                      <span className="mr-2">
+                        <BiLock size={20} color="green" />
+                      </span>
+                    )}
+
                     <h3 className="text-md font-semibold text-gray-800">
                       {module.module.name}
                     </h3>

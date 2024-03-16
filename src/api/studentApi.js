@@ -121,3 +121,17 @@ export const searchCourse = async (searchKey) => {
     return Promise.reject(error);
   }
 };
+
+
+export const addProgression = async (enrollmentId, moduleId) => {
+  try {
+    const response = await axiosAuthorized.get(
+      `/add-progression?enrollmentId=${enrollmentId}&moduleId=${moduleId}`
+    );
+    if (response) {
+      return Promise.resolve(response);
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};

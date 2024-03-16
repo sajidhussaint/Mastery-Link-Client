@@ -13,6 +13,7 @@ const LearningPage = () => {
   const user = useSelector((store) => store.user.user);
   const location = useLocation();
   const dispatch = useDispatch();
+  console.log('userrrr',user);
 
   const [course, setCourse] = useState();
   const [progression, setProgression] = useState([]);
@@ -27,7 +28,6 @@ const LearningPage = () => {
       );
       if (response) {
         setCourse(response.courseId);
-        setProgression(response.progression);
         setNotes(response.notes);
         setEnrolledId(response.id);
         dispatch(selectCourseActions.selectCourse(response));
@@ -47,7 +47,7 @@ const LearningPage = () => {
       <Navbar />
       
         <div className="pt-20 text-black ">
-          <Modules modules={course?.modules} progression={progression} />
+          <Modules modules={course?.modules} />
           <div className="mt-6">
             <TabContent courseId={enrolledId} notes={notes} socket={socket} />
           </div>
