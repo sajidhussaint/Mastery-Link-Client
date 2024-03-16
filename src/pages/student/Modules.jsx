@@ -22,9 +22,17 @@ const Modules = ({ modules, progression }) => {
 
   // Function to handle video end event
   const handleVideoEnd = (ModuleId) => {
-    // const { player } = playerRef.current.getState();
-
-    console.log(ModuleId); //true or false
+    console.log(ModuleId); // true or false
+    modules = modules.map((module) =>
+      module.module.id === ModuleId
+        ? {
+            ...module,
+            module: { ...module.module, isCompleted: true }, // Spread the module and update its isCompleted field
+          }
+        : module
+    );
+    console.log(modules);
+    setCurrent(0)
     // Do something when the video ends
   };
 
@@ -70,7 +78,7 @@ const Modules = ({ modules, progression }) => {
                         {currentModule.module?.isCompleted ? (
                           <i className="fa-solid fa-circle-check"></i>
                         ) : (
-                          <i className="fa-solid fa-circle-"></i>
+                          <i className="fa-regular fa-circle-check"></i>
                         )}
                       </div>
 
