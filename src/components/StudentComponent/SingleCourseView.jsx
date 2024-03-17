@@ -35,11 +35,18 @@ const SingleCourseView = () => {
   const getCourse = async () => {
     try {
       const response = await getSingleCourse(location.state.courseId);
+
       if (response) {
         setCourse(response);
         setModules(response.modules);
-        console.log(response);
-        if (user?.courses?.includes(response.id)) {
+
+        if (typeof user?.courses == "object") {
+          const data = user?.courses?.filter((item) => item.id == response.id);
+
+          if (data.length > 0) {
+            setEnrolled(true);
+          }
+        } else if (user?.courses?.includes(response.id)) {
           setEnrolled(true);
         }
       }
@@ -139,7 +146,7 @@ const SingleCourseView = () => {
 
           {/* Module Listing */}
           <div className="mt-8">
-            {visibleModules > 0 && (
+            {visibleModules.length > 0 && (
               <h3 className="text-2xl font-bold mb-4 text-gray-800">
                 Lessons:
               </h3>
@@ -152,7 +159,9 @@ const SingleCourseView = () => {
                   className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-300"
                 >
                   <div className="flex items-center mb-2">
-                    {enrolled?'':(
+                    {enrolled ? (
+                      ""
+                    ) : (
                       <span className="mr-2">
                         <BiLock size={20} color="green" />
                       </span>

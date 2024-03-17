@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../redux/userSlice";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import ProgressBar from "react-scroll-progress-bar";
+import { userLogout } from "../../api/authenticationApi";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -14,7 +16,8 @@ const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    console.log("working Logout");
+    toast.success("Logout successfully");
+    userLogout();
 
     dispatch(userActions.userLogout());
     if (user && user != null) {

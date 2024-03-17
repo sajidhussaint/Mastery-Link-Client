@@ -129,7 +129,7 @@ function LanguageList() {
       </div>
 
       <div className="relative bg-white shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-white-800 rounded-lg overflow-hidden">
+        <table className="w-full text-sm text-left rtl:text-right text-white-800 rounded-lg overflow-hidden ">
           <thead className="text-xs text-white uppercase bg-green-700 text-white-400">
             <tr>
               <th className="sm:px-6 py-3">Language</th>

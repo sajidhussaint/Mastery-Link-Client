@@ -61,7 +61,7 @@ const StudentList = () => {
     <div className="bg-gray-100 font-family-karla flex">
       <AdminSidebar />
       <div className="flex flex-col py-14 px-20 h-screen overflow-y-auto w-full">
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg h-full bg-white">
           <table className="w-full text-sm text-left rtl:text-right text-white-800 ">
             <thead className="text-xs text-white uppercase bg-white-200 bg-green-700 white:text-white-400">
               <tr>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import RightArrowIcon from "../../icons/rightArrow.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { userLogout } from "../../api/authenticationApi";
+import { adminLogout } from "../../api/authenticationApi";
 import { useDispatch } from "react-redux";
 import {
   LayoutPanelTop,
@@ -13,6 +13,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { adminActions } from "../../redux/adminSlice";
+import { toast } from "react-toastify";
 // const variants = {
 //   expanded: { width: "20%" },
 //   nonexpanded: { width: "100px" },
@@ -26,7 +27,8 @@ const AdminSidebar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    userLogout();
+    toast.success("Logout successfully");
+    adminLogout()
     dispatch(adminActions.adminLogout());
     navigate("/admin/login");
   };

@@ -977,12 +977,12 @@ const Home = () => {
               Instructors from around the world teach millions of learners on
               Udemy. We provide the tools and skills to teach what you love.
             </p>
-            <a
-              href="#"
-              className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+            <Link to={"/instructor/login"}
+              
+              className="mt-2 inline-flex items-center justify-center rounded-xl bg-green-600 py-2 px-4 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
             >
               Start teaching today
-            </a>
+            </Link>
           </div>
         </div>
       </section>

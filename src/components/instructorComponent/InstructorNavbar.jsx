@@ -182,7 +182,7 @@ const InstructorNavbar = () => {
                 add-course
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="/instructor/about"
                 className={
@@ -193,7 +193,7 @@ const InstructorNavbar = () => {
               >
                 About
               </Link>
-            </li>
+            </li> */}
             {/* Add more header items here */}
           </ul>
         </div>
