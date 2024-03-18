@@ -28,6 +28,7 @@ import TimeInput from "../../components/instructorComponent/TimeSelector";
 import AddModulePopup from "../../components/instructorComponent/AddModulePopup";
 import SpinnerMain from "../../components/common/utils/SpinnerMain";
 import OverviewSkelton from "../../components/common/utils/OverviewSkelton";
+import EnrolledStudentsTable from "../../components/instructorComponent/EnrolledStudentsTable";
 
 const CourseOverview = () => {
   const [course, setCourse] = useState();
@@ -41,6 +42,7 @@ const CourseOverview = () => {
   const [timeFormat, setTimeFormat] = useState("");
   const [currentModuleId, setCurrentModuleId] = useState(null);
   const [loader, setLoader] = useState(true);
+  const [enrollments, setEnrollments] = useState();
 
   const fileInputRef = useRef(null);
 
@@ -56,8 +58,8 @@ const CourseOverview = () => {
   }
   const getCourse = async () => {
     const response = await getSingleCourse(location.state.courseId);
-    console.log(response);
-    setCourse(response);
+    setCourse(response.course);
+    setEnrollments(response.enrollments);
     setLoader(false);
   };
 
@@ -146,26 +148,20 @@ const CourseOverview = () => {
           <div className="flex flex-col items-center p-10 bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <div className="md:w-2/4 ">
               <div className="relative    sm:mb-0 mb-3">
-                {/* <img
-              className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-72 md:rounded-none md:rounded-l-lg"
-              src="/images/image not found.png"
-              alt=""
-            /> */}
-
-                {/* <img src={course.image} alt="" /> */}
+                
 
                 {course?.image ? (
                   <img
-                    className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-72 md:rounded-none md:rounded-l-lg"
+                    className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-72 md:rounded-none md:rounded-l-lg overflow-hidden"
                     src={course.image}
-                    alt=""
+                    alt="img-course"
                   />
                 ) : (
                   <div>
                     <img
-                      className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-72 md:rounded-none md:rounded-l-lg"
+                      className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-72 md:rounded-none md:rounded-l-lg overflow-hidden"
                       src="/images/image not found.png"
-                      alt=""
+                      alt="not found"
                     />
                     {updating ? (
                       <div
@@ -262,7 +258,7 @@ const CourseOverview = () => {
             </div>
           </div>
 
-          <div className=" p-6 flex justify-center  text-black">
+          <div className=" p-6 flex justify-center  text-black ">
             <div className="p-6  container bg-white">
               <div className="w-full flex justify-between px-3">
                 <h1 className="font-bold text-lg">Modules</h1>
@@ -280,8 +276,8 @@ const CourseOverview = () => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <tbody className="bg-white divide-y divide-gray-200">
                     {course.modules.map((module, index) => (
-                      <tr>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                      <tr key={index}>
+                        <td className="px-6 py-4 whitespace-nowrap" >
                           <Popover>
                             <PopoverHandler>
                               <i className="fa-regular fa-circle-play px-2 scale-150 cursor-pointer hover:text-blue-800 animate-pulse"></i>
@@ -307,13 +303,13 @@ const CourseOverview = () => {
                             ? module.module.name
                             : module?.module}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 whitespace-nowrap ">
                           {typeof module?.module === "object"
                             ? module.module.duration
                             : module?.module}
                           <Tooltip
                             placement="bottom"
-                            className="border border-blue-gray-50 bg-white px-4 py-3 shadow-xl shadow-black/10 "
+                            className=" border border-blue-gray-50 bg-white px-4 py-3 shadow-xl shadow-black/10 "
                             content={
                               <div>
                                 <Typography
@@ -328,14 +324,16 @@ const CourseOverview = () => {
                                   className="font-normal opacity-80"
                                 >
                                   <div className="flex flex-row  gap-2 ">
-                                    {module.module.chapters.map((item) => (
-                                      <Chip
-                                        color="green"
-                                        value={item.duration}
-                                        size="xs"
-                                        variant="circular"
-                                      />
-                                    ))}
+                                    {module.module.chapters.map(
+                                      (item, index) => (
+                                        <Chip
+                                          key={index}
+                                          color="green"
+                                          value={item.duration}
+                                          size="sm"
+                                        />
+                                      )
+                                    )}
                                   </div>
                                 </Typography>
                               </div>
@@ -343,7 +341,7 @@ const CourseOverview = () => {
                           >
                             <Badge
                               count={module.module.chapters.length}
-                              className="cursor-pointer"
+                              className="cursor-pointer ml-2"
                             />
                           </Tooltip>
                         </td>
@@ -372,6 +370,19 @@ const CourseOverview = () => {
                   </h1>
                 </div>
               )}
+            </div>
+          </div>
+          <div className="pt-1 p-6 flex justify-center bg-slate-100 text-black">
+            <div className="p-6  container bg-white">
+              <div className="w-full ">
+                <h1 className="font-bold text-lg">Enrolled Students</h1>
+              </div>
+              <div className="text-md ">
+                <EnrolledStudentsTable
+                  modules={course?.modules?.length}
+                  enrollments={enrollments}
+                />
+              </div>
             </div>
           </div>
         </>
