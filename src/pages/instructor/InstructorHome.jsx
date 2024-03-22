@@ -9,7 +9,7 @@ const InstructorHome = () => {
   return (
     <>
       <InstructorNavbar />
-      <section className="bg-gradient-to-bl from-green-100 via-transparent dark:bg-gray-900">
+      <section className="bg-gradient-to-bl from-green-100 via-transparent dark:bg-gray-900 animate-fade animate-ease-in-out">
         <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-10">
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
             <img src="/images/instructor-home.png" alt="hero image" />

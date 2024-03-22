@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 const SingleCourse = ({ course }) => {
   const navigate = useNavigate();
   return (
-    <div className="rounded overflow-hidden shadow-lg hover:scale-105 transition duration-500 ease-in-out">
+    <div className=" rounded overflow-hidden shadow-lg hover:scale-105 transition duration-500 ease-in-out animate-jump-in animate-ease-in-out">
       
-      <div className="relative">
+      <div className="relative ">
         <img
-          className="w-full xl:h-36 lg:h-36 md:h-30"
+          className=" w-full xl:h-36 lg:h-36 md:h-30"
           src={course.image}
           alt={course.name}
         />

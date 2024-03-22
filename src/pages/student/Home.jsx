@@ -10,14 +10,14 @@ const Home = () => {
       <section className="bg-white dark:bg-gray-900">
         <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
           <div className="mr-auto place-self-center lg:col-span-7">
-            <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
+            <h1 className="animate-fade-down max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
               Expand your career opportunities
             </h1>
-            <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+            <p className="animate-fade-right max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
               Choose from over 51,000 online video courses with new additions
               published every month
             </p>
-            <div className="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+            <div className="animate-fade space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
               <Link to={"/courses"}>
                 <button className="mt-8 inline-flex items-center justify-center rounded-xl bg-green-600 py-3 px-6 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]">
                   {" "}
@@ -41,7 +41,7 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex animate-fade">
             <img src="./images/student.png" alt="hero image" />
           </div>
         </div>
@@ -49,7 +49,7 @@ const Home = () => {
       {/* End block */}
       {/* Start block */}
       <section className="bg-white dark:bg-gray-900">
-        <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
+        <div  className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
           <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
             <a href="#" className="flex items-center lg:justify-center">
               <svg

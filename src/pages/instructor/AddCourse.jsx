@@ -81,7 +81,7 @@ const AddCourse = () => {
   return (
     <>
       <InstructorNavbar />
-      <div className="relative bg-gradient-to-bl from-green-100 via-transparent dark:from-blue-950 dark:via-transparent">
+      <div className="relative bg-gradient-to-bl from-green-100 via-transparent dark:from-blue-950 dark:via-transparent animate-fade animate-ease-in-out">
         <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
           {/* Grid */}
           <div className="grid items-center md:grid-cols-2 gap-8 lg:gap-12">

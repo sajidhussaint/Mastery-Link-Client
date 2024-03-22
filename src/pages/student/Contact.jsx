@@ -41,7 +41,7 @@ const Contact = () => {
       <Navbar />
 
       {/* new contact form */}
-      <div className="max-w-screen-lg mx-auto p-5 ">
+      <div className="max-w-screen-lg mx-auto p-5 animate-fade">
         <div className="grid grid-cols-1 md:grid-cols-12 border mt-12">
           <div className="bg-gray-900 md:col-span-4 p-10 text-white">
             <p className="mt-4 text-sm leading-7 font-regular uppercase">
@@ -52,9 +52,10 @@ const Contact = () => {
             </h3>
             <p className="mt-4 leading-7 text-gray-200">
             Questions, suggestions, or curious about MastryLink? Reach out using the form Right Side, and we'll get back to you soon!</p>
+              <a href="https://maps.app.goo.gl/fi6rAdapJf5a5HP4A">
             <div className="flex items-center mt-5">
               <svg
-                className="h-6 mr-2 text-primary"
+                className="h-6 mr-2 text-primary "
                 fill="currentColor"
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -72,6 +73,7 @@ const Contact = () => {
               </svg>
               <span className="text-sm">Malappuram,Kerala,India</span>
             </div>
+              </a>
             <div className="flex items-center mt-5">
               <svg
                 className="h-6 mr-2 text-primary"

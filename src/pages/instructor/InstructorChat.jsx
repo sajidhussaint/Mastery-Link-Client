@@ -89,7 +89,7 @@ const InstructorChat = () => {
             {courses &&
               courses.map((course) => (
                 <div
-                  className={`flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer ${
+                  className={`animate-fade animate-ease-in-out flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer ${
                     course.id === selectedCourse ? "bg-green-100" : "bg-white"
                   }`}
                   onClick={() => handleSelectCourse(course.id)}
@@ -111,7 +111,7 @@ const InstructorChat = () => {
               ))}
           </div>
           {selectedCourse && (
-            <div className="flex flex-col flex-grow w-full bg-white shadow-xl rounded-lg overflow-hidden">
+            <div className="flex flex-col flex-grow w-full bg-white shadow-xl rounded-lg overflow-hidden animate-fade animate-ease-in-out ">
               <ChatBody
                 lastMessageRef={lastMessageRef}
                 messages={messages}

@@ -40,9 +40,9 @@ const WalletHistory = () => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full ">
       <InstructorNavbar />
-      <div className="p-4 md:p-8 lg:p-12 xl:p-16">
+      <div className="p-4 md:p-8 lg:p-12 xl:p-16 animate-fade animate-ease-in-out">
         <div>
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
             Wallet Balance : ₹{instructor?.wallet}

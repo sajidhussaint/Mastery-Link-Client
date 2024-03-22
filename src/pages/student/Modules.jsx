@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Steps } from "antd";
-import { Player, BigPlayButton, ControlBar } from "video-react";
+import { Player, BigPlayButton } from "video-react";
 import "../../../node_modules/video-react/dist/video-react.css";
 import PlayerSkelton from "../../components/common/utils/PlayerSkelton";
 import { addProgression } from "../../api/studentApi";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCourseActions } from "../../redux/selectedCourseSlice";
 
-const Modules = ({ modules, progression }) => {
+const Modules = ({ modules }) => {
   const [current, setCurrent] = useState(0);
   const [selectedModule, setSelectedModule] = useState([]);
   const [chapters, setChapter] = useState([]);
@@ -15,6 +15,7 @@ const Modules = ({ modules, progression }) => {
   const dispatch = useDispatch();
 
   const selectedCourse = useSelector((state) => state.selectedCourse.course);
+  const playerRef = useRef(null);
 
   const seek = (seconds) => {
     playerRef.current.seek(seconds);
@@ -24,8 +25,6 @@ const Modules = ({ modules, progression }) => {
     setCurrent(value);
     seek(chapters[value].seconds);
   };
-
-  const playerRef = useRef(null);
 
   // Function to handle video end event
   const handleVideoEnd = async (moduleId) => {
@@ -54,6 +53,7 @@ const Modules = ({ modules, progression }) => {
   };
 
   const addChapter = (module) => {
+    console.log("working add chapter");
     const chapterObjects = module.chapters.map((data) => ({
       title: data.chapter,
       subTitle: data.duration,
@@ -64,22 +64,25 @@ const Modules = ({ modules, progression }) => {
   };
 
   const playVideo = (module) => {
+    console.log(module);
     setSelectedModule(module);
     setChapter(addChapter(module));
   };
 
   useEffect(() => {
     if (modules) {
-      playVideo(modules[0]);
-      console.log("use efff");
-      console.log(modules[0].module);
+      setChapter(addChapter(modules[0]));
+      // playVideo(modules[0]);
+
+      // console.log("use efff");
+      // console.log(modules[0].module);
     }
   }, []);
-
+  console.log(chapters, "chapterssss");
   return (
     <div className="container mx-auto">
       {modules ? (
-        <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
+        <div className="grid md:grid-cols-3 grid-cols-1 gap-4 animate-fade animate-ease-in-out">
           {/* Switched order of the components */}
           <div className="col-span-1 h-auto md:h-[70vh] bg-slate-50 overflow-hidden pb-5 shadow-slate-400 shadow-md">
             <div className="h-14 bg-slate-200 flex items-center">
@@ -87,11 +90,21 @@ const Modules = ({ modules, progression }) => {
             </div>
             <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 dark:scrollbar-thumb-slate-900 dark:scrollbar-track-gray-300 h-full">
               {/* Module list content */}
+              {modules && modules.length > 0&& setChapter(addChapter(modules[0]))}
               {modules && modules.length > 0 ? (
                 modules.map((currentModule, index) => (
                   <div className="flex flex-col" key={index}>
-                    <div className="w-full flex flex-row items-center">
-                      <div className="w-2/12 flex justify-center  items-center flex-row my-6">
+                    <div
+                      className={`w-full flex flex-row items-center ${
+                        index == 0 &&
+                        selectedModule.length == 0 &&
+                        "bg-green-100"
+                      } ${
+                        selectedModule.id == currentModule.module.id &&
+                        "bg-green-100"
+                      }`}
+                    >
+                      <div className="w-2/12 flex justify-center  items-center flex-row my-6 ">
                         {selectedCourse?.progression?.includes(
                           typeof currentModule.module === "object"
                             ? currentModule.module.id

@@ -68,8 +68,8 @@ const SingleCourseView = () => {
 
   return (
     <div className=" min-h-screen  max-w-screen-xl mx-auto  p-5 sm:p-10 md:p-16">
-      {course && (
-        <div className="container mx-auto p-8">
+      {course && ( 
+        <div className="container mx-auto p-8 animate-fade animate-ease-in-out">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Video Player */}
             <div className="lg:w-full">

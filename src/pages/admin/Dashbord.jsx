@@ -22,7 +22,7 @@ const Dashbord = () => {
       <AdminSidebar />
 
       <div className="flex flex-col pt-5 h-screen  w-full">
-        <div className="grid grid-cols-1 gap-4 px-4 mt-2 sm:grid-cols-4 sm:px-8">
+        <div className="grid grid-cols-1 gap-4 px-4 mt-2 sm:grid-cols-4 sm:px-8 ">
           {loader && (
             <>
               <DashboardCardSkelton />
@@ -33,7 +33,7 @@ const Dashbord = () => {
           )}
           {data && (
             <>
-              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow">
+              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow animate-fade animate-ease-in-out">
                 <div className="p-4 bg-green-400">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ const Dashbord = () => {
                   <p className="text-3xl">{data?.studentCount}</p>
                 </div>
               </div>
-              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow">
+              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow animate-fade animate-ease-in-out" >
                 <div className="p-4 bg-blue-400">
                   <i
                     className="fa-solid fa-person-chalkboard text-5xl"
@@ -67,7 +67,7 @@ const Dashbord = () => {
                   <p className="text-3xl">{data?.instructorCount}</p>
                 </div>
               </div>
-              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow">
+              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow animate-fade animate-ease-in-out">
                 <div className="p-4 bg-indigo-400 ">
                   <i
                     className="fa-solid fa-book text-5xl"
@@ -79,7 +79,7 @@ const Dashbord = () => {
                   <p className="text-3xl">{data?.courseCount}</p>
                 </div>
               </div>
-              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow">
+              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow animate-fade animate-ease-in-out">
                 <div className="p-4 bg-red-400">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,7 @@ const Dashbord = () => {
           )}
         </div>
 
-        <div className="flex flex-col shadow-lg px-3 border rounded-md m-10">
+        <div className="flex flex-col shadow-lg px-3 border rounded-md m-10 animate-fade animate-ease-in-out">
           <h1 className="py-3 font-bold text-black text-lg">
             Course enrollment data
           </h1>

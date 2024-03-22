@@ -145,7 +145,7 @@ const CourseOverview = () => {
         <OverviewSkelton />
       ) : (
         <>
-          <div className="flex flex-col items-center p-10 bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+          <div className="flex flex-col items-center p-10 bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 animate-fade animate-ease-in-out">
             <div className="md:w-2/4 ">
               <div className="relative    sm:mb-0 mb-3">
                 

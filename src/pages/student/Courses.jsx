@@ -66,9 +66,9 @@ const Courses = () => {
       <Navbar />
       <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
         <div className="mt-3 w-full flex flex-col md:flex-row justify-between items-center gap-5">
-          <h1 className="p-6 font-bold text-2xl">All Courses</h1>
-          <div className="flex md:flex-row gap-4 items-center">
-            <h3 className="font-semibold">Filter by category</h3>
+          <h1 className="animate-fade-right p-6 font-bold text-2xl">All Courses</h1>
+          <div className="animate-fade-down flex md:flex-row gap-4 items-center">
+            <h3 className=" font-semibold">Filter by category</h3>
             <select
               name="selectCategory"
               id="selectCategory"
@@ -83,7 +83,7 @@ const Courses = () => {
               ))}
             </select>
           </div>
-          <div className="search flex items-center md:pb-0 pb-2 md:px-5">
+          <div className="animate-fade-left search flex items-center md:pb-0 pb-2 md:px-5">
             <input
               type="search"
               ref={searchInputRef}
@@ -100,7 +100,7 @@ const Courses = () => {
           </div>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-10">
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-10 animate-fade">
           {loader && (
             <>
               <CardSkeleton />

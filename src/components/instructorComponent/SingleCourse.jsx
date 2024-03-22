@@ -5,7 +5,7 @@ const SingleCourse = ({ course }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-[240px] bg-white border border-gray-200 rounded-sm shadow">
+    <div className="max-w-[240px] bg-white border border-gray-200 rounded-sm shadow animate-fade animate-ease-in-out">
       <div className="flex justify-center">
         <img
           className="rounded-t-sm h-44 object-cover"
@@ -18,7 +18,7 @@ const SingleCourse = ({ course }) => {
           <h5 className="text-lg font-bold tracking-tight text-gray-900 h-16">
             {course.name}
           </h5>
-          <div >
+          <div>
             <p className="truncate text-xs italic">
               {typeof course.category === "object"
                 ? course.category.category
@@ -26,7 +26,7 @@ const SingleCourse = ({ course }) => {
             </p>
           </div>
         </div>
-        <div >
+        <div>
           {course.approval === "approved" && (
             <h6 className="text-sm font-bold text-green-600">Approved</h6>
           )}
