@@ -6,15 +6,16 @@ import PlayerSkelton from "../../components/common/utils/PlayerSkelton";
 import { addProgression } from "../../api/studentApi";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCourseActions } from "../../redux/selectedCourseSlice";
+import { selectModuleActions } from "../../redux/SelectedModuleSlice";
 
 const Modules = ({ modules }) => {
   const [current, setCurrent] = useState(0);
   const [selectedModule, setSelectedModule] = useState([]);
-  const [chapters, setChapter] = useState([]);
 
   const dispatch = useDispatch();
 
   const selectedCourse = useSelector((state) => state.selectedCourse.course);
+  const chapters = useSelector((state) => state.selectedModule.chapter);
   const playerRef = useRef(null);
 
   const seek = (seconds) => {
@@ -53,32 +54,27 @@ const Modules = ({ modules }) => {
   };
 
   const addChapter = (module) => {
-    console.log("working add chapter");
     const chapterObjects = module.chapters.map((data) => ({
       title: data.chapter,
       subTitle: data.duration,
       status: "wait",
       seconds: data.seconds,
     }));
+    dispatch(selectModuleActions.selectChapter(chapterObjects));
     return chapterObjects;
   };
 
   const playVideo = (module) => {
-    console.log(module);
     setSelectedModule(module);
-    setChapter(addChapter(module));
+    dispatch(selectModuleActions.selectModule(module));
   };
-
   useEffect(() => {
     if (modules) {
-      setChapter(addChapter(modules[0]));
-      // playVideo(modules[0]);
-
-      // console.log("use efff");
-      // console.log(modules[0].module);
+      addChapter(modules[0].module);
     }
-  }, []);
-  console.log(chapters, "chapterssss");
+  }, [modules]);
+
+
   return (
     <div className="container mx-auto">
       {modules ? (
@@ -90,7 +86,7 @@ const Modules = ({ modules }) => {
             </div>
             <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 dark:scrollbar-thumb-slate-900 dark:scrollbar-track-gray-300 h-full">
               {/* Module list content */}
-              {modules && modules.length > 0&& setChapter(addChapter(modules[0]))}
+              {/* {modules && modules.length > 0&& setChapter(addChapter(modules[0]))} */}
               {modules && modules.length > 0 ? (
                 modules.map((currentModule, index) => (
                   <div className="flex flex-col" key={index}>
@@ -119,7 +115,18 @@ const Modules = ({ modules }) => {
                       <div className="w-8/12 cursor-pointer">
                         <button
                           className="font-semibold"
-                          onClick={() => playVideo(currentModule.module)}
+                          onClick={() => {
+                            playVideo(currentModule.module);
+
+                            // dispatch(
+                            //   selectModuleActions.selectChapter(
+                            //     currentModule.module.chapters
+                            //   )
+                            // );
+                            addChapter(currentModule?.module);
+                            console.log("selop", currentModule.module.name);
+                            // addDescription(currentModule.module.description);
+                          }}
                         >
                           {currentModule.module.name}
                         </button>
@@ -172,14 +179,16 @@ const Modules = ({ modules }) => {
       )}
 
       <div>
-        {selectedModule && (
+        {selectedModule && chapters?.length>1 && (
           <Steps
             type="navigation"
             size="small"
             current={current}
             onChange={onChange}
-            className="site-navigation-steps"
+            className="site-navigation-steps "
             items={chapters}
+            responsive={true}
+            colorPrimary='#ff4d4f'
           />
         )}
       </div>

@@ -1,43 +1,46 @@
-import React, { useEffect, useState } from "react"
-import ReactQuill from "react-quill"
-import "react-quill/dist/quill.snow.css"
-import { addNotes } from "../../../api/studentApi"
-import { useDispatch, useSelector } from "react-redux"
-import { selectCourseActions } from "../../../redux/selectedCourseSlice"
+import React, { useEffect, useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { addNotes } from "../../../api/studentApi";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCourseActions } from "../../../redux/selectedCourseSlice";
+import { Button } from "antd";
 
 const Notes = ({ courseId }) => {
-  const notes = useSelector(state => state.selectedCourse.course?.notes)
+  const notes = useSelector((state) => state.selectedCourse.course?.notes);
+  
 
-  const [newNote, setNewNote] = useState("")
-  const dispatch = useDispatch()
+  const [newNote, setNewNote] = useState("");
+  const dispatch = useDispatch();
   const handleAddNote = async () => {
+    
     if (courseId && newNote.trim() !== "") {
-      const response = await addNotes({ enrolledId: courseId, notes: newNote })
+      const response = await addNotes( courseId, newNote );
       if (response) {
-        dispatch(selectCourseActions.addNote(newNote))
+        dispatch(selectCourseActions.addNote(newNote));
       }
     }
-    setNewNote("")
-  }
-  useEffect(() => {}, [notes])
+    setNewNote("");
+  };
+  useEffect(() => {}, [notes]);
 
   return (
     <div className="container px-6 md:px-0">
       <div>
         <ReactQuill
           value={newNote}
-          onChange={value => setNewNote(value)}
+          onChange={(value) => setNewNote(value)}
           modules={{
             toolbar: [
               ["bold", "italic", "underline", "strike"],
               [{ header: [1, 2, 3, 4, 5, 6, false] }],
               [{ list: "ordered" }, { list: "bullet" }],
               ["link", "image"],
-              ["clean"]
-            ]
+              ["clean"],
+            ],
           }}
         />
-        <button onClick={handleAddNote}>Add Note</button>
+        <Button className="my-2 border-green-500" onClick={handleAddNote}>Add Note</Button>
       </div>
       <div className="p-5 border">
         <h2 className="font-bold text-xl">Notes</h2>
@@ -51,7 +54,7 @@ const Notes = ({ courseId }) => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Notes
+export default Notes;

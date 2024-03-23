@@ -66,7 +66,9 @@ const Courses = () => {
       <Navbar />
       <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
         <div className="mt-3 w-full flex flex-col md:flex-row justify-between items-center gap-5">
-          <h1 className="animate-fade-right p-6 font-bold text-2xl">All Courses</h1>
+          <h1 className="animate-fade-right p-6 font-bold text-2xl">
+            All Courses
+          </h1>
           <div className="animate-fade-down flex md:flex-row gap-4 items-center">
             <h3 className=" font-semibold">Filter by category</h3>
             <select
@@ -111,9 +113,12 @@ const Courses = () => {
           )}
 
           {/* Render current courses */}
-          {currentCourses.map((course, index) => (
-            <SingleCourse key={index} course={course} />
-          ))}
+          {currentCourses.map(
+            (course, index) =>
+              course.modules.length > 0 && (
+                <SingleCourse key={index} course={course} />
+              )
+          )}
         </div>
 
         {/* Pagination */}
@@ -122,7 +127,9 @@ const Courses = () => {
             <Button
               variant="text"
               className="flex items-center gap-2"
-              onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
+              onClick={() =>
+                setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+              }
               disabled={currentPage === 1}
             >
               <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
@@ -147,10 +154,15 @@ const Courses = () => {
               className="flex items-center gap-2"
               onClick={() =>
                 setCurrentPage((prevPage) =>
-                  Math.min(prevPage + 1, Math.ceil(courses.length / itemsPerPage))
+                  Math.min(
+                    prevPage + 1,
+                    Math.ceil(courses.length / itemsPerPage)
+                  )
                 )
               }
-              disabled={currentPage === Math.ceil(courses.length / itemsPerPage)}
+              disabled={
+                currentPage === Math.ceil(courses.length / itemsPerPage)
+              }
             >
               Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
             </Button>

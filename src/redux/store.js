@@ -14,6 +14,7 @@ import userReducer from "./userSlice";
 import adminReducer from "./adminSlice";
 import instructorReducer from "./InstructorSlice";
 import selectedCourseReducer from "./selectedCourseSlice";
+import SelectedModuleSlice from "./SelectedModuleSlice";
 
 const persistConfig = {
   key: "root",
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   admin: adminReducer,
   instructor: instructorReducer,
   selectedCourse: selectedCourseReducer,
+  selectedModule:SelectedModuleSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

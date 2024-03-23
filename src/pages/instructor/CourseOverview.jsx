@@ -29,6 +29,7 @@ import AddModulePopup from "../../components/instructorComponent/AddModulePopup"
 import SpinnerMain from "../../components/common/utils/SpinnerMain";
 import OverviewSkelton from "../../components/common/utils/OverviewSkelton";
 import EnrolledStudentsTable from "../../components/instructorComponent/EnrolledStudentsTable";
+import { toast } from "react-toastify";
 
 const CourseOverview = () => {
   const [course, setCourse] = useState();
@@ -59,6 +60,13 @@ const CourseOverview = () => {
   const getCourse = async () => {
     const response = await getSingleCourse(location.state.courseId);
     setCourse(response.course);
+    if (response.course.modules.length == 0) {
+      toast.warn("please add modules", {
+        theme: "colored",
+        position: "bottom-left",
+      });
+    }
+
     setEnrollments(response.enrollments);
     setLoader(false);
   };
@@ -148,8 +156,6 @@ const CourseOverview = () => {
           <div className="flex flex-col items-center p-10 bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-full dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 animate-fade animate-ease-in-out">
             <div className="md:w-2/4 ">
               <div className="relative    sm:mb-0 mb-3">
-                
-
                 {course?.image ? (
                   <img
                     className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-72 md:rounded-none md:rounded-l-lg overflow-hidden"
@@ -277,7 +283,7 @@ const CourseOverview = () => {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {course.modules.map((module, index) => (
                       <tr key={index}>
-                        <td className="px-6 py-4 whitespace-nowrap" >
+                        <td className="px-6 py-4 whitespace-nowrap">
                           <Popover>
                             <PopoverHandler>
                               <i className="fa-regular fa-circle-play px-2 scale-150 cursor-pointer hover:text-blue-800 animate-pulse"></i>

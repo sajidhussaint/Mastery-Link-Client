@@ -9,7 +9,6 @@ const ChatPage = ({ socket }) => {
 
   const user = useSelector((state) => state.user.user);
   const response = useSelector((state) => state.selectedCourse.course);
-  console.log(response,'whynot');
   const course = response?.courseId;
   const lastMessageRef = useRef(null);
   

@@ -12,10 +12,8 @@ const LearningPage = () => {
   const user = useSelector((store) => store.user.user);
   const location = useLocation();
   const dispatch = useDispatch();
-  console.log("userrrr", user);
 
   const [course, setCourse] = useState();
-  const [progression, setProgression] = useState([]);
   const [notes, setNotes] = useState([]);
   const [enrolledId, setEnrolledId] = useState("");
 
@@ -39,8 +37,10 @@ const LearningPage = () => {
 
   useEffect(() => {
     getCourse();
+
     return () => {};
   }, []);
+
   return (
     <>
       <Navbar />

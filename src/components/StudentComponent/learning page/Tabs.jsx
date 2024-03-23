@@ -1,53 +1,54 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
 const Tabs = ({ children }) => {
-  const [activeTab, setActiveTab] = useState(children[0].props.label)
+  const [activeTab, setActiveTab] = useState(children[0].props.label);
 
   const handleClick = (e, newActiveTab) => {
-    e.preventDefault()
-    setActiveTab(newActiveTab)
-  }
+    e.preventDefault();
+    setActiveTab(newActiveTab);
+  };
 
   return (
     <div className="container mx-auto">
+      
       <div className="flex border-b border-gray-300">
-        {React.Children.map(children, child => {
+        {React.Children.map(children, (child) => {
           if (React.isValidElement(child)) {
             return (
               <button
                 key={child.props.label}
                 className={`${
                   activeTab === child.props.label
-                    ? "border-b-2 border-purple-500"
+                    ? "border-b-2 border-green-500"
                     : ""
                 } flex-1 text-gray-700 font-medium py-2`}
-                onClick={e => handleClick(e, child.props.label)}
+                onClick={(e) => handleClick(e, child.props.label)}
               >
                 {child.props.label}
               </button>
-            )
+            );
           }
-          return null
+          return null;
         })}
       </div>
       <div className="py-4">
-        {React.Children.map(children, child => {
+        {React.Children.map(children, (child) => {
           if (React.isValidElement(child) && child.props.label === activeTab) {
-            return <div key={child.props.label}>{child.props.children}</div>
+            return <div key={child.props.label}>{child.props.children}</div>;
           }
-          return null
+          return null;
         })}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Tab = ({ label, children }) => {
   return (
     <div className="hidden" data-label={label}>
       {children}
     </div>
-  )
-}
+  );
+};
 
-export { Tabs, Tab }
+export { Tabs, Tab };

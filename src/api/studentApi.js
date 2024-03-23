@@ -52,7 +52,7 @@ export const enrollment = async (courseId, studentId) => {
 };
 export const getEnrolledCourse = async (courseId, studentId) => {
   try {
-    console.log("runnn get enroll", studentId);
+    
     const response = await axiosAuthorized.get(
       `/get-enrolled-course?courseId=${courseId}&&studentId=${studentId}`
     );

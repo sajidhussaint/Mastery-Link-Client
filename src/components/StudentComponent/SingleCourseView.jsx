@@ -4,7 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { BiLock } from "react-icons/bi";
 import { getSingleCourse, courseEnroll } from "../../api/studentApi";
 import { Avatar, Button } from "@material-tailwind/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectModuleActions } from "../../redux/SelectedModuleSlice";
 
 const SingleCourseView = () => {
   const user = useSelector((store) => store.user.user);
@@ -13,6 +14,8 @@ const SingleCourseView = () => {
   const [modules, setModules] = useState([]);
   const [course, setCourse] = useState();
   const [enrolled, setEnrolled] = useState(false);
+
+  const dispatch = useDispatch();
 
   const location = useLocation();
 
@@ -64,11 +67,12 @@ const SingleCourseView = () => {
 
   useEffect(() => {
     getCourse();
+    dispatch(selectModuleActions.selectChapter(null))
   }, []);
 
   return (
     <div className=" min-h-screen  max-w-screen-xl mx-auto  p-5 sm:p-10 md:p-16">
-      {course && ( 
+      {course && (
         <div className="container mx-auto p-8 animate-fade animate-ease-in-out">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Video Player */}
