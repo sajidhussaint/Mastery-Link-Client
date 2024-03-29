@@ -158,8 +158,9 @@ const CourseOverview = () => {
               <div className="relative    sm:mb-0 mb-3">
                 {course?.image ? (
                   <img
-                    className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-72 md:rounded-none md:rounded-l-lg overflow-hidden"
-                    src={course.image}
+                    className="object-cover w-full  h-96 md:h-auto md:w-72  md:rounded-lg overflow-hidden"
+                    // src={course.image}
+                    src='/images/sample.jpg'//TODO:change img src
                     alt="img-course"
                   />
                 ) : (
@@ -169,14 +170,6 @@ const CourseOverview = () => {
                       src="/images/image not found.png"
                       alt="not found"
                     />
-                    {updating ? (
-                      <div
-                        className="w-12 h-12 rounded-full animate-spin
-                      border-8 border-solid border-blue-700 border-t-transparent"
-                      ></div>
-                    ) : (
-                      <h1 className="font-semibold">Upload image</h1>
-                    )}
 
                     {err && (
                       <h1 className="font-semibold text-red-700">{err}</h1>
@@ -378,7 +371,8 @@ const CourseOverview = () => {
               )}
             </div>
           </div>
-          <div className="pt-1 p-6 flex justify-center bg-slate-100 text-black">
+          
+          {enrollments.length>0&&<div className="pt-1 p-6 flex justify-center bg-slate-100 text-black">
             <div className="p-6  container bg-white">
               <div className="w-full ">
                 <h1 className="font-bold text-lg">Enrolled Students</h1>
@@ -390,7 +384,10 @@ const CourseOverview = () => {
                 />
               </div>
             </div>
-          </div>
+          </div>}
+          
+
+
         </>
       )}
 

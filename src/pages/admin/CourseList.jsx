@@ -1,55 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AdminSidebar from "../../components/adminComponent/AdminSidebar";
-import { getAllCourse, approveCourse, rejectCourse } from "../../api/adminApi";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { getAllCourse, approveCourse, rejectCourse } from "../../api/adminApi";
 
 const CourseList = () => {
-  const [courseList, setCourseList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); // Number of items to display per page
+  const [itemsPerPage] = useState(5);
 
-  const getCourses = async () => {
-    try {
-      const courses = await getAllCourse();
-      setCourseList(courses);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {
+    data: courseList = [],
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["courses"],
+    queryFn: getAllCourse,
+  });
+
+  const approveCourseMutation = useMutation({
+    mutationFn: approveCourse,
+  });
+
+  const rejectCourseMutation = useMutation({
+    mutationFn: rejectCourse,
+  });
 
   const handleApprove = async (courseId, e) => {
     e.preventDefault();
-    const response = await approveCourse(courseId);
-    if (response) {
-      const newList = courseList.map((course) =>
-        course.id === courseId ? { ...course, approval: "approved" } : course
-      );
-      setCourseList(newList);
-    }
+    await approveCourseMutation.mutateAsync(courseId);
+    refetch();
   };
 
   const handleReject = async (courseId, e) => {
     e.preventDefault();
-    const response = await rejectCourse(courseId);
-    if (response) {
-      const newList = courseList.map((course) =>
-        course.id === courseId ? { ...course, approval: "rejected" } : course
-      );
-      setCourseList(newList);
-    }
+    await rejectCourseMutation.mutateAsync(courseId);
+    refetch();
   };
 
-  useEffect(() => {
-    getCourses();
-  }, []);
-
-  // Logic to get current courses based on pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentCourses = courseList.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -70,6 +63,11 @@ const CourseList = () => {
               </tr>
             </thead>
             <tbody className="text-black">
+              {isLoading && <h1 className="mx-5 my-5">Loading...</h1>}
+              {isError && currentCourses.length == 0 && (
+                <h1 className="mx-5 my-5">An error occurred</h1>
+              )}
+
               {currentCourses.map((course) => (
                 <tr
                   key={course.id}
@@ -98,24 +96,21 @@ const CourseList = () => {
                     course.approval === "rejected" ? (
                       <div className="flex">
                         <button
-                          onClick={(e) => {
-                            handleApprove(course.id, e);
-                          }}
+                          onClick={(e) => handleApprove(course.id, e)}
                           className={`text-white mt-1 bg-green-700 hover:bg-green-800
                          font-medium rounded-lg text-xs px-3 py-2 mr-2 mb-1`}
                         >
                           Approve
                         </button>
                         <button
-                          onClick={(e) => {
-                            handleReject(course.id, e);
-                          }}
+                          onClick={(e) => handleReject(course.id, e)}
                           className={`text-white mt-1 bg-red-700 hover:bg-red-300-800
                          font-medium rounded-lg text-xs px-3 py-2 mr-2 mb-1 ${
                            course.approval === "rejected"
                              ? "cursor-not-allowed"
                              : ""
                          }`}
+                          disabled={course.approval === "rejected"}
                         >
                           Reject
                         </button>

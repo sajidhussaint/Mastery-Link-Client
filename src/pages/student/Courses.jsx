@@ -16,6 +16,7 @@ const Courses = () => {
 
   const getCourse = async ({ category }) => {
     const response = await getCourses({ category });
+    console.log(response, "00@@@");
     setCourses(response?.courses);
     setCategories(response?.categories);
     setLoader(false);
@@ -57,6 +58,7 @@ const Courses = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentCourses = courses.slice(indexOfFirstItem, indexOfLastItem);
+  console.log(currentCourses.length);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);

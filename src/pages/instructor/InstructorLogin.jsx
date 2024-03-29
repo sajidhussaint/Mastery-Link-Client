@@ -62,7 +62,7 @@ const InstructorLogin = () => {
                 <div className="text-center">
                   <span>Don't have an account! </span>
 
-                  <Link to={'/signup'}>
+                  <Link to={'/instructor/signup'}>
                   <span
                     className="inline-block text-sm text-grey-500 dark:text-blue-500 align-baseline hover:text-blue-800"
                     
@@ -73,10 +73,10 @@ const InstructorLogin = () => {
                 </div>
                 <div className="text-center">
                   <Link
-                    to={"/instructor/login"}
+                    to={"/login"}
                     className="inline-block text-sm text-grey-500 dark:text-blue-500 align-baseline hover:text-blue-800"
                   >
-                    Login as Instructor
+                    Login as Student
                   </Link>
                 </div>
                 {/* <p className="mt-6 text-xs text-gray-600 text-center">

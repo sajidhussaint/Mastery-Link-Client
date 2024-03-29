@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import InstructorSignupForm from "../../components/auth/InstructorSignupForm";//TODO:student to Instructor
+import InstructorSignupForm from "../../components/auth/InstructorSignupForm";
 
 const InstructorSignup = () => {
   return (
@@ -16,22 +16,14 @@ const InstructorSignup = () => {
               <div className="mx-auto max-w-xs">
                 <InstructorSignupForm />
                 <hr className="mb-6 border-t" />
-                
+
                 <div className="text-center">
                   <span>Already a member! </span>
 
-                  <Link to={"/login"}>
+                  <Link to={"/instructor/login"}>
                     <span className="inline-block text-sm text-grey-500 dark:text-blue-500 align-baseline hover:text-blue-800">
                       Log in
                     </span>
-                  </Link>
-                </div>
-                <div className="text-center">
-                  <Link
-                    to={"/instructor/signup"}
-                    className="inline-block text-sm text-grey-500 dark:text-blue-500 align-baseline hover:text-blue-800 underline" 
-                  >
-                    Become an instructor
                   </Link>
                 </div>
               </div>

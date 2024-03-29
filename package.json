@@ -24,6 +24,7 @@
     "@mui/icons-material": "^5.15.6",
     "@mui/material": "^5.15.6",
     "@reduxjs/toolkit": "^2.0.1",
+    "@tanstack/react-query": "^5.28.9",
     "@videsk/tailwind-random-color": "^0.2.0-beta",
     "antd": "^5.13.2",
     "axios": "^1.6.2",

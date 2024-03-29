@@ -16,7 +16,9 @@ const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    toast.success("Logout successfully");
+    if (user) {
+      toast.success("Logout successfully");
+    }
     userLogout();
 
     dispatch(userActions.userLogout());

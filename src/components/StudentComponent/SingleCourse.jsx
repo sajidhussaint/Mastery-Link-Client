@@ -10,7 +10,8 @@ const SingleCourse = ({ course }) => {
       <div className="relative ">
         <img
           className=" w-full xl:h-36 lg:h-36 md:h-30"
-          src={course.image}
+          // src={course.image}
+          src='./images/sample.jpg'//TODO:change img src
           alt={course.name}
         />
 

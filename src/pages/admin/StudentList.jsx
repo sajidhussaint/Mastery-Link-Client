@@ -1,55 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AdminSidebar from "../../components/adminComponent/AdminSidebar";
-import {
-  getAllStudents,
-  blockStudent,
-  unblockStudent,
-} from "../../api/adminApi";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { getAllStudents, blockStudent, unblockStudent } from "../../api/adminApi";
 
 const StudentList = () => {
-  const [userList, setUserList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); // Number of items to display per page
+  const [itemsPerPage] = useState(5);
 
-  const getUsers = async () => {
-    try {
-      const students = await getAllStudents();
-      setUserList(students);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { data: userList = [], isLoading, isError, refetch } = useQuery({
+    queryKey: ["students"],
+    queryFn: getAllStudents,
+  });
+
+  const blockStudentMutation = useMutation({
+    mutationFn: blockStudent,
+  });
+  
+  const unblockStudentMutation = useMutation({
+    mutationFn: unblockStudent,
+  });
 
   const handleBlock = async (id, e) => {
     e.preventDefault();
-    const response = await blockStudent(id);
-    if (response) {
-      const newList = userList.map((user) =>
-        user.id === id ? { ...user, isBlocked: true } : user
-      );
-      setUserList(newList);
-    }
+    await blockStudentMutation.mutateAsync(id);
+    refetch();
   };
 
   const handleUnblock = async (id, e) => {
     e.preventDefault();
-    const response = await unblockStudent(id);
-
-    if (response) {
-      const newList = userList.map((user) =>
-        user.id === id ? { ...user, isBlocked: false } : user
-      );
-      setUserList(newList);
-    }
+    await unblockStudentMutation.mutateAsync(id);
+    refetch();
   };
 
-  useEffect(() => {
-    getUsers();
-  }, []);
-
-  // Logic to get current users based on pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentUsers = userList.slice(indexOfFirstItem, indexOfLastItem);
@@ -73,6 +57,10 @@ const StudentList = () => {
               </tr>
             </thead>
             <tbody>
+              {isLoading && <h1 className="mx-5 my-5">Loading...</h1>}
+              {isError && currentUsers.length === 0 && (
+                <h1 className="mx-5 my-5">An error occurred</h1>
+              )}
               {currentUsers.map((user) => (
                 <tr
                   key={user.id}
@@ -94,7 +82,7 @@ const StudentList = () => {
                           handleBlock(user.id, e);
                         }
                       }}
-                      className={`text-white mt-2 ${
+                      className={`text-white  ${
                         user.isBlocked
                           ? "bg-red-700 hover:bg-red-800"
                           : "bg-green-700 hover:bg-green-800"

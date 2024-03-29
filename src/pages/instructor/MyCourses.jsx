@@ -5,17 +5,20 @@ import CardSkeleton from "../../components/common/utils/CardSkeleton";
 import InstructorNavbar from "../../components/instructorComponent/InstructorNavbar";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 
 const MyCourses = () => {
+  const Instructor = useSelector((store) => store.instructor.instructor);
   const [courses, setCourses] = useState([]);
   const [loader, setLoader] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4; 
+
+  const itemsPerPage = 4;
   const totalPages = Math.ceil(courses.length / itemsPerPage);
 
   const fetchMyCourses = async () => {
     setLoader(true);
-    const response = await getMyCourses();
+    const response = await getMyCourses(Instructor?._id);
     setCourses(response);
     setLoader(false);
   };
@@ -27,6 +30,7 @@ const MyCourses = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentCourses = courses.slice(indexOfFirstItem, indexOfLastItem);
+  console.log(currentCourses.length);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -45,8 +49,8 @@ const MyCourses = () => {
   return (
     <>
       <InstructorNavbar />
-      <div className="bg-gradient-to-bl from-green-100 via-transparent">
-        <h1 className="text-2xl font-bold px-5 md:px-20">My courses</h1>
+      <div className="bg-gradient-to-bl from-green-100 via-transparent p-2">
+        <h1 className="text-2xl font-bold px-5 md:px-20 ">My courses</h1>
         <div className="mt-4 md:flex-none flex justify-center">
           <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-8 gap-y-10">
             {currentCourses.map((course) => (

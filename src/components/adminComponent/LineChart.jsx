@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
-import { dashboard } from "../../api/adminApi";
+// import { dashboard } from "../../api/adminApi";
 
-const LineChart = () => {
+const LineChart = ({data}) => {
   const [categories, setCategories] = useState([]);
   const [series, setSeries] = useState([]);
 
@@ -20,8 +20,8 @@ const LineChart = () => {
 
   const getCategoryData = async () => {
     try {
-      const responseData = await dashboard();
-      const response = responseData.enrolledCountByCategoryAndDate;
+      // const responseData = await dashboard();
+      const response = data.enrolledCountByCategoryAndDate;
       const uniqueDates = Array.from(
         new Set(
           response.flatMap((category) =>

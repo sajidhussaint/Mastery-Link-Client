@@ -8,6 +8,7 @@ import { getMyCourses } from "../../api/instructorApi";
 import { selectCourseActions } from "../../redux/selectedCourseSlice";
 
 const InstructorChat = () => {
+  const Instructor = useSelector((store) => store.instructor.instructor);
   const [messages, setMessages] = useState([]);
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState();
@@ -37,7 +38,7 @@ const InstructorChat = () => {
   });
 
   const getAllMessages = async () => {
-    const courseList = await getMyCourses();
+    const courseList = await getMyCourses(Instructor?._id);
     setCourses(courseList);
     socket.emit("get-all-messages", {
       courseId:
@@ -96,7 +97,8 @@ const InstructorChat = () => {
                 >
                   <div className="w-1/4">
                     <img
-                      src={course?.image}
+                      // src={course?.image}
+                      src='/images/sample.jpg'//TODO:change img src
                       className="object-cover h-12 w-12 rounded-md"
                       alt={course.name}
                     />
@@ -109,6 +111,7 @@ const InstructorChat = () => {
                   </div>
                 </div>
               ))}
+              
           </div>
           {selectedCourse && (
             <div className="flex flex-col flex-grow w-full bg-white shadow-xl rounded-lg overflow-hidden animate-fade animate-ease-in-out ">

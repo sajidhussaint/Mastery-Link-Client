@@ -1,9 +1,11 @@
 import { axiosAuthorized, axiosInstance } from "./config";
-import axios from "axios";
 
-export const getMyCourses = async () => {
+export const getMyCourses = async (instructor) => {
   try {
-    const mycourse = await axiosInstance.get("/instructor/my-courses");
+    console.log(instructor);
+    const mycourse = await axiosInstance.get(
+      `/instructor/my-courses?instructor=${instructor}`
+    );
     if (mycourse) {
       return Promise.resolve(mycourse.data.course);
     }
@@ -62,12 +64,12 @@ export const addModule = async (formData) => {
 export const addChapter = async (formData) => {
   const headers = {
     "Content-Type": "multipart/form-data",
-
   };
   try {
     const response = await axiosInstance.post(
       "/instructor/add-chapter",
-      formData,{ headers }
+      formData,
+      { headers }
     );
     return Promise.resolve(response.data);
   } catch (error) {

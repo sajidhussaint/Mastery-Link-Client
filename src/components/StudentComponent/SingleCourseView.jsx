@@ -79,7 +79,8 @@ const SingleCourseView = () => {
             <div className="lg:w-full">
               {course?.image ? (
                 <img
-                  src={course.image}
+                  // src={course.image}
+                  src='./images/sample.jpg'//TODO:change img src
                   alt=""
                   className="min-h-full min-w-full"
                 />

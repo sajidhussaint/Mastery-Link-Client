@@ -1,55 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AdminSidebar from "../../components/adminComponent/AdminSidebar";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { Button, IconButton } from "@material-tailwind/react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import {
   getAllInstructor,
   blockInstructor,
   unblockInstructor,
 } from "../../api/adminApi";
-import { Button, IconButton } from "@material-tailwind/react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 const InstructorList = () => {
-  const [instructorList, setInstructorList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); // Number of items to display per page
+  const [itemsPerPage] = useState(5);
 
-  const getInstructors = async () => {
-    try {
-      const instructors = await getAllInstructor();
-      setInstructorList(instructors);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {
+    data: instructorList = [],
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["instructors"],
+    queryFn: getAllInstructor,
+  });
 
+  const blockInstructorMutation = useMutation({
+    mutationFn: blockInstructor,
+  });
+
+  const unblockInstructorMutation = useMutation({
+    mutationFn: unblockInstructor,
+  });
   const handleBlock = async (id, e) => {
     e.preventDefault();
-    const response = await blockInstructor(id);
-    if (response) {
-      const newList = instructorList.map((instructor) =>
-        instructor.id === id ? { ...instructor, isBlocked: true } : instructor
-      );
-      setInstructorList(newList);
-    }
+    await blockInstructorMutation.mutateAsync(id);
+    refetch();
   };
 
   const handleUnblock = async (id, e) => {
     e.preventDefault();
-    const response = await unblockInstructor(id);
-
-    if (response) {
-      const newList = instructorList.map((instructor) =>
-        instructor.id === id ? { ...instructor, isBlocked: false } : instructor
-      );
-      setInstructorList(newList);
-    }
+    await unblockInstructorMutation.mutateAsync(id);
+    refetch();
   };
 
-  useEffect(() => {
-    getInstructors();
-  }, []);
-
-  // Logic to get current instructors based on pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentInstructors = instructorList.slice(
@@ -76,6 +68,12 @@ const InstructorList = () => {
               </tr>
             </thead>
             <tbody>
+              {isLoading && <h1 className="mx-5 my-5">Loading...</h1>}
+              {isError && currentInstructors.length == 0 && (
+                <h1 className="mx-5 my-5">
+                  An error occurred{currentInstructors.length}
+                </h1>
+              )}
               {currentInstructors.map((instructor) => (
                 <tr
                   key={instructor.id}
@@ -143,8 +141,7 @@ const InstructorList = () => {
               className="flex items-center gap-2"
               onClick={() => paginate(currentPage + 1)}
               disabled={
-                currentPage ===
-                Math.ceil(instructorList.length / itemsPerPage)
+                currentPage === Math.ceil(instructorList.length / itemsPerPage)
               }
             >
               Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />

@@ -6,7 +6,7 @@ import {
   listCategory,
   unlistCategory,
 } from "../../api/adminApi";
-
+import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   Button,
   Dialog,
@@ -18,20 +18,24 @@ import {
 } from "@material-tailwind/react";
 
 const CategoryList = () => {
-  const [categoryList, setCategoryList] = useState([]);
+  const {
+    data: categoryList = [],
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["categories"],
+    queryFn: getAllCategory,
+  });
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [open, setOpen] = useState(false);
-  const [categoryFormData, setCategoryFormData] = useState("");
+  const [categoryFormData, setCategoryFormData] = useState();
   const [isNewCategory, setIsNewCategory] = useState(false);
 
-  const getCategories = async () => {
-    try {
-      const categories = await getAllCategory();
-      setCategoryList(categories);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const editCategoryMutation = useMutation({ mutationFn: editCategory });
+  const addCategoryMutation = useMutation({ mutationFn: addCategory });
+  const listCategoryMutation = useMutation({ mutationFn: listCategory });
+  const unlistCategoryMutation = useMutation({ mutationFn: unlistCategory });
 
   const handleOpen = (category) => {
     setCategoryFormData(category.category);
@@ -43,23 +47,14 @@ const CategoryList = () => {
     e.preventDefault();
     try {
       if (!isNewCategory) {
-        await editCategory(selectedCategory.id, categoryFormData);
-        const updatedList = categoryList.map((category) =>
-          category.id === selectedCategory.id
-            ? { ...category, category: categoryFormData }
-            : category
-        );
-        setCategoryList(updatedList);
+        await editCategoryMutation.mutateAsync({
+          categoryId: selectedCategory.id,
+          value: categoryFormData,
+        });
+        refetch();
       } else {
-        const newdata = await addCategory(categoryFormData);
-
-        const updatedList = [
-          ...categoryList,
-          { category: categoryFormData, status: true },
-        ];
-
-        console.log(updatedList, "kkkkkkk");
-        setCategoryList(updatedList);
+        await addCategoryMutation.mutateAsync({ category: categoryFormData });
+        refetch();
         setIsNewCategory(false);
       }
     } catch (error) {
@@ -83,28 +78,18 @@ const CategoryList = () => {
   const handleList = async (id, e) => {
     e.preventDefault();
 
-    const response = await listCategory(id);
-    if (response) {
-      const newList = categoryList.map((user) =>
-        user.id === id ? { ...user, status: true } : user
-      );
-      setCategoryList(newList);
-    }
+    await listCategoryMutation.mutateAsync(id);
+    refetch();
   };
+
   const handleUnlist = async (id, e) => {
     e.preventDefault();
-    const response = await unlistCategory(id);
-
-    if (response) {
-      const newList = categoryList.map((category) =>
-        category.id === id ? { ...category, status: false } : category
-      );
-      setCategoryList(newList);
-    }
+    await unlistCategoryMutation.mutateAsync(id);
+    refetch();
   };
 
   useEffect(() => {
-    getCategories();
+    refetch();
   }, [isNewCategory]);
 
   return (
@@ -135,6 +120,10 @@ const CategoryList = () => {
             </tr>
           </thead>
           <tbody className="text-black">
+            {isLoading && <h1 className="mx-5 my-5">Loading...</h1>}
+            {isError && categoryList.length == 0 && (
+              <h1 className="mx-5 my-5">An error occurred</h1>
+            )}
             {categoryList.map((category) => (
               <tr
                 key={category.id}

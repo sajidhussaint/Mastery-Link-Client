@@ -8,8 +8,9 @@ const SingleCourse = ({ course }) => {
     <div className="max-w-[240px] bg-white border border-gray-200 rounded-sm shadow animate-fade animate-ease-in-out">
       <div className="flex justify-center">
         <img
-          className="rounded-t-sm h-44 object-cover"
-          src={course.image ? course.image : "/images/image not found.png"}
+          className="rounded-t-sm h-44  object-cover"
+          // src={course.image ? course.image : "/images/image not found.png"}
+          src='/images/sample.jpg'//TODO:change img src
           alt="product image"
         />
       </div>

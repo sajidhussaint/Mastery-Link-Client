@@ -98,13 +98,13 @@ export const unblockInstructor = async (instructorId) => {
     return Promise.reject();
   }
 };
-export const editCategory = async (categoryId, value) => {
+export const editCategory = async (categoryId) => {
   try {
-    console.log(categoryId, value, "======oooop");
-    const response = await axiosInstance.patch("/admin/edit-category", {
-      categoryId,
-      value,
-    });
+    console.log(categoryId, "======oooop");
+    const response = await axiosInstance.patch(
+      "/admin/edit-category",
+      categoryId
+    );
     const { success } = response.data;
 
     return Promise.resolve(success);

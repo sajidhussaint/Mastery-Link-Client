@@ -1,29 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AdminSidebar from "../../components/adminComponent/AdminSidebar";
 import LineChart from "../../components/adminComponent/LineChart";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { dashboard } from "../../api/adminApi";
 import DashboardCardSkelton from "../../components/common/utils/DashboardCardSkelton";
 
 const Dashbord = () => {
-  const [data, setData] = useState();
-  const [loader, setLoader] = useState(true);
-
-  const getDashboardData = async () => {
-    const response = await dashboard();
-    setData(response);
-    setLoader(false);
-  };
-
-  useEffect(() => {
-    getDashboardData();
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["dashboardData"],
+    queryFn: dashboard,
   });
+
   return (
     <div className="bg-gray-100 font-family-karla flex">
       <AdminSidebar />
 
       <div className="flex flex-col pt-5 h-screen  w-full">
         <div className="grid grid-cols-1 gap-4 px-4 mt-2 sm:grid-cols-4 sm:px-8 ">
-          {loader && (
+          {(isLoading || (isError && data.length == 0)) && (
             <>
               <DashboardCardSkelton />
               <DashboardCardSkelton />
@@ -55,7 +49,7 @@ const Dashbord = () => {
                   <p className="text-3xl">{data?.studentCount}</p>
                 </div>
               </div>
-              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow animate-fade animate-ease-in-out" >
+              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow animate-fade animate-ease-in-out">
                 <div className="p-4 bg-blue-400">
                   <i
                     className="fa-solid fa-person-chalkboard text-5xl"
@@ -105,12 +99,14 @@ const Dashbord = () => {
           )}
         </div>
 
-        <div className="flex flex-col shadow-lg px-3 border rounded-md m-10 animate-fade animate-ease-in-out">
-          <h1 className="py-3 font-bold text-black text-lg">
-            Course enrollment data
-          </h1>
-          <LineChart />
-        </div>
+        {data && (
+          <div className="flex flex-col shadow-lg px-3 border rounded-md m-10 animate-fade animate-ease-in-out">
+            <h1 className="py-3 font-bold text-black text-lg">
+              Course enrollment data
+            </h1>
+            <LineChart data={data} />
+          </div>
+        )}
       </div>
     </div>
   );
