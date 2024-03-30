@@ -156,7 +156,6 @@ export const getLanguageList = async () => {
   try {
     const response = await axiosInstance.get("/admin/languages");
     const { language } = response.data;
-    console.log(language);
     return Promise.resolve(language);
   } catch (error) {
     return Promise.reject();
@@ -200,12 +199,11 @@ export const addLanguage = async (language) => {
   }
 };
 
-export const editLanguage = async (languageId, value) => {
+export const editLanguage = async (data) => {
   try {
-    console.log(languageId, value, "======oooop");
+    // console.log(languageId, value, "======oooop");
     const response = await axiosInstance.patch("/admin/edit-language", {
-      languageId,
-      value,
+      data,
     });
     const { success } = response.data;
 
@@ -263,13 +261,10 @@ export const addLevel = async (level) => {
   }
 };
 
-export const editLevel = async (levelId, value) => {
+export const editLevel = async (data) => {
   try {
-    console.log(levelId, value, "======oooop");
-    const response = await axiosInstance.patch("/admin/edit-level", {
-      levelId,
-      value,
-    });
+    console.log(data, "======oooop");
+    const response = await axiosInstance.patch("/admin/edit-level", { data });
     const { success } = response.data;
 
     return Promise.resolve(success);

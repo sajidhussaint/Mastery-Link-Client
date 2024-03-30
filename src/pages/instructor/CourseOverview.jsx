@@ -3,6 +3,7 @@ import InstructorNavbar from "../../components/instructorComponent/InstructorNav
 import { useLocation } from "react-router-dom";
 import { Badge } from "antd";
 import HoverVideoPlayer from "react-hover-video-player";
+import { useQuery } from "@tanstack/react-query";
 
 import {
   Dialog,
@@ -32,7 +33,7 @@ import EnrolledStudentsTable from "../../components/instructorComponent/Enrolled
 import { toast } from "react-toastify";
 
 const CourseOverview = () => {
-  const [course, setCourse] = useState();
+  // const [course, setCourse] = useState();
   const [updating, setUpdating] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedTime, setSelectedTime] = useState(0);
@@ -42,12 +43,22 @@ const CourseOverview = () => {
   const [open, setOpen] = useState(false);
   const [timeFormat, setTimeFormat] = useState("");
   const [currentModuleId, setCurrentModuleId] = useState(null);
-  const [loader, setLoader] = useState(true);
-  const [enrollments, setEnrollments] = useState();
+  const [loader, setLoader] = useState(false);
+  // const [enrollments, setEnrollments] = useState();
 
   const fileInputRef = useRef(null);
 
   const location = useLocation();
+
+  const { data, isLoading,refetch } = useQuery({
+    queryKey: ["courseoverview"],
+    queryFn: () => getSingleCourse(location.state.courseId),
+  });
+
+  const course = data?.course;
+  const enrollments = data?.enrollments;
+
+  console.log(course);
 
   function timeToSeconds(timeString) {
     // Split the time string into hours, minutes, and seconds
@@ -137,9 +148,9 @@ const CourseOverview = () => {
     }
   };
 
-  useEffect(() => {
-    getCourse();
-  }, []);
+  // useEffect(() => {
+  //   getCourse();
+  // }, []);
   return (
     <>
       {spinner && <SpinnerMain />}
@@ -160,7 +171,7 @@ const CourseOverview = () => {
                   <img
                     className="object-cover w-full  h-96 md:h-auto md:w-72  md:rounded-lg overflow-hidden"
                     // src={course.image}
-                    src='/images/sample.jpg'//TODO:change img src
+                    src="/images/sample.jpg" //TODO:change img src
                     alt="img-course"
                   />
                 ) : (
@@ -238,11 +249,11 @@ const CourseOverview = () => {
               </h1>
               <p className="my-1 text-lg font-semibold">
                 <i className="fas fa-signal mr-2 text-green-700"></i>
-                {course?.level.level}
+                {/* {course?.level.level} */}
               </p>
               <p className="my-1 text-lg font-semibold">
                 <i className="fas fa-solid fa-language text-green-700 mr-2"></i>
-                {course?.language.language}
+                {/* {course?.language.language} */}
               </p>
               <div className="container">
                 <hr />
@@ -371,23 +382,22 @@ const CourseOverview = () => {
               )}
             </div>
           </div>
-          
-          {enrollments.length>0&&<div className="pt-1 p-6 flex justify-center bg-slate-100 text-black">
-            <div className="p-6  container bg-white">
-              <div className="w-full ">
-                <h1 className="font-bold text-lg">Enrolled Students</h1>
-              </div>
-              <div className="text-md ">
-                <EnrolledStudentsTable
-                  modules={course?.modules?.length}
-                  enrollments={enrollments}
-                />
+
+          {enrollments.length > 0 && (
+            <div className="pt-1 p-6 flex justify-center bg-slate-100 text-black">
+              <div className="p-6  container bg-white">
+                <div className="w-full ">
+                  <h1 className="font-bold text-lg">Enrolled Students</h1>
+                </div>
+                <div className="text-md ">
+                  <EnrolledStudentsTable
+                    modules={course?.modules?.length}
+                    enrollments={enrollments}
+                  />
+                </div>
               </div>
             </div>
-          </div>}
-          
-
-
+          )}
         </>
       )}
 

@@ -71,7 +71,7 @@ const InstructorList = () => {
               {isLoading && <h1 className="mx-5 my-5">Loading...</h1>}
               {isError && currentInstructors.length == 0 && (
                 <h1 className="mx-5 my-5">
-                  An error occurred{currentInstructors.length}
+                  An error occurred
                 </h1>
               )}
               {currentInstructors.map((instructor) => (

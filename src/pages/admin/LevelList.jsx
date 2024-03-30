@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   getLevelList,
   listLevel,
   unlistLevel,
   editLevel,
-  addLevel
+  addLevel,
 } from "../../api/adminApi";
-
+import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   Button,
   Dialog,
@@ -18,25 +18,28 @@ import {
 } from "@material-tailwind/react";
 
 function LevelList() {
-  const [LevelList, setLevelList] = useState([]);
+  const {
+    data: levelList = [],
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["levels"],
+    queryFn: getLevelList,
+  });
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [open, setOpen] = useState(false);
-  const [LevelFormData, setLevelFormData] = useState("");
+  const [levelFormData, setLevelFormData] = useState("");
   const [isNewLevel, setIsNewLevel] = useState(false);
 
-  const getLevels = async () => {
-    try {
-      const Levels = await getLevelList();
-      console.log(Levels);
-      setLevelList(Levels);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const editLevelMutation = useMutation({ mutationFn: editLevel });
+  const addLevelMutation = useMutation({ mutationFn: addLevel });
+  const listLevelMutation = useMutation({ mutationFn: listLevel });
+  const unlistLevelMutation = useMutation({ mutationFn: unlistLevel });
 
-  const handleOpen = (Level) => {
-    setLevelFormData(Level.level);
-    setSelectedLevel(Level);
+  const handleOpen = (level) => {
+    setLevelFormData(level.level);
+    setSelectedLevel(level);
     setOpen(true);
   };
 
@@ -44,26 +47,15 @@ function LevelList() {
     e.preventDefault();
     try {
       if (!isNewLevel) {
-        await editLevel(selectedLevel.id, LevelFormData);
-        const updatedList = LevelList.map((Level) =>
-          Level.id === selectedLevel.id
-            ? { ...Level, level: LevelFormData }
-            : Level
-        );
-        setLevelList(updatedList);
-        console.log('running edit level');
+        await editLevelMutation.mutateAsync({
+          levelId: selectedLevel.id,
+          value: levelFormData,
+        });
       } else {
-        const newdata = await addLevel(LevelFormData);
-
-        const updatedList = [
-          ...LevelList,
-          { Level: LevelFormData, status: true },
-        ];
-
-        console.log(updatedList, "kkkkkkk");
-        setLevelList(updatedList);
+        await addLevelMutation.mutateAsync(levelFormData);
         setIsNewLevel(false);
       }
+      refetch();
     } catch (error) {
       console.error(error);
     } finally {
@@ -73,120 +65,97 @@ function LevelList() {
 
   const handleAddLevel = (e) => {
     e.preventDefault();
-    try {
-      setLevelFormData("");
-      setOpen(true);
-      setIsNewLevel(true);
-    } catch (error) {
-      console.error(error);
-    }
+    setLevelFormData("");
+    setOpen(true);
+    setIsNewLevel(true);
   };
 
   const handleList = async (id, e) => {
     e.preventDefault();
-
-    const response = await listLevel(id);
-    if (response) {
-      const newList = LevelList.map((user) =>
-        user.id === id ? { ...user, status: true } : user
-      );
-      setLevelList(newList);
-    }
+    await listLevelMutation.mutateAsync(id);
+    refetch();
   };
+
   const handleUnlist = async (id, e) => {
     e.preventDefault();
-    const response = await unlistLevel(id);
-
-    if (response) {
-      const newList = LevelList.map((Level) =>
-        Level.id === id ? { ...Level, status: false } : Level
-      );
-      setLevelList(newList);
-    }
+    await unlistLevelMutation.mutateAsync(id);
+    refetch();
   };
-
-  useEffect(() => {
-    getLevels();
-  }, [isNewLevel]);
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-bold text-lg text-sky-800">Levels</h1>
-        </div>
-        <div>
-          <button
-            type="button"
-            className={`text-white mt-2 bg-green-600 font-medium rounded-sm text-sm px-5 py-2 mr-2 mb-2`}
-            onClick={handleAddLevel}
-          >
-            Add Level
-          </button>
-        </div>
+      <div className="flex items-center justify-between mb-4 mt-6">
+        <h1 className="font-bold text-lg text-sky-800">Levels</h1>
+        <Button
+          color="green"
+          buttonType="filled"
+          size="sm"
+          rounded={false}
+          block={false}
+          iconOnly={false}
+          ripple="light"
+          onClick={handleAddLevel}
+        >
+          Add Level
+        </Button>
       </div>
 
-      <div className="relative  shadow-md sm:rounded-lg custom-table">
-        <table className="w-full text-sm text-left rtl:text-right text-white-800 ">
+      <div className="relative bg-white shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left rtl:text-right text-white-800 rounded-lg overflow-hidden ">
           <thead className="text-xs text-white uppercase bg-green-700 text-white-400">
             <tr>
               <th className="sm:px-6 py-3">Level</th>
               <th className="sm:px-6 py-3">STATUS</th>
+              <th className="px-6 py-3">ACTIONS</th>
             </tr>
           </thead>
           <tbody className="text-black">
-            {LevelList&&LevelList.map((Level) => (
+            {isLoading && <h1 className="mx-5 my-5">Loading...</h1>}
+            {isError && categoryList.length == 0 && (
+              <h1 className="mx-5 my-5">An error occurred</h1>
+            )}
+            {levelList.map((level) => (
               <tr
-                key={Level.id}
+                key={level.id}
                 className="bg-white border-b dark:border-gray-700"
               >
                 <td className="sm:px-6 py-4 font-medium text-black  whitespace-nowrap ">
-                  {Level.level}
+                  {level.level}
                 </td>
 
                 <td className="sm:px-6 py-4 font-medium text-black  whitespace-nowrap ">
-                  {/* <button className="inline-block border-e px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
-                      Listed
-                    </button> */}
-
-                  <button
-                    type="button"
+                  <Button
+                    color={!level.status ? "red" : "green"}
+                    buttonType="filled"
+                    size="sm"
+                    rounded={false}
+                    block={false}
+                    iconOnly={false}
+                    ripple="light"
                     onClick={(e) => {
-                      if (Level.status) {
-                        handleUnlist(Level.id, e);
+                      if (level.status) {
+                        handleUnlist(level.id, e);
                       } else {
-                        handleList(Level.id, e);
+                        handleList(level.id, e);
                       }
                     }}
-                    className={`text-white mt-2 ${
-                      !Level.status
-                        ? "bg-red-700 hover:bg-red-800"
-                        : "bg-green-700 hover:bg-green-800"
-                    } font-medium rounded-sm text-sm px-5 py-1 mr-2 mb-2`}
                   >
-                    {!Level.status ? "Unlisted" : "Listed"}
-                  </button>
-
-                  <button
-                    className="inline-block px-4 py-2 text-gray-700 hover:bg-gray-50 focus:relative"
-                    title="Edit"
-                    onClick={() => handleOpen(Level)}
+                    {!level.status ? "Unlisted" : "Listed"}
+                  </Button>
+                </td>
+                <td className="px-6 py-4 font-medium text-black whitespace-nowrap ">
+                  <Button
+                    color="blueGray"
+                    buttonType="filled"
+                    size="sm"
+                    rounded={false}
+                    block={false}
+                    iconOnly={false}
+                    ripple="light"
+                    onClick={() => handleOpen(level)}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="h-4 w-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                      />
-                    </svg>
-                  </button>
+                    Edit
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -221,7 +190,7 @@ function LevelList() {
               <Input
                 onChange={(e) => setLevelFormData(e.target.value)}
                 label="Level"
-                value={LevelFormData}
+                value={levelFormData}
               />
             </form>
           </div>
