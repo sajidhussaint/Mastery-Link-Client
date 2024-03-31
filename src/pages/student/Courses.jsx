@@ -1,34 +1,31 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Navbar from "../../components/StudentComponent/Navbar";
 import SingleCourse from "../../components/StudentComponent/SingleCourse";
-import { getCourses, searchCourse } from "../../api/studentApi";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import CardSkeleton from "../../components/common/utils/CardSkeleton";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { getCourses, searchCourse } from "../../api/studentApi";
 
 const Courses = () => {
-  const [courses, setCourses] = useState([]);
-  const [loader, setLoader] = useState(true);
-  const [categories, setCategories] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(8); // Number of items to display per page
-  const searchInputRef = useRef(null);
+  const {
+    data: coursesData = {},
+    isLoading: coursesLoading,
+    refetch: refetchCourses,
+  } = useQuery({
+    queryKey: ["courses"],
+    queryFn: getCourses,
+  });
 
-  const getCourse = async ({ category }) => {
-    const response = await getCourses({ category });
-    console.log(response, "00@@@");
-    setCourses(response?.courses);
-    setCategories(response?.categories);
-    setLoader(false);
-  };
+  const searchInputRef = React.useRef(null);
+
+  const searchCourseMutation = useMutation({
+    mutationFn: searchCourse,
+  });
 
   const handleSelect = (e) => {
     const selectedCategory = e.target.value;
-    if (selectedCategory == "") {
-      getCourse({});
-    } else {
-      getCourse({ category: selectedCategory });
-    }
+    refetchCourses({ category: selectedCategory });
   };
 
   const handleChange = () => {
@@ -37,30 +34,23 @@ const Courses = () => {
 
   const handleSearch = async () => {
     const searchTerm = searchInputRef.current?.value;
+    console.log("working handle search", searchTerm);
     if (searchTerm) {
-      setCourses([]);
-      setLoader(true);
-      const response = await searchCourse(searchTerm);
-      if (response) {
-        setLoader(false);
-        setCourses(response);
-      }
+      const response = await searchCourseMutation.mutateAsync(searchTerm);
+      refetchCourses();
     } else {
-      getCourse({});
+      refetchCourses();
     }
   };
 
-  useEffect(() => {
-    getCourse({});
-  }, []);
+  const { courses = [], categories = [] } = coursesData;
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const itemsPerPage = 8;
 
-  //  current courses based on pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentCourses = courses.slice(indexOfFirstItem, indexOfLastItem);
-  console.log(currentCourses.length);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -105,7 +95,7 @@ const Courses = () => {
         </div>
 
         <div className="mt-14 grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-10 animate-fade">
-          {loader && (
+          {coursesLoading && (
             <>
               <CardSkeleton />
               <CardSkeleton />

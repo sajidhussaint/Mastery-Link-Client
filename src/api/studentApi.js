@@ -113,6 +113,7 @@ export const updateProfile = async (firstname, lastname, mobile, studentId) => {
 
 export const searchCourse = async (searchKey) => {
   try {
+    console.log('serch key',searchKey);
     const response = await axiosInstance.get(
       `search-course?search=${searchKey}`
     );

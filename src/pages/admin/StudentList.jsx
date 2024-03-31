@@ -6,6 +6,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { getAllStudents, blockStudent, unblockStudent } from "../../api/adminApi";
 
 const StudentList = () => {
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
