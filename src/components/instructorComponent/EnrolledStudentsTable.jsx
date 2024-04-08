@@ -35,7 +35,7 @@ const EnrolledStudentsTable = ({ modules, enrollments }) => {
                     moment(enrollment.date).format("DD/MM/YYYY")}
                 </td>
                 <td className="px-6 py-4">
-                  {(enrollment.progression?.length / modules) * 100}
+                  {Math.round((enrollment.progression?.length / modules) * 100)}
                   {""}%
                 </td>
               </tr>

@@ -1,31 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/StudentComponent/Navbar";
 import SingleCourse from "../../components/StudentComponent/SingleCourse";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import CardSkeleton from "../../components/common/utils/CardSkeleton";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { getCourses, searchCourse } from "../../api/studentApi";
+import { getCourses, getCategory } from "../../api/studentApi";
 
 const Courses = () => {
+  const [category, setCategory] = useState("default");
+  const [search, setSearch] = useState("");
+
+  const { data: categoryData = [] } = useQuery({
+    queryKey: ["category"],
+    queryFn: () => getCategory(),
+    refetchOnWindowFocus: false,
+  });
+
   const {
-    data: coursesData = {},
+    data: courses = [],
     isLoading: coursesLoading,
-    refetch: refetchCourses,
+    refetch,
   } = useQuery({
-    queryKey: ["courses"],
-    queryFn: getCourses,
+    queryKey: ["courses", category, search],
+    queryFn: () => getCourses(category, search),
   });
 
   const searchInputRef = React.useRef(null);
 
-  const searchCourseMutation = useMutation({
-    mutationFn: searchCourse,
-  });
-
   const handleSelect = (e) => {
-    const selectedCategory = e.target.value;
-    refetchCourses({ category: selectedCategory });
+    setCategory(e.target.value);
+    setSearch("");
+    refetch();
   };
 
   const handleChange = () => {
@@ -34,22 +40,19 @@ const Courses = () => {
 
   const handleSearch = async () => {
     const searchTerm = searchInputRef.current?.value;
-    console.log("working handle search", searchTerm);
     if (searchTerm) {
-      const response = await searchCourseMutation.mutateAsync(searchTerm);
-      refetchCourses();
+      setSearch(searchTerm);
     } else {
-      refetchCourses();
+      refetch();
     }
   };
 
-  const { courses = [], categories = [] } = coursesData;
   const [currentPage, setCurrentPage] = React.useState(1);
   const itemsPerPage = 8;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentCourses = courses.slice(indexOfFirstItem, indexOfLastItem);
+  const currentCourses = courses?.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -69,8 +72,8 @@ const Courses = () => {
               className="py-2 text-white shadow-lg shadow-[#bdbdbd] border rounded-md bg-green-800 focus:border-none px-4 font-semibold"
               onChange={(e) => handleSelect(e)}
             >
-              <option value="">All categories</option>
-              {categories?.map((category) => (
+              <option value="default">All categories</option>
+              {categoryData?.map((category) => (
                 <option key={category.id} value={category.id}>
                   {category.category}
                 </option>
@@ -89,7 +92,7 @@ const Courses = () => {
               className="bg-green-800 px-4 py-2 text-center text-white shadow-lg rounded-e-md"
               onClick={handleSearch}
             >
-              search
+              Search
             </button>
           </div>
         </div>
@@ -101,21 +104,30 @@ const Courses = () => {
               <CardSkeleton />
               <CardSkeleton />
               <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
             </>
           )}
 
           {/* Render current courses */}
-          {currentCourses.map(
-            (course, index) =>
-              course.modules.length > 0 && (
-                <SingleCourse key={index} course={course} />
-              )
+          {currentCourses?.map((course, index) => (
+            <SingleCourse key={index} course={course} />
+          ))}
+          {!coursesLoading && currentCourses?.length == 0 && (
+            <div className=" h-5 flex flex-col items-center justify-center mt-10">
+              <img className="w-20 h-20" src="/images/empty_data.png" alt="" />
+              <h1 className="font-semibold text-lg text-center">
+                No Modules found.
+              </h1>
+            </div>
           )}
         </div>
 
         {/* Pagination */}
         <div className="flex justify-center mt-4">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 ">
             <Button
               variant="text"
               className="flex items-center gap-2"

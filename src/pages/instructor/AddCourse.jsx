@@ -81,9 +81,8 @@ const AddCourse = () => {
   return (
     <>
       <InstructorNavbar />
-      <div className="relative bg-gradient-to-bl from-green-100 via-transparent dark:from-blue-950 dark:via-transparent animate-fade animate-ease-in-out">
-        <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-          {/* Grid */}
+      <div className="relative bg-gradient-to-bl  via-transparent dark:from-blue-950 dark:via-transparent animate-fade animate-ease-in-out">
+        <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-7 mx-auto ">
           <div className="grid items-center md:grid-cols-2 gap-8 lg:gap-12">
             <div>
               {/* Form */}
@@ -97,7 +96,7 @@ const AddCourse = () => {
                 )}
                 <div className="lg:max-w-lg lgmx-auto lg:me-0 ms-auto">
                   {/* Card */}
-                  <div className="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg dark:bg-slate-900">
+                  <div className="p-4 sm:p-7 flex flex-col bg-white rounded-2xl shadow-lg  dark:bg-slate-900">
                     <div className="text-center">
                       <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
                         Add Course
@@ -256,11 +255,11 @@ const AddCourse = () => {
                       </div>
 
                       {/* Floating Input */}
-                      <div className="relative">
+                      <div className="relative mt-5">
                         <textarea
                           {...register("description")}
                           id="hs-hero-signup-form-floating-input-message"
-                          className="bg-gray-100 peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600
+                          className="bg-gray-100 peer  p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600
                 focus:pt-6
                 focus:pb-2
                 [&:not(:placeholder-shown)]:pt-6
@@ -308,6 +307,9 @@ const AddCourse = () => {
                 )}
               </form>
               {/* End Form */}
+            </div>
+            <div className="bg-green-600 w-full hidden sm:block">
+              <img src="/images/add_course.png" alt="" />
             </div>
           </div>
         </div>

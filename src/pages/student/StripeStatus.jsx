@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SmallSpinner } from "../../components/common/utils/Spinner";
-import { enrollment } from "../../api/studentApi";
+import { enrollment, getSingleCourse } from "../../api/studentApi";
 import { userActions } from "../../redux/userSlice";
 const StripeCancel = () => {
   const user = useSelector((store) => store.user.user);
@@ -21,7 +21,9 @@ const StripeCancel = () => {
       if (courseId && firstCall) {
         firstCall = false;
         const response = await enrollment(courseId, user._id);
-        dispatch(userActions.addCourse(courseId));
+        const data = await getSingleCourse(courseId);
+        console.log(data, "stripe data");
+        dispatch(userActions.addCourse(data));
         if (response) {
           navigate("/view-course", {
             state: { courseId },
@@ -29,6 +31,7 @@ const StripeCancel = () => {
         }
       }
     } catch (error) {
+      alert("error payment");
       navigate("/view-course", {
         state: { courseId },
       });

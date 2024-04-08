@@ -3,11 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
-// import { partnerLogout } from "../../../reduxStore/slices/partnerSlice";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCommentAlt } from "@fortawesome/free-regular-svg-icons";
 import { initFlowbite } from "flowbite";
 import { instructorActions } from "../../redux/InstructorSlice";
+import { LogOut } from "lucide-react";
 
 const InstructorNavbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -68,14 +69,14 @@ const InstructorNavbar = () => {
           <div className="relative" onClick={toggleDropdown}>
             <button
               type="button"
-              className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+              className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-green-300 dark:focus:ring-gray-600"
               id="user-menu-button"
             >
               <span className="sr-only">Open user menu</span>
               <img
                 className="w-8 h-8 rounded-full object-contain"
                 src="/images/profile.jpg"
-                alt="user photo"
+                alt="profile_photo"
               />
             </button>
             {/* Dropdown menu */}
@@ -104,9 +105,10 @@ const InstructorNavbar = () => {
                   <li>
                     <a
                       onClick={handleLogout}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover-bg-gray-600 dark:text-gray-200 dark:hover-text-white cursor-pointer"
+                      className="flex  px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover-bg-gray-600 dark:text-gray-200 dark:hover-text-white cursor-pointer"
                     >
                       Logout
+                      <LogOut className="ml-1" size={20} />
                     </a>
                   </li>
                 </ul>

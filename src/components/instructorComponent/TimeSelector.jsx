@@ -29,7 +29,7 @@ const VideoTimePicker = ({ maxTime, onTimeChange }) => {
   if (maxTime) {
     var [hr, min, ss] = maxTime.split(":").map((part) => parseInt(part, 10));
 
-    console.log(ss, "timess");
+    
   }
   console.log(typeof onTimeChange);
 
@@ -87,6 +87,9 @@ const VideoTimePicker = ({ maxTime, onTimeChange }) => {
       <p className="text-lg font-semibold">
         Selected Time: {formatTime(hours)}:{formatTime(minutes)}:
         {formatTime(seconds)}
+      </p>
+      <p className="text-lg font-semibold">
+        Max Length : {maxTime}
       </p>
     </div>
   );

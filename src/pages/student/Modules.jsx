@@ -7,6 +7,7 @@ import { addProgression } from "../../api/studentApi";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCourseActions } from "../../redux/selectedCourseSlice";
 import { selectModuleActions } from "../../redux/SelectedModuleSlice";
+import { FaCheckCircle } from "react-icons/fa";
 
 const Modules = ({ modules }) => {
   const [current, setCurrent] = useState(0);
@@ -74,71 +75,72 @@ const Modules = ({ modules }) => {
     }
   }, [modules]);
 
-
   return (
     <div className="container mx-auto">
       {modules ? (
         <div className="grid md:grid-cols-3 grid-cols-1 gap-4 animate-fade animate-ease-in-out">
           {/* Switched order of the components */}
-          <div className="col-span-1 h-auto md:h-[70vh] bg-slate-50 overflow-hidden pb-5 shadow-slate-400 shadow-md">
-            <div className="h-14 bg-slate-200 flex items-center">
+          <div className="col-span-1  md:h-[70vh] bg-slate-50  pb-5 shadow-slate-400 shadow-md overflow-y-auto">
+            <div className=" ">
               <h1 className="px-4 font-bold">Modules</h1>
-            </div>
-            <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 dark:scrollbar-thumb-slate-900 dark:scrollbar-track-gray-300 h-full">
               {/* Module list content */}
               {/* {modules && modules.length > 0&& setChapter(addChapter(modules[0]))} */}
               {modules && modules.length > 0 ? (
                 modules.map((currentModule, index) => (
-                  <div className="flex flex-col" key={index}>
-                    <div
-                      className={`w-full flex flex-row items-center ${
-                        index == 0 &&
-                        selectedModule.length == 0 &&
-                        "bg-green-100"
-                      } ${
-                        selectedModule.id == currentModule.module.id &&
-                        "bg-green-100"
-                      }`}
-                    >
-                      <div className="w-2/12 flex justify-center  items-center flex-row my-6 ">
-                        {selectedCourse?.progression?.includes(
-                          typeof currentModule.module === "object"
-                            ? currentModule.module.id
-                            : ""
-                        ) ? (
-                          <i className="fa-solid fa-circle-check"></i>
-                        ) : (
-                          <i className="fa-regular fa-circle-check"></i>
-                        )}
-                      </div>
+                  <>
+                    <div className="flex flex-col" key={index}>
+                      <div
+                        className={`w-full flex flex-row items-center ${
+                          index == 0 &&
+                          selectedModule.length == 0 &&
+                          "bg-green-100"
+                        } ${
+                          selectedModule.id == currentModule.module.id &&
+                          "bg-green-100"
+                        }`}
+                      >
+                        <div className="w-2/12 flex justify-center  items-center flex-row my-5 ">
+                          {selectedCourse?.progression?.includes(
+                            typeof currentModule.module === "object"
+                              ? currentModule.module.id
+                              : ""
+                          ) ? (
+                            <FaCheckCircle color="green" />
+                          ) : (
+                            <i className="fa-regular fa-circle-check"></i>
+                          )}
+                        </div>
 
-                      <div className="w-8/12 cursor-pointer">
-                        <button
-                          className="font-semibold"
-                          onClick={() => {
-                            playVideo(currentModule.module);
+                        <div className="w-8/12 cursor-pointer">
+                          <button
+                            className="font-semibold"
+                            onClick={() => {
+                              playVideo(currentModule.module);
 
-                            // dispatch(
-                            //   selectModuleActions.selectChapter(
-                            //     currentModule.module.chapters
-                            //   )
-                            // );
-                            addChapter(currentModule?.module);
-                            console.log("selop", currentModule.module.name);
-                            // addDescription(currentModule.module.description);
-                          }}
-                        >
-                          {currentModule.module.name}
-                        </button>
+                              // dispatch(
+                              //   selectModuleActions.selectChapter(
+                              //     currentModule.module.chapters
+                              //   )
+                              // );
+                              addChapter(currentModule?.module);
+                              console.log("selop", currentModule.module.name);
+                              // addDescription(currentModule.module.description);
+                            }}
+                          >
+                            {currentModule.module.name}
+                          </button>
+                        </div>
+                        <div className="w-2/12">
+                          <h3 className="font-semibold">
+                            {currentModule.module.duration}
+                          </h3>
+                        </div>
                       </div>
-                      <div className="w-2/12">
-                        <h3 className="font-semibold">
-                          {currentModule.module.duration}
-                        </h3>
-                      </div>
+                      <hr className="h-[2px] bg-slate-300" />
                     </div>
-                    <hr className="h-[2px] bg-slate-300" />
-                  </div>
+
+                    
+                  </>
                 ))
               ) : (
                 <div className="w-full flex justify-center items-center h-16">
@@ -179,7 +181,7 @@ const Modules = ({ modules }) => {
       )}
 
       <div>
-        {selectedModule && chapters?.length>1 && (
+        {selectedModule && chapters?.length > 1 && (
           <Steps
             type="navigation"
             size="small"
@@ -188,7 +190,7 @@ const Modules = ({ modules }) => {
             className="site-navigation-steps "
             items={chapters}
             responsive={true}
-            colorPrimary='#ff4d4f'
+            colorPrimary="#ff4d4f"
           />
         )}
       </div>

@@ -27,7 +27,6 @@ export const addCourse = async (courseCredentials) => {
 
 export const getSingleCourse = async (courseId) => {
   try {
-    console.log(courseId,'this is id');
     const response = await axiosInstance.get(`/instructor/course/${courseId}`);
     return Promise.resolve(response.data);
   } catch (error) {

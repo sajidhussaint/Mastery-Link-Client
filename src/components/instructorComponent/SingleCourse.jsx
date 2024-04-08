@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { BiCategory } from "react-icons/bi";
 
 const SingleCourse = ({ course }) => {
   const navigate = useNavigate();
@@ -9,8 +10,8 @@ const SingleCourse = ({ course }) => {
       <div className="flex justify-center">
         <img
           className="rounded-t-sm h-44  object-cover"
-          // src={course.image ? course.image : "/images/image not found.png"}
-          src='/images/sample.jpg'//TODO:change img src
+          src={course.image ? course.image : "/images/image not found.png"}
+          // src='/images/sample.jpg'
           alt="product image"
         />
       </div>
@@ -20,7 +21,8 @@ const SingleCourse = ({ course }) => {
             {course.name}
           </h5>
           <div>
-            <p className="truncate text-xs italic">
+            <p className="truncate text-xs italic flex">
+              <BiCategory color="green" className="mr-1" />
               {typeof course.category === "object"
                 ? course.category.category
                 : course.category}
@@ -28,19 +30,19 @@ const SingleCourse = ({ course }) => {
           </div>
         </div>
         <div>
-          {course.approval === "approved" && (
+          {course?.approval === "approved" && (
             <h6 className="text-sm font-bold text-green-600">Approved</h6>
           )}
-          {course.approval === "rejected" && (
+          {course?.approval === "rejected" && (
             <h6 className="text-sm font-bold text-red-600">Rejected</h6>
           )}
-          {course.approval === "pending" && (
+          {course?.approval === "pending" && (
             <h6 className="text-sm font-bold text-blue-600">Pending</h6>
           )}
         </div>
         <div className="flex justify-between items-end pt-2">
           <span className="text-md font-bold text-gray-900">
-            ${course.price}
+            ₹{course?.price}
           </span>
           <button
             onClick={() => {

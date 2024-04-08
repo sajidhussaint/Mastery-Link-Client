@@ -8,22 +8,16 @@ import {
   Input,
   Typography,
   Button,
-  Spinner,
 } from "@material-tailwind/react";
-
 import { addModule } from "../../api/instructorApi";
-import SpinnerMain from "../common/utils/SpinnerMain";
 
-const AddModulePopup = ({ handleSpinner }) => {
+const AddModulePopup = ({ handleSpinner, refetch }) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [moduleName, setModuleName] = useState("");
   const [moduleDescription, setModuleDescription] = useState("");
-
   const [videoFile, setVideoFile] = useState(null);
-
   const [err, setErr] = useState("");
-  const [spinner, setSpinner] = useState(false);
 
   const handleFileChange = (e) => {
     setErr("");
@@ -45,6 +39,7 @@ const AddModulePopup = ({ handleSpinner }) => {
     setOpen(false);
     handleSpinner(true);
     const response = await addModule(formData);
+    refetch();
 
     handleSpinner(false);
     console.log(response, "====this s res");
@@ -77,7 +72,6 @@ const AddModulePopup = ({ handleSpinner }) => {
         </div>
 
         <DialogBody>
-          {spinner && <SpinnerMain />}
           <div>
             <form onSubmit={handleSubmit} className="grid gap-3">
               <Input

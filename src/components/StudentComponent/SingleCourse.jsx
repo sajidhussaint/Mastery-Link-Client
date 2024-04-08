@@ -5,15 +5,23 @@ import { useNavigate } from "react-router-dom";
 const SingleCourse = ({ course }) => {
   const navigate = useNavigate();
   return (
-    <div className=" rounded overflow-hidden shadow-lg hover:scale-105 transition duration-500 ease-in-out animate-jump-in animate-ease-in-out">
-      
+    <div className=" rounded overflow-hidden shadow-lg hover:scale-105 transition duration-500 ease-in-out animate-fade animate-ease-in-out">
       <div className="relative ">
-        <img
-          className=" w-full xl:h-36 lg:h-36 md:h-30"
-          // src={course.image}
-          src='./images/sample.jpg'//TODO:change img src
-          alt={course.name}
-        />
+        {course.image ? (
+          <img
+            className=" w-full xl:h-36 lg:h-36 md:h-30"
+            src={course.image}
+            // src='./images/sample.jpg'
+            alt={course.name}
+          />
+        ) : (
+          <img
+            className=" w-full xl:h-36 lg:h-36 md:h-30 object-cover"
+            src="/images/dummy_img.jpg"
+            // src='./images/sample.jpg'
+            alt="no image"
+          />
+        )}
 
         <div className="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25"></div>
 

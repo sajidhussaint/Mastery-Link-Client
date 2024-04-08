@@ -84,50 +84,45 @@ const InstructorChat = () => {
   return (
     <>
       <InstructorNavbar />
-      <div className="  shadow-lg rounded-lg  ">
-        <div className="flex flex-row justify-between  ">
-          <div className="flex flex-col w-2/6 border-r-2   h-screen">
-            {courses &&
-              courses.map((course) => (
-                <div
-                  className={`animate-fade animate-ease-in-out flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer ${
-                    course.id === selectedCourse ? "bg-green-100" : "bg-white"
-                  }`}
-                  onClick={() => handleSelectCourse(course.id)}
-                >
-                  <div className="w-1/4">
-                    <img
-                      // src={course?.image}
-                      src='/images/sample.jpg'//TODO:change img src
-                      className="object-cover h-12 w-12 rounded-md"
-                      alt={course.name}
-                    />
-                  </div>
-                  <div className="w-full">
-                    <div className="text-md font-semibold">{course.name}</div>
-                    <span className="text-gray-500">
-                      {course.category.category}
-                    </span>
-                  </div>
+      {/* <div className="  shadow-lg rounded-lg  "> */}
+
+      <div className="flex flex-row justify-between ">
+        <div className="flex flex-col w-2/6 border-r-2    mb-28 ">
+          {courses &&
+            courses.map((course) => (
+              <div
+                className={`animate-fade animate-ease-in-out flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer ${
+                  course.id === selectedCourse ? "bg-green-100" : "bg-white"
+                }`}
+                onClick={() => handleSelectCourse(course.id)}
+              >
+                <div className="w-1/4">
+                  <img
+                    src={course?.image}
+                    // src='/images/sample.jpg'
+                    className="object-cover h-12 w-12 rounded-md"
+                    alt={course.name}
+                  />
                 </div>
-              ))}
-              
-          </div>
-          {selectedCourse && (
-            <div className="flex flex-col flex-grow w-full bg-white shadow-xl rounded-lg overflow-hidden animate-fade animate-ease-in-out ">
-              <ChatBody
-                lastMessageRef={lastMessageRef}
-                messages={messages}
-                user={instructor}
-              />
-              <ChatFooter
-                socket={socket}
-                user={instructor}
-                isInstructor={true}
-              />
-            </div>
-          )}
+                <div className="w-full">
+                  <div className="text-md font-semibold">{course.name}</div>
+                  <span className="text-gray-500">
+                    {course.category.category}
+                  </span>
+                </div>
+              </div>
+            ))}
         </div>
+        {selectedCourse && courses.length > 0 && (
+          <div className="flex flex-col flex-grow w-full bg-white shadow-xl rounded-lg overflow-hidden animate-fade animate-ease-in-out ">
+            <ChatBody
+              lastMessageRef={lastMessageRef}
+              messages={messages}
+              user={instructor}
+            />
+            <ChatFooter socket={socket} user={instructor} isInstructor={true} />
+          </div>
+        )}
       </div>
     </>
   );

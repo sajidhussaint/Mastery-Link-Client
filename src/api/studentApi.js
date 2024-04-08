@@ -1,12 +1,20 @@
 import { axiosAuthorized, axiosInstance } from "./config";
 import axios from "axios";
 
-export const getCourses = async ({category}) => {
+export const getCourses = async (category, search) => {
   try {
     const response = await axiosInstance.get(
-      `/courses?category=${category}`
-      
+      `/courses?category=${category}&&search=${search}`
     );
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getCategory = async () => {
+  try {
+    const response = await axiosInstance.get("/courses-category");
+
     return Promise.resolve(response.data);
   } catch (error) {
     console.log(error);
@@ -52,7 +60,6 @@ export const enrollment = async (courseId, studentId) => {
 };
 export const getEnrolledCourse = async (courseId, studentId) => {
   try {
-    
     const response = await axiosAuthorized.get(
       `/get-enrolled-course?courseId=${courseId}&&studentId=${studentId}`
     );
@@ -105,18 +112,6 @@ export const updateProfile = async (firstname, lastname, mobile, studentId) => {
     if (response) {
       return Promise.resolve(response.data);
     }
-    return Promise.resolve(response.data);
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
-
-export const searchCourse = async (searchKey) => {
-  try {
-    console.log('serch key',searchKey);
-    const response = await axiosInstance.get(
-      `search-course?search=${searchKey}`
-    );
     return Promise.resolve(response.data);
   } catch (error) {
     return Promise.reject(error);

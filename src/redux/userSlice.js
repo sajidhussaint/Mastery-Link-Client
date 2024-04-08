@@ -19,6 +19,7 @@ const userSlice = createSlice({
 
     addCourse(state, action) {
       state.user?.courses?.push(action.payload)
+      // state.user?.courses=action.payload
     },
 
     userLogout(state) {
