@@ -18,7 +18,7 @@ function App() {
         }}
       >
         <VideoProvider>
-          <ToastContainer />
+          <ToastContainer  limit={1}/>
           <Routes>
             <Route path="/*" element={<StudentRoute />} />
             <Route path="/admin/*" element={<AdminRoute />} />

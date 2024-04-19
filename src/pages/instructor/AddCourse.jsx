@@ -299,8 +299,8 @@ const AddCourse = () => {
                   {/* End Card */}
                 </div>
                 {success && (
-                  <div className="err">
-                    <h3 className="text-green-900 font-semibold bg-green-400 w-full py-2 px-3 border-2 rounded-md">
+                  <div className="err ">
+                    <h3 className="text-green-900 font-semibold bg-green-400 w-full py-2 px-3 border-2 rounded-md text-center">
                       {success}
                     </h3>
                   </div>

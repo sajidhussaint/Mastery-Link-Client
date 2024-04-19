@@ -10,7 +10,7 @@ const SingleCourse = ({ course }) => {
       <div className="flex justify-center">
         <img
           className="rounded-t-sm h-44  object-cover"
-          src={course.image ? course.image : "/images/image not found.png"}
+          src={course.image ? course.image : "/images/dummy_img.jpg"}
           // src='/images/sample.jpg'
           alt="product image"
         />

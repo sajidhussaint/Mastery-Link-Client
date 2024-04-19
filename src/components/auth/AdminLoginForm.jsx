@@ -22,6 +22,7 @@ const AdminLoginForm = () => {
   });
 
   const submitData = async (data) => {
+    
     setErr("");
     try {
       const response = await adminLogin(data);

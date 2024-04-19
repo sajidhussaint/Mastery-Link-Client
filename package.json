@@ -30,7 +30,7 @@
     "antd": "^5.13.2",
     "axios": "^1.6.2",
     "flowbite": "^2.2.1",
-    "framer-motion": "^10.16.16",
+    "framer-motion": "^10.18.0",
     "icons": "^1.0.0",
     "lucide-react": "^0.298.0",
     "moment": "^2.30.1",

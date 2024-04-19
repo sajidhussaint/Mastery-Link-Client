@@ -51,17 +51,27 @@ const CourseList = () => {
 
       <div className="flex flex-col py-14 px-20 h-screen overflow-y-auto w-full animate-fade animate-ease-in-out">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg h-full bg-white">
+          {currentCourses.length == 0 && (
+            <div className=" h-5 flex flex-col items-center justify-center mt-36 animate-fade ">
+              <img className="w-30 h-40" src="/images/empty_data.png" alt="" />
+              <h1 className="font-semibold text-lg text-center">
+                No Courses found..
+              </h1>
+            </div>
+          )}
           <table className="w-full text-sm text-left rtl:text-right text-white-800 ">
-            <thead className="text-xs text-white uppercase bg-white-200 bg-green-700 white:text-white-400">
-              <tr>
-                <th className="sm:px-6 py-3">NAME</th>
-                <th className="sm:px-6 py-3">DESCRIPTION</th>
-                <th className="sm:px-6 py-3">PRICE</th>
-                <th className="sm:px-6 py-3">LEVEL</th>
-                <th className="sm:px-6 py-3">CATEGORY</th>
-                <th> </th>
-              </tr>
-            </thead>
+            {!currentCourses.length == 0 && (
+              <thead className="text-xs text-white uppercase bg-white-200 bg-green-700 white:text-white-400">
+                <tr>
+                  <th className="sm:px-6 py-3">NAME</th>
+                  <th className="sm:px-6 py-3">DESCRIPTION</th>
+                  <th className="sm:px-6 py-3">PRICE</th>
+                  <th className="sm:px-6 py-3">LEVEL</th>
+                  <th className="sm:px-6 py-3">CATEGORY</th>
+                  <th> </th>
+                </tr>
+              </thead>
+            )}
             <tbody className="text-black">
               {isLoading && <h1 className="mx-5 my-5">Loading...</h1>}
               {isError && currentCourses.length == 0 && (
@@ -133,44 +143,46 @@ const CourseList = () => {
           </table>
         </div>
         {/* Pagination */}
-        <div className="flex justify-center mt-4">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="text"
-              className="flex items-center gap-2"
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
-            </Button>
-            <div className="flex items-center gap-2">
-              {Array.from(
-                { length: Math.ceil(courseList.length / itemsPerPage) },
-                (_, index) => (
-                  <IconButton
-                    key={index}
-                    onClick={() => paginate(index + 1)}
-                    {...(currentPage === index + 1
-                      ? { color: "green", size: "md" }
-                      : { color: "gray", size: "sm" })}
-                  >
-                    {index + 1}
-                  </IconButton>
-                )
-              )}
+        {!currentCourses.length == 0 && (
+          <div className="flex justify-center mt-4">
+            <div className="flex items-center gap-4">
+              <Button
+                variant="text"
+                className="flex items-center gap-2"
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+              </Button>
+              <div className="flex items-center gap-2">
+                {Array.from(
+                  { length: Math.ceil(courseList.length / itemsPerPage) },
+                  (_, index) => (
+                    <IconButton
+                      key={index}
+                      onClick={() => paginate(index + 1)}
+                      {...(currentPage === index + 1
+                        ? { color: "green", size: "md" }
+                        : { color: "gray", size: "sm" })}
+                    >
+                      {index + 1}
+                    </IconButton>
+                  )
+                )}
+              </div>
+              <Button
+                variant="text"
+                className="flex items-center gap-2"
+                onClick={() => paginate(currentPage + 1)}
+                disabled={
+                  currentPage === Math.ceil(courseList.length / itemsPerPage)
+                }
+              >
+                Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+              </Button>
             </div>
-            <Button
-              variant="text"
-              className="flex items-center gap-2"
-              onClick={() => paginate(currentPage + 1)}
-              disabled={
-                currentPage === Math.ceil(courseList.length / itemsPerPage)
-              }
-            >
-              Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-            </Button>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

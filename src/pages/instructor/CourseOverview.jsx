@@ -362,8 +362,12 @@ const CourseOverview = () => {
                 </tbody>
               </table>
             ) : (
-              <div className="w-full h-5 flex flex-col items-center justify-center mt-10">
-                <img className="w-20 h-20" src="/images/empty_data.png" alt="" />
+              <div className="w-full h-5 flex flex-col items-center justify-center mt-10 mb-20">
+                <img
+                  className="w-28 h-32"
+                  src="/images/empty_data.png"
+                  alt=""
+                />
                 <h1 className="font-semibold text-lg text-center">
                   No Modules found.
                 </h1>

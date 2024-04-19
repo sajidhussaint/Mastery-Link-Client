@@ -3,14 +3,22 @@ import AdminSidebar from "../../components/adminComponent/AdminSidebar";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
-import { getAllStudents, blockStudent, unblockStudent } from "../../api/adminApi";
+import {
+  getAllStudents,
+  blockStudent,
+  unblockStudent,
+} from "../../api/adminApi";
 
 const StudentList = () => {
-  
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
-  const { data: userList = [], isLoading, isError, refetch } = useQuery({
+  const {
+    data: userList = [],
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ["students"],
     queryFn: getAllStudents,
   });
@@ -18,7 +26,7 @@ const StudentList = () => {
   const blockStudentMutation = useMutation({
     mutationFn: blockStudent,
   });
-  
+
   const unblockStudentMutation = useMutation({
     mutationFn: unblockStudent,
   });
@@ -47,7 +55,16 @@ const StudentList = () => {
       <AdminSidebar />
       <div className="flex flex-col py-14 px-20 h-screen overflow-y-auto w-full animate-fade animate-ease-in-out">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg h-full bg-white">
+        {currentUsers.length == 0 && (
+            <div className=" h-5 flex flex-col items-center justify-center mt-36 animate-fade ">
+              <img className="w-30 h-40" src="/images/empty.png" alt="" />
+              <h1 className="font-semibold text-lg text-center">
+                No students found..
+              </h1>
+            </div>
+          )}
           <table className="w-full text-sm text-left rtl:text-right text-white-800 ">
+          {!currentUsers.length == 0 &&
             <thead className="text-xs text-white uppercase bg-white-200 bg-green-700 white:text-white-400">
               <tr>
                 <th className="sm:px-6 py-3">FIRST NAME</th>
@@ -57,6 +74,7 @@ const StudentList = () => {
                 <th className="sm:px-6 py-3">STATUS</th>
               </tr>
             </thead>
+}
             <tbody>
               {isLoading && <h1 className="mx-5 my-5">Loading...</h1>}
               {isError && currentUsers.length === 0 && (
@@ -98,42 +116,46 @@ const StudentList = () => {
           </table>
         </div>
         {/* Pagination */}
-        <div className="flex justify-center mt-4">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="text"
-              className="flex items-center gap-2"
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
-            </Button>
-            <div className="flex items-center gap-2">
-              {Array.from(
-                { length: Math.ceil(userList.length / itemsPerPage) },
-                (_, index) => (
-                  <IconButton
-                    key={index}
-                    onClick={() => paginate(index + 1)}
-                    {...(currentPage === index + 1
-                      ? { color: "green", size: "md" }
-                      : { color: "gray", size: "sm" })}
-                  >
-                    {index + 1}
-                  </IconButton>
-                )
-              )}
+        {!currentUsers.length == 0 && (
+          <div className="flex justify-center mt-4">
+            <div className="flex items-center gap-4">
+              <Button
+                variant="text"
+                className="flex items-center gap-2"
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+              </Button>
+              <div className="flex items-center gap-2">
+                {Array.from(
+                  { length: Math.ceil(userList.length / itemsPerPage) },
+                  (_, index) => (
+                    <IconButton
+                      key={index}
+                      onClick={() => paginate(index + 1)}
+                      {...(currentPage === index + 1
+                        ? { color: "green", size: "md" }
+                        : { color: "gray", size: "sm" })}
+                    >
+                      {index + 1}
+                    </IconButton>
+                  )
+                )}
+              </div>
+              <Button
+                variant="text"
+                className="flex items-center gap-2"
+                onClick={() => paginate(currentPage + 1)}
+                disabled={
+                  currentPage === Math.ceil(userList.length / itemsPerPage)
+                }
+              >
+                Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+              </Button>
             </div>
-            <Button
-              variant="text"
-              className="flex items-center gap-2"
-              onClick={() => paginate(currentPage + 1)}
-              disabled={currentPage === Math.ceil(userList.length / itemsPerPage)}
-            >
-              Next <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
-            </Button>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

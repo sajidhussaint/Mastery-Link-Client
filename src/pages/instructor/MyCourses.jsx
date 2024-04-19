@@ -41,9 +41,19 @@ const MyCourses = () => {
   return (
     <>
       <InstructorNavbar />
+
       <div className="bg-gradient-to-bl from-green-100 via-transparent p-2">
         <h1 className="text-2xl font-bold px-5 md:px-20 ">My courses</h1>
         <div className="mt-4 md:flex-none flex justify-center">
+          {currentCourses.length == 0 && (
+            <div className=" h-5 flex flex-col items-center justify-center mt-36 animate-fade ">
+              <img className="w-30 h-40" src="/images/empty_data.png" alt="" />
+              <h1 className="font-semibold text-lg text-center">
+                No Courses found..
+              </h1>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-8 gap-y-10">
             {isLoading
               ? Array.from({ length: itemsPerPage }, (_, index) => (

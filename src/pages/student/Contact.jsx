@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Navbar from "../../components/StudentComponent/Navbar.jsx";
+import Footer from "../../components/StudentComponent/Footer.jsx";
 import { toast } from "react-toastify";
 
 const Contact = () => {
@@ -39,7 +40,7 @@ const Contact = () => {
   return (
     <>
       <Navbar />
-
+      
       {/* new contact form */}
       <div className="max-w-screen-lg mx-auto p-5 animate-fade">
         <div className="grid grid-cols-1 md:grid-cols-12 border mt-12">
@@ -125,7 +126,10 @@ const Contact = () => {
                   ></path>
                 </g>
               </svg>
+              
+              <a href="tel:+91 808 955 58 59">
               <span className="text-sm">+91 808 955 58 59</span>
+              </a>
             </div>
             <div className="flex items-center mt-5">
               <svg
@@ -154,7 +158,9 @@ const Contact = () => {
               </svg>
               <span className="text-sm">24/7</span>
             </div>
+     
           </div>
+          
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="md:col-span-8 p-10"
@@ -247,6 +253,7 @@ const Contact = () => {
           </form>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

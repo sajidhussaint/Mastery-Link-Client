@@ -17,7 +17,9 @@ const Navbar = () => {
 
   const handleLogout = () => {
     if (user) {
-      toast.success("Logout successfully");
+      toast.success("Logout successfully", {
+        position: "top-left",
+      });
     }
     userLogout();
 
@@ -25,7 +27,7 @@ const Navbar = () => {
     if (user && user != null) {
       navigate("/");
     } else {
-      navigate("/login");
+      navigate("/signup");
     }
   };
 
@@ -35,9 +37,9 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="fixed w-full z-10">
+      <header className="fixed w-full z-10 ">
         <ProgressBar bgcolor="green" />
-        <nav className="bg-white bg-opacity-75 border-gray-200 py-2.5 dark:bg-gray-900 dark:bg-opacity-50 backdrop-filter backdrop-blur-md">
+        <nav className="bg-white bg-opacity-25 border-gray-200 py-2.5 dark:bg-gray-900 dark:bg-opacity-50 backdrop-filter backdrop-blur-md ">
           <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
             <Link to="/" className="flex items-center">
               <img
@@ -50,12 +52,21 @@ const Navbar = () => {
               <div className="hidden mt-2 mr-4 sm:inline-block">
                 {/* Add your GitHub button or any other content here */}
               </div>
+
+              <button
+                onClick={() => navigate("/login")}
+                className=" font-bold mr-3 relative text-black hover:text-green-600 hover:font-extrabold cursor-pointer transition-all ease-in-out before:transition-[width] before:ease-in-out before:duration-700 before:absolute before:bg-gray-400 before:origin-center before:h-[1px] before:w-0 hover:before:w-[50%] before:bottom-0 before:left-[50%] after:transition-[width] after:ease-in-out after:duration-700 after:absolute after:bg-gray-400 after:origin-center after:h-[1px] after:w-0 hover:after:w-[50%] after:bottom-0 after:right-[50%]  "
+              >
+                {user ? "" : "Sign in"}
+              </button>
+
               <button
                 onClick={handleLogout}
-                className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+                className=" font-bold  inline-flex items-center justify-center rounded-xl bg-green-600 py-2 px-5 font-dm text-base  text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]   "
               >
-                {user ? "Log Out" : "Log In"}
+                {user ? "Sign out" : "Join"}
               </button>
+
               <button
                 onClick={handleMobileMenuToggle}
                 type="button"
@@ -102,7 +113,7 @@ const Navbar = () => {
                 isMobileMenuOpen ? "block" : "hidden"
               } items-center justify-between w-full lg:flex lg:w-auto lg:order-1`}
             >
-              <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+              <ul className="flex flex-col mt-4  lg:flex-row lg:space-x-8 lg:mt-0 font-bold">
                 <li>
                   <Link
                     to="/"
