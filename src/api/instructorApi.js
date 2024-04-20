@@ -1,4 +1,6 @@
 import { axiosAuthorized, axiosInstance } from "./config";
+import axios from "axios";
+
 
 export const getMyCourses = async (instructor) => {
   try {

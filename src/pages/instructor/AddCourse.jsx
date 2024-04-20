@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { courseSchema } from "../../validations/courseSchema";
 import { addCourse } from "../../api/instructorApi";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import {
   getAllCategory,
@@ -20,7 +21,6 @@ const AddCourse = () => {
 
   const InstructorId = useSelector((store) => store.instructor.instructor._id);
 
-  const [success, setSuccess] = useState("");
   const [err, setErr] = useState("");
 
   const getCategoryList = async () => {
@@ -53,7 +53,9 @@ const AddCourse = () => {
       const response = await addCourse(data);
 
       if (response) {
-        setSuccess("Course successfully added");
+        toast.success("Course successfully added", {
+          theme: "colored",
+        });
         setTimeout(() => navigate("/instructor/my-courses"), 2000);
       }
       console.log(data);
@@ -298,13 +300,6 @@ const AddCourse = () => {
                   </div>
                   {/* End Card */}
                 </div>
-                {success && (
-                  <div className="err ">
-                    <h3 className="text-green-900 font-semibold bg-green-400 w-full py-2 px-3 border-2 rounded-md text-center">
-                      {success}
-                    </h3>
-                  </div>
-                )}
               </form>
               {/* End Form */}
             </div>

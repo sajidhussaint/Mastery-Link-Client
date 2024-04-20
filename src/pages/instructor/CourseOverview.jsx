@@ -30,7 +30,7 @@ import AddModulePopup from "../../components/instructorComponent/AddModulePopup"
 import SpinnerMain from "../../components/common/utils/SpinnerMain";
 import OverviewSkelton from "../../components/common/utils/OverviewSkelton";
 import EnrolledStudentsTable from "../../components/instructorComponent/EnrolledStudentsTable";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 const CourseOverview = () => {
   const [showPopup, setShowPopup] = useState(false);
@@ -53,12 +53,12 @@ const CourseOverview = () => {
   const course = data?.course;
   const enrollments = data?.enrollments;
 
-  if (course?.modules?.length == 0) {
-    toast.warn("please add modules", {
-      theme: "colored",
-      position: "bottom-left",
-    });
-  }
+  // if (course?.modules?.length == 0 ) {
+  //   toast.warn("please add modules", {
+  //     theme: "colored",
+  //     position: "bottom-left",
+  //   });
+  // }
 
   const addChapterMutation = useMutation({
     mutationFn: addChapter,
@@ -147,6 +147,8 @@ const CourseOverview = () => {
       </>
     );
   }
+
+  
   return (
     <>
       {spinner && <SpinnerMain />}
@@ -284,7 +286,7 @@ const CourseOverview = () => {
                             <HoverVideoPlayer
                               videoSrc={
                                 typeof module?.module === "object"
-                                  ? module.module.module
+                                  ? module?.module?.module
                                   : module?.module
                               }
                               style={{
@@ -300,12 +302,12 @@ const CourseOverview = () => {
                         {/* <i className="fa-regular fa-circle-play px-2"></i> */}
 
                         {typeof module?.module === "object"
-                          ? module.module.name
+                          ? module?.module?.name
                           : module?.module}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap ">
                         {typeof module?.module === "object"
-                          ? module.module.duration
+                          ? module?.module?.duration
                           : module?.module}
                         <Tooltip
                           placement="bottom"
@@ -324,7 +326,7 @@ const CourseOverview = () => {
                                 className="font-normal opacity-80"
                               >
                                 <div className="flex flex-row  gap-2 ">
-                                  {module.module.chapters.map((item, index) => (
+                                  {module?.module?.chapters.map((item, index) => (
                                     <Chip
                                       key={index}
                                       color="green"
@@ -338,7 +340,7 @@ const CourseOverview = () => {
                           }
                         >
                           <Badge
-                            count={module.module.chapters.length}
+                            count={module?.module?.chapters?.length}
                             className="cursor-pointer ml-2"
                           />
                         </Tooltip>
