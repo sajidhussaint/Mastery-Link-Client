@@ -41,7 +41,7 @@ const SingleCourseView = () => {
         const response = await courseEnroll(course.id, user._id);
         console.log(response);
         if (response) {
-          alert(response);
+          
           window.location.href = response;
         }
       } catch (error) {
@@ -140,7 +140,7 @@ const SingleCourseView = () => {
                     onClick={handleEnroll}
                     className={`${course.modules.length > 0 ? "" : "hidden"}`}
                   >
-                    Enroll now{course.modules.length}
+                    Enroll now
                   </Button>
                 )}
               </div>

@@ -10,7 +10,7 @@ import { selectModuleActions } from "../../redux/SelectedModuleSlice";
 import { FaCheckCircle } from "react-icons/fa";
 
 const Modules = ({ modules }) => {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(Infinity);
   const [selectedModule, setSelectedModule] = useState([]);
 
   const dispatch = useDispatch();
@@ -138,8 +138,6 @@ const Modules = ({ modules }) => {
                       </div>
                       <hr className="h-[2px] bg-slate-300" />
                     </div>
-
-                    
                   </>
                 ))
               ) : (
@@ -167,10 +165,13 @@ const Modules = ({ modules }) => {
                 // Add event listener for video end
                 onEnded={() => {
                   handleVideoEnd(
-                    selectedModule ? selectedModule.id : modules[0].module.id
+                    selectedModule.length > 0
+                      ? selectedModule.id
+                      : modules[0].module.id
                   );
                 }}
               >
+                
                 <BigPlayButton position="center" />
               </Player>
             )}
@@ -191,6 +192,7 @@ const Modules = ({ modules }) => {
             items={chapters}
             responsive={true}
             colorPrimary="#ff4d4f"
+            
           />
         )}
       </div>

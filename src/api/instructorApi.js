@@ -15,10 +15,10 @@ export const getMyCourses = async (instructor) => {
   }
 };
 
-export const addCourse = async (courseCredentials) => {
+export const addCourse = async (courseCredentials,InstructorId) => {
   try {
     const response = await axiosInstance.post(
-      "/instructor/add-course",
+      `/instructor/add-course?instructorId=${InstructorId}`,
       courseCredentials
     );
     return Promise.resolve(response.data);

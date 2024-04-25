@@ -50,7 +50,7 @@ const AddCourse = () => {
   const onSubmit = async (data) => {
     setErr("");
     try {
-      const response = await addCourse(data);
+      const response = await addCourse(data,InstructorId);
 
       if (response) {
         toast.success("Course successfully added", {

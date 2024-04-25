@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import Navbar from "../../components/StudentComponent/Navbar";
 import Footer from "../../components/StudentComponent/Footer";
-import { Button } from "@material-tailwind/react";
 import SvgSuccess from "../../components/common/utils/SvgSuccess";
 import { motion } from "framer-motion";
 
