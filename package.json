@@ -37,6 +37,7 @@
     "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
+    "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.2",
     "react-hover-video-player": "^10.0.1",
@@ -75,7 +76,4 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.0"
   }
-  
 }
-    
-

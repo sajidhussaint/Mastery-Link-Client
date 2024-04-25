@@ -371,7 +371,7 @@ const CourseOverview = () => {
                   alt=""
                 />
                 <h1 className="font-semibold text-lg text-center">
-                  No Modules found.
+                  No Modules found. :(
                 </h1>
               </div>
             )}

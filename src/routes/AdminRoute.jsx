@@ -8,6 +8,8 @@ import StudentList from '../pages/admin/StudentList';
 import InstructorList from '../pages/admin/InstructorList';
 import CourseList from '../pages/admin/CourseList';
 import Categories from '../pages/admin/Categories';
+import PageNotFound from "../pages/PageNotFound";
+import Error500 from "../pages/Error500";
 
 const AdminRoute = () => {
   return (
@@ -19,6 +21,9 @@ const AdminRoute = () => {
         <Route path="/instructor-list" element={<AdminProtected element={<InstructorList />} />} />
         <Route path="/course-list" element={<AdminProtected element={<CourseList />} />} />
         <Route path="/categories" element={<AdminProtected element={<Categories />} />} />
+        <Route path="*" element={<PageNotFound />} />
+        <Route path="/pageNotFound" element={<PageNotFound />} />
+        <Route path="/error-500" element={<Error500 />} />
       </Routes>
     </>
   )

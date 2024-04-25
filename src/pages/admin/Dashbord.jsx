@@ -4,6 +4,7 @@ import LineChart from "../../components/adminComponent/LineChart";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { dashboard } from "../../api/adminApi";
 import DashboardCardSkelton from "../../components/common/utils/DashboardCardSkelton";
+import CountUp from 'react-countup';
 
 const Dashbord = () => {
   const { data, isLoading, isError } = useQuery({
@@ -46,7 +47,7 @@ const Dashbord = () => {
                 </div>
                 <div className="px-4 text-gray-700">
                   <h3 className="text-sm tracking-wider">Total Students</h3>
-                  <p className="text-3xl">{data?.studentCount}</p>
+                  <p className="text-3xl"><CountUp start={0} end={data?.studentCount} enableScrollSpy={true} /></p>
                 </div>
               </div>
               <div className="flex items-center bg-white border rounded-md overflow-hidden shadow animate-fade animate-ease-in-out">
@@ -58,7 +59,7 @@ const Dashbord = () => {
                 </div>
                 <div className="px-4 text-gray-700">
                   <h3 className="text-sm tracking-wider">Total Instructor</h3>
-                  <p className="text-3xl">{data?.instructorCount}</p>
+                  <p className="text-3xl"><CountUp start={0} end={data?.instructorCount} enableScrollSpy={true} /></p>
                 </div>
               </div>
               <div className="flex items-center bg-white border rounded-md overflow-hidden shadow animate-fade animate-ease-in-out">
@@ -70,7 +71,7 @@ const Dashbord = () => {
                 </div>
                 <div className="px-4 text-gray-700">
                   <h3 className="text-sm tracking-wider">Total Courses</h3>
-                  <p className="text-3xl">{data?.courseCount}</p>
+                  <p className="text-3xl"><CountUp start={0} end={data?.courseCount} enableScrollSpy={true} /></p>
                 </div>
               </div>
               <div className="flex items-center bg-white border rounded-md overflow-hidden shadow animate-fade animate-ease-in-out">
@@ -92,7 +93,7 @@ const Dashbord = () => {
                 </div>
                 <div className="px-4 text-gray-700">
                   <h3 className="text-sm tracking-wider">Total Revenue</h3>
-                  <p className="text-3xl">₹{data?.totalRevenue}</p>
+                  <p className="text-3xl">₹<CountUp start={0} end={data?.totalRevenue} enableScrollSpy={true} /></p>
                 </div>
               </div>
             </>

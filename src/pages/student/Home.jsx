@@ -3,6 +3,7 @@ import Navbar from "../../components/StudentComponent/Navbar";
 import Footer from "../../components/StudentComponent/Footer";
 import SvgSuccess from "../../components/common/utils/SvgSuccess";
 import { motion } from "framer-motion";
+import CountUp from 'react-countup';
 
 
 const Home = () => {
@@ -16,8 +17,9 @@ const Home = () => {
             <h1 className="animate-fade-down max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
               Expand your career opportunities
             </h1>
+            
             <p className="animate-fade-right max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-              Choose from over 51,000 online video courses with new additions
+              Choose from over  <CountUp start={0} end={51000} enableScrollSpy={true} />+  online video courses with new additions
               published every month
             </p>
             <div className="animate-fade space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
@@ -452,7 +454,7 @@ const Home = () => {
               Trusted Worldwide
             </p>
             <h2 className="mt-3 mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-3xl dark:text-white">
-              Trusted by over 600 million users and 10,000 teams
+              Trusted by over <CountUp start={0} end={600} enableScrollSpy={true} /> million users and <CountUp start={0} end={5000} enableScrollSpy={true} /> teams
             </h2>
             <p className="font-light text-gray-500 sm:text-xl dark:text-gray-400">
               Our enterprise-ready features are designed to help you scale
@@ -542,7 +544,7 @@ const Home = () => {
               </motion.div>
 
               <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                3,000 Learners
+              <CountUp start={0} end={3000} enableScrollSpy={true} />+ Learners
               </h3>
               <p className="font-light text-gray-500 dark:text-gray-400">
                 Join learners in a diverse, enriching educational community.
@@ -566,7 +568,7 @@ const Home = () => {
               </motion.div>
 
               <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                Certifications 5,000
+                Certifications <CountUp start={0} end={5000} enableScrollSpy={true} />
               </h3>
               <p className="font-light text-gray-500 dark:text-gray-400">
                 Attain certifications, validating expertise for career
@@ -594,7 +596,7 @@ const Home = () => {
               </svg>
               </motion.div>
               <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                120+ Instructors
+              <CountUp start={0} end={120} enableScrollSpy={true} />+ Instructors
               </h3>
               <p className="font-light text-gray-500 dark:text-gray-400">
                 Learn from experts, guiding your education with experience.
@@ -618,7 +620,7 @@ const Home = () => {
               </motion.div>
 
               <h3 className="mb-2 text-2xl font-bold dark:text-white">
-                760+ Courses published
+              <CountUp start={0} end={760} enableScrollSpy={true} />+ Courses published
               </h3>
               <p className="font-light text-gray-500 dark:text-gray-400">
                 Explore courses covering diverse topics for comprehensive
@@ -834,6 +836,7 @@ const Home = () => {
       {/* End block */}
       {/* Start block */}
       <section className="bg-white dark:bg-gray-900">
+      
         <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-24 lg:px-6 ">
           <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-3xl dark:text-white">
             Frequently asked questions

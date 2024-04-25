@@ -2,6 +2,7 @@ import React from "react";
 import InstructorNavbar from "../../components/instructorComponent/InstructorNavbar";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import CountUp from 'react-countup';
 // import InstructorSidebar from "../../components/instructorComponent/InstructorSidebar";//TODO:remove page;
 
 const InstructorHome = () => {
@@ -58,7 +59,7 @@ const InstructorHome = () => {
                 <div className="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#44BCFF] via-[#4aff44] to-[#d4ff5e] rounded-xl blur-lg group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt"></div>
                 <button
                   
-                  className="relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-gray-900 font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                  className="tracking-widest relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-gray-900 font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
                   
                 >
                   <svg
@@ -81,7 +82,7 @@ const InstructorHome = () => {
                     </defs>
                     <path d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z" />
                   </svg>
-                  ₹ {instructor?.wallet?.toFixed(0)} Earned
+                  ₹ <CountUp start={0} end={instructor?.wallet?.toFixed(0)} enableScrollSpy={true} className="mr-2" />  Earned
                 </button>
               </div>
             </Link>

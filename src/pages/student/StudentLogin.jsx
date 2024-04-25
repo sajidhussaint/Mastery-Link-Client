@@ -16,13 +16,13 @@ const StudentLogin = () => {
               <div className="mx-auto max-w-xs">
                 <StudentLoginForm />
                 <hr className="mb-6 border-t" />
-                <div className="text-center">
+                {/* <div className="text-center">
                   <Link to={"forgot-password"}>
                     <p className="inline-block text-sm text-gray-500 dark:text-blue-500 align-baseline hover:text-blue-800">
                       Forgot Password?
                     </p>
                   </Link>
-                </div>
+                </div> */}
                 <div className="text-center">
                   <span>Don't have an account! </span>
 

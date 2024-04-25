@@ -80,7 +80,7 @@ const WalletHistory = () => {
                 <tr className="flex justify-center">
                   <td colSpan="3" className="text-center py-4 font-semibold">
                   <img className="w-30 h-40" src="/images/empty.png" alt="" />
-                    No history found
+                    No history found :(
                   </td>
                 </tr>
               )}

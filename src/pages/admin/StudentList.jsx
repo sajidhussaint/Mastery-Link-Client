@@ -59,7 +59,7 @@ const StudentList = () => {
             <div className=" h-5 flex flex-col items-center justify-center mt-36 animate-fade ">
               <img className="w-30 h-40" src="/images/empty.png" alt="" />
               <h1 className="font-semibold text-lg text-center">
-                No students found..
+                No students found.. :(
               </h1>
             </div>
           )}

@@ -11,6 +11,8 @@ import AddCourse from '../pages/instructor/AddCourse';
 import CourseOverview from '../pages/instructor/CourseOverview';
 import WalletHistory from '../pages/instructor/WalletHistory';
 import InstructorChat from '../pages/instructor/InstructorChat';
+import PageNotFound from "../pages/PageNotFound";
+import Error500 from "../pages/Error500";
 
 
 
@@ -28,6 +30,9 @@ const InstructorRoute = () => {
         <Route path="/my-courses" element={<InstructorProtected element={<MyCourses/>}/>} />
         <Route path="/wallet-history"  element={<InstructorProtected element={<WalletHistory />}/>} />
         <Route path="/chat" element={<InstructorProtected element={<InstructorChat/>}/>} />
+        <Route path="*" element={<PageNotFound />} />
+        <Route path="/pageNotFound" element={<PageNotFound />} />
+        <Route path="/error-500" element={<Error500 />} />
       </Routes>
     </>
   )
