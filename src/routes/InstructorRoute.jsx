@@ -18,15 +18,16 @@ const InstructorRoute = () => {
   return (
     <>
       <Routes>
+        <Route path="/signup" element={<InstructorPublic element={<InstructorSignup />}/>} />
+        <Route path="/login" element={<InstructorPublic element={<InstructorLogin />}/>} />
+
+        <Route path="/verify-otp" element={<VerifyOtp isInstructor={true}/>} />
         <Route path="/home" element={<InstructorProtected element={<InstructorHome />}/>} />
         <Route path="/add-course" element={<InstructorProtected element={<AddCourse />}/>} />
         <Route path="/course-overview" element={<InstructorProtected element={<CourseOverview />}/>} />
         <Route path="/my-courses" element={<InstructorProtected element={<MyCourses/>}/>} />
-        <Route path="/signup" element={<InstructorPublic element={<InstructorSignup />}/>} />
-        <Route path="/login" element={<InstructorPublic element={<InstructorLogin />}/>} />
-        <Route path="/verify-otp" element={<VerifyOtp isInstructor={true}/>} />
-        <Route path="/wallet-history" element={<WalletHistory />} />
-        <Route path="/chat" element={<InstructorChat/>} />
+        <Route path="/wallet-history"  element={<InstructorProtected element={<WalletHistory />}/>} />
+        <Route path="/chat" element={<InstructorProtected element={<InstructorChat/>}/>} />
       </Routes>
     </>
   )

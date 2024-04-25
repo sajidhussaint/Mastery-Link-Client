@@ -6,7 +6,7 @@ const StudentProtected = ({ element }) => {
   const user = useSelector(store => store.user.user)
   if (user) {
     if (user.role === 'student') {
-      return <Navigate to="/" replace />//todo://
+      return <>{element}</>
     }
   }else{
     return <Navigate to="/login" />

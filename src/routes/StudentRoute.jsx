@@ -33,11 +33,11 @@ const StudentRoute = () => {
         />
         <Route path="/courses" element={<Courses />} />
         <Route path="/view-course" element={<SingleCourseStudent />} />
-        <Route path="/status" element={<StripeStatus />} />
-        <Route path="/learning" element={<LearningPage />} />
-        <Route path="/profile" element={<StudentProfile />} />
+        <Route path="/status" element={<StudentProtected element={<StripeStatus />} />} />
+        <Route path="/learning" element={<StudentProtected element={<LearningPage />} />} />
+        <Route path="/profile" element={<StudentProtected element={<StudentProfile />} />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/change-password"element={<StudentProtected element={<ChangePassword />} />} />
       </Routes>
     </>
   );

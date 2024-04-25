@@ -27,8 +27,8 @@ const Dashbord = () => {
           )}
           {data && (
             <>
-              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow animate-fade animate-ease-in-out">
-                <div className="p-4 bg-green-400">
+              <div className="flex items-center bg-white border  overflow-hidden shadow animate-fade animate-ease-in-out rounded-md">
+                <div className="p-4 bg-green-400 rounded-md shadow-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-12 w-12 text-white"
@@ -49,8 +49,8 @@ const Dashbord = () => {
                   <p className="text-3xl">{data?.studentCount}</p>
                 </div>
               </div>
-              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow animate-fade animate-ease-in-out">
-                <div className="p-4 bg-blue-400">
+              <div className="flex items-center bg-white border rounded-md overflow-hidden shadow animate-fade animate-ease-in-out">
+                <div className="p-4 bg-blue-400 rounded-md shadow-md">
                   <i
                     className="fa-solid fa-person-chalkboard text-5xl"
                     style={{ color: "#ffffff" }}
@@ -61,8 +61,8 @@ const Dashbord = () => {
                   <p className="text-3xl">{data?.instructorCount}</p>
                 </div>
               </div>
-              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow animate-fade animate-ease-in-out">
-                <div className="p-4 bg-indigo-400 ">
+              <div className="flex items-center bg-white border rounded-md overflow-hidden shadow animate-fade animate-ease-in-out">
+                <div className="p-4 bg-indigo-400 rounded-md shadow-md">
                   <i
                     className="fa-solid fa-book text-5xl"
                     style={{ color: "#ffffff" }}
@@ -73,8 +73,8 @@ const Dashbord = () => {
                   <p className="text-3xl">{data?.courseCount}</p>
                 </div>
               </div>
-              <div className="flex items-center bg-white border rounded-sm overflow-hidden shadow animate-fade animate-ease-in-out">
-                <div className="p-4 bg-red-400">
+              <div className="flex items-center bg-white border rounded-md overflow-hidden shadow animate-fade animate-ease-in-out">
+                <div className="p-4 bg-red-400 rounded-md shadow-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-12 w-12 text-white"

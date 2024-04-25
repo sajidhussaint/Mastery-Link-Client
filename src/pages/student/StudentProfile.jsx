@@ -61,7 +61,7 @@ const StudentProfile = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-100 w-full  pt-6  ">
+      <div className=" w-full  pt-6  ">
         {/* <div className="w-full text-white bg-main-color">
           <div
             x-data="{ open: false }"
@@ -75,7 +75,7 @@ const StudentProfile = () => {
             {/* Left Side */}
             <div className="w-full md:w-3/12 md:mx-2">
               {/* Profile Card */}
-              <div className="bg-white p-3 border-t-4 border-green-400 animate-fade-right">
+              <div className="bg-gray-50 p-3 border-t-4 border-green-400 animate-fade-right shadow rounded-md">
                 <div className="image overflow-hidden">
                   <img
                     className="h-40 w-40 mx-auto"
@@ -94,7 +94,7 @@ const StudentProfile = () => {
                 Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur
                 non deserunt
               </p> */}
-                <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
+                <ul className="bg-gray-200 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-xl">
                   <li className="flex items-center py-3">
                     <span>Status</span>
                     <span className="ml-auto">
@@ -196,7 +196,7 @@ const StudentProfile = () => {
             <div className="w-full md:w-9/12 mx-2 h-64">
               {/* Profile tab */}
               {/* About Section */}
-              <div className="bg-white p-6 shadow-sm rounded-sm animate-fade-down">
+              <div className="bg-gray-50 p-6 shadow-xl rounded-md  animate-fade-down ">
                 <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
                   <span clas="text-green-500">
                     <svg
@@ -275,7 +275,7 @@ const StudentProfile = () => {
 
               {/* Experience and education */}
               {user?.courses?.length > 0 && (
-                <div className="bg-white p-6 shadow-sm rounded-sm animate-fade-up">
+                <div className="bg-gray-50 shadow-xl rounded-md p-6  animate-fade-up">
                   <div>
                     <div className="flex items-center flex-col-2 space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                       <span clas="text-green-500">

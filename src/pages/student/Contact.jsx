@@ -42,9 +42,9 @@ const Contact = () => {
       <Navbar />
       
       {/* new contact form */}
-      <div className="max-w-screen-lg mx-auto p-5 animate-fade">
-        <div className="grid grid-cols-1 md:grid-cols-12 border mt-12">
-          <div className="bg-gray-900 md:col-span-4 p-10 text-white">
+      <div className="max-w-screen-lg mx-auto p-5 animate-fade ">
+        <div className="grid grid-cols-1 md:grid-cols-12 border mt-12 rounded-md">
+          <div className="bg-gray-900 md:col-span-4 p-10 text-white rounded-sm">
             <p className="mt-4 text-sm leading-7 font-regular uppercase">
               Contact
             </p>
