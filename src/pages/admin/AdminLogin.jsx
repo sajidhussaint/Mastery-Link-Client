@@ -23,7 +23,7 @@ const AdminLogin = () => {
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
             style={{
-              backgroundImage: "url('/images/Login-amico.png')",
+              backgroundImage: "url('/images/admin-login.png')",
             }}
           ></div>
         </div>
