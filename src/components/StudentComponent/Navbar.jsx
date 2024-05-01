@@ -37,7 +37,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="fixed w-full z-10 ">
+      <header className="fixed w-full z-50 ">
         <ProgressBar bgcolor="green" />
         <nav className="bg-white bg-opacity-25 border-gray-200 py-2.5 dark:bg-gray-900 dark:bg-opacity-50 backdrop-filter backdrop-blur-md ">
           <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">

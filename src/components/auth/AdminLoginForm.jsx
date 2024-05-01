@@ -31,13 +31,14 @@ const AdminLoginForm = () => {
         dispatch(adminActions.saveAdmin(response));
         navigate("/admin/dashboard");
       }
+
     } catch (error) {
       if (error?.response?.status == 401) {
         setErr(error?.response?.data?.message);
       } else {
         setErr("An unexpected error occurred..");
       }
-      console.log(error.message);
+      console.log(error.message,'pyyyyy');
     }
   };
 

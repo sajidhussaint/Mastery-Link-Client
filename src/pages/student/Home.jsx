@@ -12,8 +12,9 @@ const Home = () => {
       <Navbar />
       {/* Start block */}
       <section className="bg-white dark:bg-gray-900 ">
-        <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-10  ">
-          <div className="mr-auto place-self-center lg:col-span-7 ">
+      
+        <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-12  ">
+          <div className="mr-auto place-self-center lg:col-span-7 z-10">
             <h1 className="animate-fade-down max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
               Expand your career opportunities
             </h1>
@@ -22,9 +23,9 @@ const Home = () => {
               Choose from over  <CountUp start={0} end={51000} enableScrollSpy={true} />+  online video courses with new additions
               published every month
             </p>
-            <div className="animate-fade space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+            <div className="animate-fade space-y-4 sm:flex sm:space-y-0 sm:space-x-4 z-10">
               <Link to={"/courses"}>
-                <button className="mt-8 inline-flex items-center justify-center rounded-xl bg-green-600 py-3 px-6 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]">
+                <button className="mt-8 inline-flex items-center justify-center rounded-xl bg-green-600 py-3 px-6 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02] ">
                   {" "}
                   Explore Courses
                   <svg
@@ -45,12 +46,15 @@ const Home = () => {
                 </button>
               </Link>
             </div>
+            
           </div>
-          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex animate-fade ">
+          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex animate-fade z-10 " >
             {/* <img src="./images/student.png" alt="hero image" /> */}
             <img src="./images/bg-kid.png" alt="hero image" className=" " />
           </div>
+          
         </div>
+        <svg  className='hidden sm:hidden md:hidden lg:hidden xl:block w-full absolute top-80 ' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#137013" fill-opacity="1" d="M0,192L80,202.7C160,213,320,235,480,256C640,277,800,299,960,261.3C1120,224,1280,128,1360,80L1440,32L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
       </section>
       {/* End block */}
       {/* Start block */}
@@ -65,7 +69,7 @@ const Home = () => {
                   >
             <a href="#" className="flex items-center lg:justify-center">
               <svg
-                className="h-9 hover:text-blue-900 dark:hover:text-white"
+                className="h-9 hover:text-green-900 dark:hover:text-white"
                 viewBox="0 0 125 35"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +91,7 @@ const Home = () => {
                   >
             <a href="#" className="flex items-center lg:justify-center">
               <svg
-                className="h-9 hover:text-gray-900 dark:hover:text-white"
+                className="h-9 hover:text-green-900 dark:hover:text-white"
                 viewBox="0 0 86 29"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +113,7 @@ const Home = () => {
                   >
             <a href="#" className="flex items-center lg:justify-center">
               <svg
-                className="h-8 hover:text-gray-900 dark:hover:text-white"
+                className="h-8 hover:text-green-900 dark:hover:text-white"
                 viewBox="0 0 151 34"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +145,7 @@ const Home = () => {
                   >
             <a href="#" className="flex items-center lg:justify-center">
               <svg
-                className="h-9 hover:text-gray-900 dark:hover:text-white"
+                className="h-9 hover:text-green-900 dark:hover:text-white"
                 viewBox="0 0 124 38"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +165,7 @@ const Home = () => {
                   >
             <a href="#" className="flex items-center lg:justify-center">
               <svg
-                className="h-9 hover:text-gray-900 dark:hover:text-white"
+                className="h-9 hover:text-green-900 dark:hover:text-white"
                 viewBox="0 0 137 37"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
@@ -249,7 +253,7 @@ const Home = () => {
                   >
             <a href="#" className="flex items-center lg:justify-center">
               <svg
-                className="h-6 hover:text-gray-900 dark:hover:text-white"
+                className="h-6 hover:text-green-900 dark:hover:text-white"
                 viewBox="0 0 124 21"
                 fill="currentColor"
                 xmlns="http://www.w3.org/2000/svg"
@@ -799,7 +803,7 @@ const Home = () => {
               <div className="p-5">
                 <a href="#">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Join the Creator Community
+                    Join the Creator Team
                   </h5>
                 </a>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">

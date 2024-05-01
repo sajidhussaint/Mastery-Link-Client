@@ -45,7 +45,7 @@ const WalletHistory = () => {
       <div className="p-4 md:p-8 lg:p-12 xl:p-16 animate-fade animate-ease-in-out">
         <div>
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
-            Wallet Balance : ₹{instructor?.wallet}
+            Wallet Balance : ₹{instructor?.wallet?.toFixed(0)}
           </h1>
         </div>
         <div className="relative  shadow-md sm:rounded-sm  h-80">

@@ -9,14 +9,14 @@ const SingleCourse = ({ course }) => {
       <div className="relative ">
         {course.image ? (
           <img
-            className=" w-full xl:h-36 lg:h-36 md:h-30"
+            className=" w-full xl:h-36 lg:h-36 md:h-32"
             src={course.image}
             // src='./images/sample.jpg'
             alt={course.name}
           />
         ) : (
           <img
-            className=" w-full xl:h-36 lg:h-36 md:h-30 object-cover"
+            className=" w-full h-64 xl:h-36 lg:h-36 md:h-32  object-cover"
             src="/images/dummy_img.jpg"
             // src='./images/sample.jpg'
             alt="no image"

@@ -11,7 +11,7 @@ import {
 
 const InstructorList = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(7);
 
   const {
     data: instructorList = [],
@@ -55,7 +55,7 @@ const InstructorList = () => {
   return (
     <div className="bg-gray-100 font-family-karla flex">
       <AdminSidebar />
-      <div className="flex flex-col py-14 px-20 h-screen overflow-y-auto w-full animate-fade animate-ease-in-out">
+      <div className="flex flex-col py-12 px-20 h-screen overflow-y-auto w-full animate-fade animate-ease-in-out">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg h-full bg-white">
           {currentInstructors.length == 0 && (
             <div className=" h-5 flex flex-col items-center justify-center mt-36 animate-fade ">
@@ -92,10 +92,10 @@ const InstructorList = () => {
                   <td className="sm:px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                     {instructor.firstname}
                   </td>
-                  <td className="sm:px-6 py-4">{instructor.lastname}</td>
-                  <td className="sm:px-6 py-4">{instructor.email}</td>
-                  <td className="sm:px-6 py-4">{instructor.mobile}</td>
-                  <td className="sm:px-6 py-4">
+                  <td className="">{instructor.lastname}</td>
+                  <td className="">{instructor.email}</td>
+                  <td className="">{instructor.mobile}</td>
+                  <td className="">
                     <button
                       type="button"
                       onClick={(e) => {
@@ -115,6 +115,7 @@ const InstructorList = () => {
                     </button>
                   </td>
                 </tr>
+                
               ))}
             </tbody>
           </table>

@@ -11,7 +11,7 @@ import {
 
 const StudentList = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(7);
 
   const {
     data: userList = [],
@@ -53,7 +53,7 @@ const StudentList = () => {
   return (
     <div className="bg-gray-100 font-family-karla flex">
       <AdminSidebar />
-      <div className="flex flex-col py-14 px-20 h-screen overflow-y-auto w-full animate-fade animate-ease-in-out">
+      <div className="flex flex-col py-12 px-20 h-screen overflow-y-auto w-full animate-fade animate-ease-in-out">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg h-full bg-white">
         {currentUsers.length == 0 && (
             <div className=" h-5 flex flex-col items-center justify-center mt-36 animate-fade ">
@@ -88,10 +88,10 @@ const StudentList = () => {
                   <td className="sm:px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                     {user.firstname}
                   </td>
-                  <td className="sm:px-6 py-4">{user.lastname}</td>
-                  <td className="sm:px-6 py-4">{user.email}</td>
-                  <td className="sm:px-6 py-4">{user.mobile}</td>
-                  <td className="sm:px-6 py-4">
+                  <td className="whitespace-nowrap">{user.lastname}</td>
+                  <td className="whitespace-nowrap">{user.email}</td>
+                  <td className="whitespace-nowrap">{user.mobile}</td>
+                  <td className="whitespace-nowrap">
                     <button
                       type="button"
                       onClick={(e) => {
@@ -105,7 +105,7 @@ const StudentList = () => {
                         user.isBlocked
                           ? "bg-red-700 hover:bg-red-800"
                           : "bg-green-700 hover:bg-green-800"
-                      } font-medium rounded text-sm px-5 py-2 mr-2 mb-2`}
+                      } font-medium rounded text-sm px-5 py-2 mr-2 mb-2 mt-2`}
                     >
                       {user.isBlocked ? "Blocked" : "Active"}
                     </button>

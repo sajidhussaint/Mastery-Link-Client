@@ -53,12 +53,7 @@ const CourseOverview = () => {
   const course = data?.course;
   const enrollments = data?.enrollments;
 
-  // if (course?.modules?.length == 0 ) {
-  //   toast.warn("please add modules", {
-  //     theme: "colored",
-  //     position: "bottom-left",
-  //   });
-  // }
+ 
 
   const addChapterMutation = useMutation({
     mutationFn: addChapter,
@@ -161,7 +156,7 @@ const CourseOverview = () => {
             <div className="relative    sm:mb-0 mb-3">
               {course?.image ? (
                 <img
-                  className="object-cover w-full  h-96 md:h-auto md:w-72  md:rounded-lg overflow-hidden"
+                  className="object-cover w-full  h-96 md:h-auto md:w-72  rounded-lg overflow-hidden"
                   src={course?.image}
                   // src="/images/sample.jpg"
                   alt="img-course"
