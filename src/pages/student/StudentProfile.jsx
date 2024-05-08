@@ -42,7 +42,6 @@ const StudentProfile = () => {
       user._id
     );
     if (response) {
-      console.log("changed password");
       dispatch(userActions.saveUser({ ...response }));
       setOpenProfileEdit(false);
     }
@@ -345,9 +344,6 @@ const StudentProfile = () => {
           <div>
             <form onSubmit={handleSubmit(submitData)} className="grid gap-3">
               <Input
-                onChange={() => {
-                  console.log("kkk");
-                }}
                 type="text"
                 {...register("fname")}
                 label="fname"

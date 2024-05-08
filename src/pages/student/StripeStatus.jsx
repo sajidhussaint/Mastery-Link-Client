@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { SmallSpinner } from "../../components/common/utils/Spinner";
 import { enrollment, getSingleCourse } from "../../api/studentApi";
 import { userActions } from "../../redux/userSlice";
+import { toast } from "react-toastify";
+
 const StripeCancel = () => {
   const user = useSelector((store) => store.user.user);
   let firstCall = true;
@@ -14,7 +16,7 @@ const StripeCancel = () => {
 
   const success = params.get("success");
   const courseId = params.get("courseId");
-  console.log(success, courseId, "ppppppppppp");
+
 
   const payment = async () => {
     try {
@@ -22,7 +24,6 @@ const StripeCancel = () => {
         firstCall = false;
         const response = await enrollment(courseId, user._id);
         const data = await getSingleCourse(courseId);
-        console.log(data, "stripe data");
         dispatch(userActions.addCourse(data));
         if (response) {
           navigate("/view-course", {
@@ -31,7 +32,7 @@ const StripeCancel = () => {
         }
       }
     } catch (error) {
-      alert("error payment");
+      toast.error("An Error Occured");
       navigate("/view-course", {
         state: { courseId },
       });

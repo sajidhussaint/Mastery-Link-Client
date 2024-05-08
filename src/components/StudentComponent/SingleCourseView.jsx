@@ -39,7 +39,6 @@ const SingleCourseView = () => {
     } else {
       try {
         const response = await courseEnroll(course.id, user._id);
-        console.log(response);
         if (response) {
           
           window.location.href = response;

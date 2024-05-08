@@ -32,7 +32,6 @@ export const getSingleCourse = async (courseId) => {
 
 export const courseEnroll = async (courseId, studentId) => {
   try {
-    console.log(courseId, studentId);
     const response = await axiosInstance.post("create-payment-intent", {
       courseId,
       studentId,
@@ -102,7 +101,6 @@ export const changePassword = async (
 };
 export const updateProfile = async (firstname, lastname, mobile, studentId) => {
   try {
-    console.log(studentId);
     const response = await axiosAuthorized.put("/update-profile", {
       firstname,
       lastname,

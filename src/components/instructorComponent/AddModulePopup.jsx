@@ -22,7 +22,6 @@ const AddModulePopup = ({ handleSpinner, refetch }) => {
   const handleFileChange = (e) => {
     setErr("");
     const file = e.target.files && e.target.files[0];
-    console.log(file, "filesss");
     setVideoFile(file || null);
   };
 
@@ -30,7 +29,6 @@ const AddModulePopup = ({ handleSpinner, refetch }) => {
 
   const handleSubmit = async () => {
     const formData = new FormData();
-    console.log("courseId", location.state.courseId);
     formData.append("name", moduleName);
     formData.append("description", moduleDescription);
     formData.append("file", videoFile);
@@ -42,7 +40,6 @@ const AddModulePopup = ({ handleSpinner, refetch }) => {
     refetch();
 
     handleSpinner(false);
-    console.log(response, "====this s res");
   };
   return (
     <>

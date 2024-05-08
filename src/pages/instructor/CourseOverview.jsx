@@ -111,7 +111,6 @@ const CourseOverview = () => {
   function handleTimeChange(newTime) {
     const seconds = timeToSeconds(newTime);
     setSelectedTime(seconds);
-    console.log(seconds);
   }
 
   const handleClosePopup = () => {

@@ -26,7 +26,6 @@ const OtpVerificationForm = (props) => {
     e.preventDefault();
     try {
       if (!props.isInstructor) {
-        console.log("save user Response====");
         const response = await verifyOtp(otp, email);
 
         if (response) {
@@ -34,7 +33,6 @@ const OtpVerificationForm = (props) => {
           navigate("/");
         }
       } else {
-        console.log("save instr Response====");
         const response = await InstructorVerifyOtp(otp, email);
 
         if (response) {

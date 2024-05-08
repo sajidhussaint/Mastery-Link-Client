@@ -23,14 +23,12 @@ const Modules = ({ modules }) => {
     playerRef.current.seek(seconds);
   };
   const onChange = (value) => {
-    console.log("onChange:", value);
     setCurrent(value);
     seek(chapters[value].seconds);
   };
 
   // Function to handle video end event
   const handleVideoEnd = async (moduleId) => {
-    console.log(selectedCourse?.id, "selected", moduleId);
     const response = await addProgression(
       selectedCourse?.courseId.id,
       moduleId
@@ -40,18 +38,7 @@ const Modules = ({ modules }) => {
       dispatch(selectCourseActions.addModule(moduleId));
     }
 
-    // console.log(ModuleId); // true or false
-    // modules = modules.map((module) =>
-    //   module.module.id === ModuleId
-    //     ? {
-    //         ...module,
-    //         module: { ...module.module, isCompleted: true }, // Spread the module and update its isCompleted field
-    //       }
-    //     : module
-    // );
-    // console.log(modules);
-    // setCurrent(0)
-    // // Do something when the video ends
+  
   };
 
   const addChapter = (module) => {
@@ -116,15 +103,9 @@ const Modules = ({ modules }) => {
                             className="font-semibold"
                             onClick={() => {
                               playVideo(currentModule.module);
-
-                              // dispatch(
-                              //   selectModuleActions.selectChapter(
-                              //     currentModule.module.chapters
-                              //   )
-                              // );
                               addChapter(currentModule?.module);
-                              console.log("selop", currentModule.module.name);
-                              // addDescription(currentModule.module.description);
+                             
+                             
                             }}
                           >
                             {currentModule.module.name}

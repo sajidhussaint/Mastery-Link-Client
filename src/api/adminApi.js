@@ -100,7 +100,7 @@ export const unblockInstructor = async (instructorId) => {
 };
 export const editCategory = async (categoryId) => {
   try {
-    console.log(categoryId, "======oooop");
+
     const response = await axiosInstance.patch(
       "/admin/edit-category",
       categoryId
@@ -201,7 +201,7 @@ export const addLanguage = async (language) => {
 
 export const editLanguage = async (data) => {
   try {
-    // console.log(languageId, value, "======oooop");
+
     const response = await axiosInstance.patch("/admin/edit-language", {
       data,
     });
@@ -217,7 +217,6 @@ export const getLevelList = async () => {
   try {
     const response = await axiosInstance.get("/admin/levels");
     const { level } = response.data;
-    console.log(level);
     return Promise.resolve(level);
   } catch (error) {
     return Promise.reject();
@@ -263,7 +262,6 @@ export const addLevel = async (level) => {
 
 export const editLevel = async (data) => {
   try {
-    console.log(data, "======oooop");
     const response = await axiosInstance.patch("/admin/edit-level", { data });
     const { success } = response.data;
 

@@ -29,7 +29,6 @@ const AddCourse = () => {
       return value.status != false;
     });
 
-    console.log(activeCategory);
     setCategoryList(activeCategory);
   };
   const getAllLevelList = async () => {
@@ -58,7 +57,6 @@ const AddCourse = () => {
         });
         setTimeout(() => navigate("/instructor/my-courses"), 2000);
       }
-      console.log(data);
     } catch (error) {
       if (typeof error === "string") {
         setErr(error);

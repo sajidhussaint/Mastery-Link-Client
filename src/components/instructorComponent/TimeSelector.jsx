@@ -31,7 +31,6 @@ const VideoTimePicker = ({ maxTime, onTimeChange }) => {
 
     
   }
-  console.log(typeof onTimeChange);
 
   if (onTimeChange ) {
     const data = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;

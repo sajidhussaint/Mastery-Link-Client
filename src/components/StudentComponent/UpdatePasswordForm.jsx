@@ -31,7 +31,6 @@ const UpdatePasswordForm = () => {
         user._id
       );
       if (response) {
-        console.log("changed password");
         setSuccess("Password updated successfully");
         setTimeout(() => {
           navigate("/profile");

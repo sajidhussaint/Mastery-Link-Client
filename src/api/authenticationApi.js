@@ -32,7 +32,6 @@ const studentLogin = async (studentCredentials) => {
 
 const adminLogin = async (adminCredentials) => {
   const response = await axiosInstance.post("/admin/login", adminCredentials);
-  console.log(response, "resp");
   const { token, success } = response.data;
   if (success) {
     localStorage.setItem("admintoken", token);
@@ -56,7 +55,6 @@ const instructorSignup = async (instructorCredentials) => {
   const { message, email } = response.data;
 
   if (message === "OTP generated") {
-    console.log("running otp instSignup");
     return Promise.resolve({ success: true, email });
   }
 };

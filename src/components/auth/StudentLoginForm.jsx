@@ -27,7 +27,6 @@ const StudentLoginForm = () => {
       dispatch(userActions.setEmail(data.email));
       const response = await studentLogin(data);
       if (response) {
-        console.log(response);
         dispatch(userActions.saveUser(response));
         navigate("/");
       }

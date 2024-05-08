@@ -27,9 +27,6 @@ const InstructorChat = () => {
     setSelectedCourse(instructor.courses[0]);
   }, []);
 
-  console.log(instructor);
-  // const response = useSelector((state) => state.selectedCourse.course);
-  // const course = response?.courseId;
 
   const lastMessageRef = useRef(null);
 
@@ -49,7 +46,6 @@ const InstructorChat = () => {
     });
     socket.on("get-course-response", (messages) => {
       if (!messages) {
-        console.log("no messages");
       }
       if (
         messages?.courseId ===
