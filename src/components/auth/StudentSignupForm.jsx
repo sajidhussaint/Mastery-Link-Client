@@ -110,7 +110,7 @@ const StudentSignupForm = () => {
         </span>
       )}
       {err && (
-        <div className="animate-fade bg-red-200 px-6 py-2 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+        <div className="animate-fade bg-red-200 px-6 py-2 mx-2 my-4 rounded-md text-lg flex items-center  max-w-lg">
           <svg
             viewBox="0 0 24 24"
             className="text-red-600 w-4 h-4 sm:w-4 sm:h-4 mr-2"
