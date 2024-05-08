@@ -91,7 +91,7 @@ const InstructorChat = () => {
 
       <div className="flex h-screen bg-gray-100">
         {/* sidebar */}
-        <div className="  md:flex flex-col w-36 bg-gray-100 md:w-80">
+        <div className="  md:flex flex-col w-36 bg-gray-100 md:w-80 border">
           <div className="flex flex-col flex-1 overflow-y-auto">
             {courses &&
               courses.map((course) => (

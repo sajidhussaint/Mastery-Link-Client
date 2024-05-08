@@ -38,7 +38,7 @@ const AdminLoginForm = () => {
       } else {
         setErr("An unexpected error occurred..");
       }
-      console.log(error.message,'pyyyyy');
+      console.log(error.message);
     }
   };
 

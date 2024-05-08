@@ -55,7 +55,7 @@ const StudentList = () => {
       <AdminSidebar />
       <div className="flex flex-col py-12 px-20 h-screen overflow-y-auto w-full animate-fade animate-ease-in-out">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg h-full bg-white">
-        {currentUsers.length == 0 && (
+        {!isLoading&&currentUsers.length == 0 && (
             <div className=" h-5 flex flex-col items-center justify-center mt-36 animate-fade ">
               <img className="w-30 h-40" src="/images/empty.png" alt="" />
               <h1 className="font-semibold text-lg text-center">
@@ -76,7 +76,7 @@ const StudentList = () => {
             </thead>
 }
             <tbody>
-              {isLoading && <h1 className="mx-5 my-5">Loading...</h1>}
+              {isLoading && <h1 className="mx-5 my-5 text-center" >Loading...</h1>}
               {isError && currentUsers.length === 0 && (
                 <h1 className="mx-5 my-5">An error occurred</h1>
               )}
