@@ -71,7 +71,7 @@ const SingleCourseView = () => {
                 <img
                   src={course.image}
                   alt=""
-                  className="min-h-full min-w-full"
+                  className="min-h-full min-w-full object-cover"
                 />
               ) : (
                 <img

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const SingleCourse = ({ course }) => {
   const navigate = useNavigate();
   return (
-    <div className=" rounded overflow-hidden shadow-lg hover:scale-105 transition duration-500 ease-in-out animate-fade animate-ease-in-out">
+    <div className=" rounded overflow-hidden shadow-lg hover:scale-105 transition duration-500 ease-in-out animate-fade animate-ease-in-out hover:shadow-2xl">
       <div className="relative ">
         {course.image ? (
           <img
@@ -36,7 +36,7 @@ const SingleCourse = ({ course }) => {
               state: { courseId: course.id },
             });
           }}
-          className="font-semibold text-lg inline-block hover:text-green-600 transition duration-500 ease-in-out cursor-pointer"
+          className=" text-base font-bold inline-block hover:text-green-600 transition duration-500 ease-in-out cursor-pointer"
         >
           {course.name}
         </span>

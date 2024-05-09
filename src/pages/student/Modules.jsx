@@ -53,6 +53,7 @@ const Modules = ({ modules }) => {
   };
 
   const playVideo = (module) => {
+    console.log(selectedModule.module);
     setSelectedModule(module);
     dispatch(selectModuleActions.selectModule(module));
   };
@@ -146,7 +147,7 @@ const Modules = ({ modules }) => {
                 // Add event listener for video end
                 onEnded={() => {
                   handleVideoEnd(
-                    selectedModule.length > 0
+                    selectedModule.module
                       ? selectedModule.id
                       : modules[0].module.id
                   );

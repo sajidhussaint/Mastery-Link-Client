@@ -47,7 +47,8 @@ const VideoTimePicker = ({ maxTime, onTimeChange }) => {
           Hours:
           <input
             type="number"
-            max={maxTime ? Number(hr) : 0}
+            // max={maxTime ? Number(hr) : 0}
+            max={24}
             min={0}
             className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             value={hours}
@@ -60,7 +61,8 @@ const VideoTimePicker = ({ maxTime, onTimeChange }) => {
           Minutes:
           <input
           
-            max={maxTime ? Number(min) : 0}
+            // max={maxTime ? Number(min) : 0}
+            max={59}
             maxLength={2}
             min={0}
             type="number"
@@ -74,7 +76,8 @@ const VideoTimePicker = ({ maxTime, onTimeChange }) => {
         <label className="block text-sm font-semibold text-gray-600 mb-2">
           Seconds:
           <input
-            max={maxTime ? Number(ss) : 0}
+            // max={maxTime ? Number(ss) : 0}
+            max={59}
             min={0}
             type="number"
             className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
