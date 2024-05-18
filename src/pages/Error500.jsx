@@ -28,7 +28,7 @@ const Error500 = () => {
             Internal server Error!
             </h1>
             <p className="mt-4 text-gray-500 dark:text-gray-400">
-            We'll be back soon.. Here are some helpful
+            We'll be back soon... Here are some helpful
               links:
             </p>
             <div className="flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto">
