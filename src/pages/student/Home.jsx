@@ -728,7 +728,7 @@ const Home = () => {
               >
                 {({ countUpRef }) => <span ref={countUpRef} />}
               </CountUp>
-                + Courses published
+                 Courses published
               </h3>
               <p className="font-light text-gray-500 dark:text-gray-400">
                 Explore courses covering diverse topics for comprehensive
